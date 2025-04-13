@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jo J. Jiao - Personal Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Noto Sans', sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
@@ -14,51 +15,40 @@
         }
 
         .container {
-            max-width: 800px;
-            margin: 0 auto;
+            max-width: 900px;
+            margin: 5rem auto;
             padding: 2rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 3rem;
         }
 
-        header {
-            text-align: center;
-            padding: 3rem 0;
+        .left-column {
+            text-align: right;
         }
 
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 1rem;
-        }
-
-        h1 {
+        .name {
+            font-weight: 700;
+            font-size: 1.2rem;
             color: #333;
             margin-bottom: 0.5rem;
         }
 
-        .subtitle {
+        .school {
+            font-weight: 700;
             color: #666;
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-
-        .about {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .social-links {
-            margin-top: 2rem;
-            text-align: center;
+            margin-top: 1rem;
         }
 
         .social-links a {
             color: #333;
             text-decoration: none;
-            margin: 0 1rem;
-            font-size: 1.1rem;
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
         }
 
         .social-links a:hover {
@@ -68,25 +58,24 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <img src="your-photo.jpg" alt="Your Name" class="profile-pic">
-            <h1>Your Name</h1>
-            <div class="subtitle">Your Title / Profession</div>
-        </header>
-
-        <section class="about">
-            <h2>About Me</h2>
+        <div class="left-column">
+            <div class="name">Jo J. Jiao</div>
+            <div class="school">University of Chicago</div>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/jojiao">LinkedIn</a>
+                <a href="https://github.com/JoNeedsSleep">GitHub</a>
+                <a>jojiao [at] uchicago [dot] edu</a>
+                <a href="https://www.goodreads.com/user/show/79647615-jo-jiao">Goodreads</a>
+                <ahref="https://substack.com/@joneedssleep">Substack</a>
+            </div>
+        </div>
+        <div class="right-column">
             <p>
-                hello! I'm Jo, sophomore at uchicago studying math and philosophy. 
+                Hello! I'm Jo, sophomore at UChicago studying math and philosophy. 
             </p>
             <p>
-                Talk to me about: AI Safety, Meditation, Kant, emergence, Borges, my time at UWC, understanding deception/consciousness.
+                Talk to me about: AI Safety, Meditation, Kant, emergence, Borges, my time at UWC, religion, understanding deception/consciousness.
             </p>
-        </section>
-
-        <div class="social-links">
-            <a href="https://linkedin.com/in/jojiao">LinkedIn</a>
-            <a href="https://github.com/JoNeedsSleep">GitHub</a>
         </div>
     </div>
 </body>
