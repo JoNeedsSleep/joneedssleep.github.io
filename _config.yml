@@ -1,3 +1,15 @@
 title: Jo J. Jiao
 url: https://joneedssleep.github.io
-baseurl: "" 
+baseurl: ""
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+
+# Sitemap settings
+defaults:
+  - 
+    scope:
+      path: ""
+    values:
+      sitemap: true 
