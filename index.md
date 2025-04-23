@@ -4,7 +4,7 @@ layout: default
 
 <div class="container">
     <div class="left-column">
-        <div class="name">Jo J. Jiao</div>
+        <h1 class="name">Jo J. Jiao</h1>
         <div class="social-links">
             <a href="https://linkedin.com/in/jojiao">LinkedIn</a>
             <a href="https://github.com/JoNeedsSleep">GitHub</a>
