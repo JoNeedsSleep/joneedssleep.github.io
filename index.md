@@ -21,7 +21,7 @@ layout: default
             I want your feedback - and I want to make it easy for you. You can share your thoughts anonymously <a href="https://www.admonymous.co/joneedssleep">here</a>. I promise to 1) take what you say seriously, 2) not guess who you are, 3) assume the best of intentions.
         </p>
         <p>
-            Some things in my head: AI Safety, Meditation, Kant, emergence, ZFC, Borges, religion, understanding deception/consciousness, my time at <a href="https://www.uwc.org/">UWC</a>, <a href="https://chicagoalignment.com/">organizing stuff</a>
+            Some things in my head: AI Safety, Meditation, Kant, emergence, ZFC, Borges, religion, understanding deception/consciousness, my time at <a href="https://www.uwc.org/">UWC</a>, <a href="https://chicagoalignment.com/">organizing stuff</a>.
         </p>
         <p>
             Now your turn: what's 1) the question you woke up to 2) your favourite art piece (<a href="https://www.judit-reigl.com/en/exhibitions/65/works/artworks-24892-judit-reigl-centre-de-dominance-1958/">here's mine</a>), and 3) a cool pattern you found in Conway's Game--
