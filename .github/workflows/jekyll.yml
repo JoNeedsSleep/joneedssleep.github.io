@@ -30,10 +30,21 @@ jobs:
       - name: Install dependencies
         run: |
           gem install bundler
-          bundle install
+          bundle install --jobs 4 --retry 3
+          
+      - name: Debug info
+        run: |
+          echo "Ruby version:"
+          ruby -v
+          echo "Bundler version:"
+          bundle -v
+          echo "Jekyll version:"
+          bundle exec jekyll -v
+          echo "Directory structure:"
+          ls -la
           
       - name: Build with Jekyll
-        run: bundle exec jekyll build --trace
+        run: bundle exec jekyll build --verbose --trace
         env:
           JEKYLL_ENV: production
           

@@ -1,10 +1,22 @@
-title: Jo J. Jiao
+title: Jo Jiao
 url: https://joneedssleep.github.io
 baseurl: ""
 
 # Plugins
 plugins:
   - jekyll-sitemap
+
+# Exclude directories and files
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+  - .bundle/
+  - README.md
 
 # Sitemap settings
 defaults:
