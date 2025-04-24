@@ -2,7 +2,6 @@ source "https://rubygems.org"
 
 gem "jekyll", "~> 4.2.0"
 gem "jekyll-sitemap", "~> 1.4.0"
-gem "webrick", "~> 1.7"
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
 # and associated library.
