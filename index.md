@@ -34,4 +34,4 @@ layout: default
 <canvas id="gameCanvas"></canvas>
 <canvas id="interactionCanvas"></canvas>
 
-<script src="{{ site.baseurl }}/assets/js/game-of-life.js"></script> 
+<script src="/assets/js/game-of-life.js"></script> 
