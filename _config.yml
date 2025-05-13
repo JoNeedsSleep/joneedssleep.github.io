@@ -1,10 +1,12 @@
 title: Jo Jiao
 url: https://joneedssleep.github.io
 baseurl: ""
+description: "Personal website of Jo Jiao, UChicago student studying math and philosophy."
 
 # Plugins
 plugins:
   - jekyll-sitemap
+  - jekyll-feed
 
 # Exclude directories and files
 exclude:
