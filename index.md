@@ -11,7 +11,6 @@ layout: default
             <a href="https://github.com/JoNeedsSleep">GitHub</a>
             <a>jojiao [at] uchicago [dot] edu</a>
             <a href="https://joneedssleep.substack.com/">Substack</a>
-            <a href="/feed.xml">RSS Feed</a>
         </div>
     </div>
     <div class="right-column">

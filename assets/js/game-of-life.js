@@ -45,10 +45,6 @@ function initialize() {
     // Add event listeners
     startButton.addEventListener('click', toggleGame);
     drawButton.addEventListener('click', toggleDrawMode);
-    drawButton.addEventListener('touchstart', function(e) {
-        e.preventDefault(); // Prevent default touch behavior
-        toggleDrawMode();
-    });
     clearButton.addEventListener('click', clearGrid);
     darkModeButton.addEventListener('click', toggleDarkMode);
     
@@ -79,7 +75,6 @@ function initialize() {
     
     // Add click handler for the interaction canvas
     interactionCanvas.addEventListener('click', checkForControlsClick);
-    interactionCanvas.addEventListener('touchstart', checkForControlsClick);
     
     // Check for saved dark mode preference
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';
@@ -98,16 +93,8 @@ function updateControlsPosition() {
 function checkForControlsClick(e) {
     if (!isDrawMode) return;
     
-    let x, y;
-    
-    // Handle both touch and mouse events
-    if (e.touches && e.touches.length) {
-        x = e.touches[0].clientX;
-        y = e.touches[0].clientY;
-    } else {
-        x = e.clientX;
-        y = e.clientY;
-    }
+    const x = e.clientX;
+    const y = e.clientY;
     
     // Check if click is in the general area of the controls
     if (controlsRect && 
