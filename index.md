@@ -24,7 +24,7 @@ layout: default
             Some things in my head: AI Safety, Meditation, Kant, emergence, ZFC, Borges, religion, understanding deception/consciousness, my time at <a href="https://www.uwc.org/">UWC</a>, <a href="https://chicagoalignment.com/">organizing stuff</a>.
         </p>
         <p>
-            Now <a href="https://www.admonymous.co/joneedssleep">your turn</a>: what's 1) the question you woke up to 2) your favourite art piece (<a href="https://www.judit-reigl.com/en/exhibitions/65/works/artworks-24892-judit-reigl-centre-de-dominance-1958/">here's mine</a>), or 3) a cool pattern you found in Conway's Game--
+            Now <a href="https://www.admonymous.co/joneedssleep">your turn</a>: what's 1) the question you woke up to 2) your favourite art piece (<a href="https://joneedssleep.github.io/judit-reigl/">here's mine</a>), or 3) a cool pattern you found in Conway's Game--
         </p>
         <div class="game-controls">
             <button id="startButton">Start Game of Life</button>
