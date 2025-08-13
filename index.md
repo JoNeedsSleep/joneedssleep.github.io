@@ -10,7 +10,7 @@ layout: default
             <a href="https://linkedin.com/in/jojiao">LinkedIn</a>
             <a href="https://github.com/JoNeedsSleep">GitHub</a>
             <a>jojiao [at] uchicago [dot] edu</a>
-            <a href="https://joneedssleep.substack.com/">Substack</a>
+            <a href="https://en.wikipedia.org/wiki/User:JoNeedsSleep">Wikipedia</a>
         </div>
     </div>
     <div class="right-column">
