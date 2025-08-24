@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Notes
+permalink: /notes/
 ---
 
 <div class="container">
