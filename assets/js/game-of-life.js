@@ -16,22 +16,30 @@ let isDrawMode = false;
 let isDragging = false;
 let isDarkMode = false;
 let grid = [];
-let cellSize = 20;
+let cellSize = 20; // in CSS pixels
 let rows, cols;
 let lastCell = { row: -1, col: -1 };
 let controlsRect = null;
+let dpr = 1;
 
 // Initialize
 function initialize() {
-    // Set canvas dimensions
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    interactionCanvas.width = window.innerWidth;
-    interactionCanvas.height = window.innerHeight;
+    // Setup device pixel ratio aware canvases
+    dpr = window.devicePixelRatio || 1;
+    const cssWidth = window.innerWidth;
+    const cssHeight = window.innerHeight;
+
+    canvas.width = Math.round(cssWidth * dpr);
+    canvas.height = Math.round(cssHeight * dpr);
+    interactionCanvas.width = Math.round(cssWidth * dpr);
+    interactionCanvas.height = Math.round(cssHeight * dpr);
+    // Scale drawing context so coordinates remain in CSS pixels
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    interactionCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
     
-    // Calculate rows and columns
-    rows = Math.ceil(canvas.height / cellSize);
-    cols = Math.ceil(canvas.width / cellSize);
+    // Calculate rows and columns in CSS pixels
+    rows = Math.ceil(cssHeight / cellSize);
+    cols = Math.ceil(cssWidth / cellSize);
     
     // Create empty grid
     grid = Array(rows).fill().map(() => Array(cols).fill(0));
@@ -76,6 +84,14 @@ function initialize() {
         resizeCanvas();
         updateControlsPosition();
     });
+    window.addEventListener('scroll', () => {
+        // keep control hitboxes accurate when page scrolls
+        updateControlsPosition();
+    }, { passive: true });
+    
+    // Dynamically allow clicks through overlay for controls (desktop)
+    window.addEventListener('mousemove', handleGlobalPointerHover, { passive: true });
+    window.addEventListener('touchmove', handleGlobalPointerHover, { passive: true });
     
     // Add click handler for the interaction canvas
     interactionCanvas.addEventListener('click', checkForControlsClick);
@@ -98,36 +114,37 @@ function updateControlsPosition() {
 function checkForControlsClick(e) {
     if (!isDrawMode) return;
     
-    let x, y;
+    const point = getClientPoint(e);
+    const { x, y } = point;
     
-    // Handle both touch and mouse events
-    if (e.touches && e.touches.length) {
-        x = e.touches[0].clientX;
-        y = e.touches[0].clientY;
-    } else {
-        x = e.clientX;
-        y = e.clientY;
+    if (!controlsRect) return;
+    
+    // If the user tapped inside the draw button, exit draw mode
+    const drawButtonRect = drawButton.getBoundingClientRect();
+    if (x >= drawButtonRect.left && x <= drawButtonRect.right &&
+        y >= drawButtonRect.top && y <= drawButtonRect.bottom) {
+        toggleDrawMode();
+        e.stopPropagation();
+        return;
     }
-    
-    // Check if click is in the general area of the controls
-    if (controlsRect && 
-        x >= controlsRect.left - 20 && 
-        x <= controlsRect.right + 20 && 
-        y >= controlsRect.top - 20 && 
-        y <= controlsRect.bottom + 20) {
-        
-        // Get positions of each button
-        const drawButtonRect = drawButton.getBoundingClientRect();
-        
-        // Check if click is directly on the draw button
-        if (x >= drawButtonRect.left && 
-            x <= drawButtonRect.right && 
-            y >= drawButtonRect.top && 
-            y <= drawButtonRect.bottom) {
-            // This is a click on the draw button - exit draw mode
-            toggleDrawMode();
-            e.stopPropagation();
-        }
+}
+
+// Toggle overlay pointer events when hovering over controls (desktop friendliness)
+function handleGlobalPointerHover(e) {
+    if (!isDrawMode || !controlsRect) return;
+    const point = getClientPoint(e);
+    const { x, y } = point;
+    const padding = 8;
+    const overControls = (
+        x >= controlsRect.left - padding &&
+        x <= controlsRect.right + padding &&
+        y >= controlsRect.top - padding &&
+        y <= controlsRect.bottom + padding
+    );
+    if (overControls) {
+        interactionCanvas.style.pointerEvents = 'none';
+    } else {
+        interactionCanvas.style.pointerEvents = isDrawMode ? 'auto' : 'none';
     }
 }
 
@@ -193,6 +210,7 @@ function toggleDrawMode() {
         drawButton.textContent = 'Draw Mode';
         drawButton.classList.remove('active');
         interactionCanvas.classList.remove('draw-mode');
+        interactionCanvas.style.pointerEvents = 'none';
         
         // Remove the escape hint if it exists
         const hint = document.getElementById('escape-hint');
@@ -220,21 +238,19 @@ function addRandomPattern() {
 // Get coordinates from mouse or touch event
 function getCoordinates(e) {
     const rect = interactionCanvas.getBoundingClientRect();
-    let x, y;
-    
-    // Check if it's a touch event
-    if (e.touches && e.touches.length) {
-        x = e.touches[0].clientX - rect.left;
-        y = e.touches[0].clientY - rect.top;
-    } else {
-        x = e.clientX - rect.left;
-        y = e.clientY - rect.top;
-    }
-    
+    const point = getClientPoint(e);
+    const x = point.x - rect.left;
+    const y = point.y - rect.top;
     const col = Math.floor(x / cellSize);
     const row = Math.floor(y / cellSize);
-    
     return { row, col };
+}
+
+function getClientPoint(e) {
+    if (e.touches && e.touches.length) {
+        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+    return { x: e.clientX, y: e.clientY };
 }
 
 // Handle pointer start (mouse down or touch start)
@@ -243,6 +259,12 @@ function handlePointerStart(e) {
     
     e.preventDefault(); // Prevent scrolling on touch devices
     isDragging = true;
+    
+    // Avoid drawing when starting inside controls
+    const pt = getClientPoint(e);
+    if (controlsRect && pt.x >= controlsRect.left && pt.x <= controlsRect.right && pt.y >= controlsRect.top && pt.y <= controlsRect.bottom) {
+        return;
+    }
     
     const { row, col } = getCoordinates(e);
     if (row >= 0 && row < rows && col >= 0 && col < cols) {
@@ -324,16 +346,21 @@ function handleCanvasDoubleClick(e) {
 // Resize canvas
 function resizeCanvas() {
     const oldGrid = [...grid];
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    interactionCanvas.width = window.innerWidth;
-    interactionCanvas.height = window.innerHeight;
+    dpr = window.devicePixelRatio || 1;
+    const cssWidth = window.innerWidth;
+    const cssHeight = window.innerHeight;
+    canvas.width = Math.round(cssWidth * dpr);
+    canvas.height = Math.round(cssHeight * dpr);
+    interactionCanvas.width = Math.round(cssWidth * dpr);
+    interactionCanvas.height = Math.round(cssHeight * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    interactionCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
     
     const oldRows = rows;
     const oldCols = cols;
     
-    rows = Math.ceil(canvas.height / cellSize);
-    cols = Math.ceil(canvas.width / cellSize);
+    rows = Math.ceil(cssHeight / cellSize);
+    cols = Math.ceil(cssWidth / cellSize);
     
     // Create new grid
     grid = Array(rows).fill().map(() => Array(cols).fill(0));

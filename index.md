@@ -23,10 +23,7 @@ layout: default
             I want your feedback - and I want to make it easy for you. You can share your thoughts anonymously <a href="https://www.admonymous.co/joneedssleep">here</a>. I promise to 1) take what you say seriously, 2) not guess who you are, 3) assume the best of intentions.
         </p>
         <p>
-            I'm also interested in the intersection of AI Safety and philosophy. I'm currently reading <a href="https://www.amazon.com/gp/product/0674979505/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1">The Metaphysics of Mind</a> by David Chalmers.
-        </p>
-        <p>
-            A list of things in my headspace: AI Safety, meditation, BeWellTuned, Kant, Borges, my time at <a href="https://www.uwc.org/">UWC</a>.
+            A list of things in my headspace: AI Safety, meditation, <a href="http://bewelltuned.com/tune_your_cognitive_strategies">metacognition</a>, Kant, Borges, my time at <a href="https://www.uwc.org/">UWC</a>.
         </p>
         <p>
             Now <a href="https://www.admonymous.co/joneedssleep">your turn</a>: what's 1) the question you woke up to 2) your favourite art piece (<a href="https://joneedssleep.github.io/judit-reigl/">here's mine</a>), or 3) a cool pattern you found in Conway's Game--
