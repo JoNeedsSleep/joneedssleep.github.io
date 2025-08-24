@@ -14,7 +14,7 @@ layout: default
     </div>
     <div class="right-column">
         <p>
-            Hello! I'm Jo, undergrad at UChicago studying math and philosophy. I'm currently doing research to better understand how RL on narrow tasks change LLM's safety-relevant behaviours, fortunately mentored by James Evans and Austin Kozlawski at <a href="https://knowledgelab.org/">Knowledge Lab</a>. 
+            Hello! I'm Jo, undergrad at UChicago studying math and philosophy. I'm currently doing research to better understand how RL on narrow tasks change LLM's safety-relevant behaviours, fortunately mentored by James Evans and Austin Kozlowski at <a href="https://knowledgelab.org/">Knowledge Lab</a>. 
         </p>
         <p>
             I co-started and co-lead the <a href="https://uchicagoaisafety.com/">AI Safety Group</a> at <a href="https://xrisk.uchicago.edu/">UChicago XLab</a>. Always happy to talk about any aspects of the group, and let me know if I can be helpful in any way.

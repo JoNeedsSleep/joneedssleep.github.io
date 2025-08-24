@@ -21,7 +21,6 @@ let rows, cols;
 let lastCell = { row: -1, col: -1 };
 let controlsRect = null;
 let dpr = 1;
-let showHover = true;
 
 // Initialize
 function initialize() {
@@ -190,7 +189,6 @@ function toggleDrawMode() {
         drawButton.textContent = 'Exit Draw Mode';
         drawButton.classList.add('active');
         interactionCanvas.classList.add('draw-mode');
-        interactionCanvas.style.cursor = 'none';
         document.querySelector('.game-controls').style.pointerEvents = 'auto';
         if(isRunning) toggleGame(); // Pause if running
         
@@ -213,8 +211,6 @@ function toggleDrawMode() {
         drawButton.classList.remove('active');
         interactionCanvas.classList.remove('draw-mode');
         interactionCanvas.style.pointerEvents = 'none';
-        interactionCanvas.style.cursor = '';
-        clearInteractionOverlay();
         
         // Remove the escape hint if it exists
         const hint = document.getElementById('escape-hint');
@@ -272,7 +268,6 @@ function handlePointerStart(e) {
     
     const { row, col } = getCoordinates(e);
     if (row >= 0 && row < rows && col >= 0 && col < cols) {
-        drawHoverCross(row, col);
         grid[row][col] = 1;
         lastCell = { row, col };
         draw();
@@ -281,30 +276,18 @@ function handlePointerStart(e) {
 
 // Handle pointer move (mouse move or touch move)
 function handlePointerMove(e) {
-    if (!isDrawMode) return;
+    if (!isDrawMode || !isDragging) return;
     
     e.preventDefault(); // Prevent scrolling on touch devices
-    const pt = getClientPoint(e);
-    // Hide hover when over controls
-    if (controlsRect && pt.x >= controlsRect.left && pt.x <= controlsRect.right && pt.y >= controlsRect.top && pt.y <= controlsRect.bottom) {
-        clearInteractionOverlay();
-        return;
-    }
     
     const { row, col } = getCoordinates(e);
-    if (row >= 0 && row < rows && col >= 0 && col < cols) {
-        // Always show centered hover cross
-        drawHoverCross(row, col);
-    } else {
-        clearInteractionOverlay();
-    }
     
-    if (!isDragging) return;
-    
-    // Only draw if different from the last cell
+    // Only draw if it's a valid position and different from the last cell
     if (row >= 0 && row < rows && col >= 0 && col < cols &&
         (row !== lastCell.row || col !== lastCell.col)) {
         grid[row][col] = 1;
+        
+        // Interpolate between last cell and current cell for smooth drawing
         interpolateCells(lastCell, { row, col });
         lastCell = { row, col };
         draw();
@@ -346,7 +329,6 @@ function interpolateCells(from, to) {
 function handlePointerEnd() {
     isDragging = false;
     lastCell = { row: -1, col: -1 }; // Reset last cell
-    clearInteractionOverlay();
 }
 
 // Handle double click (remove cell)
@@ -465,35 +447,6 @@ function draw() {
             }
         }
     }
-}
-
-// Draw a centered hover cross at the given cell (on interaction canvas)
-function drawHoverCross(row, col) {
-    interactionCtx.clearRect(0, 0, interactionCanvas.width, interactionCanvas.height);
-    const cellX = col * cellSize;
-    const cellY = row * cellSize;
-    const centerX = cellX + Math.floor(cellSize / 2);
-    const centerY = cellY + Math.floor(cellSize / 2);
-    const arm = Math.max(6, Math.floor(cellSize * 0.6));
-    interactionCtx.save();
-    interactionCtx.strokeStyle = 'rgba(0,0,0,0.6)';
-    if (document.documentElement.getAttribute('data-theme') === 'dark') {
-        interactionCtx.strokeStyle = 'rgba(255,255,255,0.7)';
-    }
-    interactionCtx.lineWidth = 1.5;
-    interactionCtx.beginPath();
-    // horizontal
-    interactionCtx.moveTo(centerX - arm, centerY + 0.5);
-    interactionCtx.lineTo(centerX + arm, centerY + 0.5);
-    // vertical
-    interactionCtx.moveTo(centerX + 0.5, centerY - arm);
-    interactionCtx.lineTo(centerX + 0.5, centerY + arm);
-    interactionCtx.stroke();
-    interactionCtx.restore();
-}
-
-function clearInteractionOverlay() {
-    interactionCtx.clearRect(0, 0, interactionCanvas.width, interactionCanvas.height);
 }
 
 // Toggle dark mode
