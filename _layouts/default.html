@@ -293,9 +293,35 @@
             color: var(--link-hover-color);
             text-decoration: underline;
         }
+        /* Top navigation styles */
+        .top-nav {
+            position: fixed;
+            top: 1.2rem;
+            right: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            font-family: 'Noto Sans', sans-serif;
+            z-index: 200;
+        }
+
+        .top-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+
+        .top-nav a:hover {
+            color: var(--link-hover-color);
+        }
     </style>
 </head>
 <body>
+    <nav class="top-nav">
+        <a href="{{ site.baseurl }}/">Jo J. Jiao</a>
+        <a href="{{ site.baseurl }}/research/">Research</a>
+        <a href="{{ site.baseurl }}/notes/">Notes</a>
+    </nav>
     {{ content }}
 </body>
 </html> 
