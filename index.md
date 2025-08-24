@@ -26,7 +26,7 @@ layout: default
             A list of things in my headspace: AI Safety, meditation, <a href="http://bewelltuned.com/tune_your_cognitive_strategies">metacognition</a>, Kant, Borges, my time at <a href="https://www.uwc.org/">UWC</a>.
         </p>
         <p>
-            Now <a href="https://www.admonymous.co/joneedssleep">your turn</a>: what's 1) the question you woke up to 2) your favourite art piece (<a href="https://joneedssleep.github.io/judit-reigl/">here's mine</a>), or 3) a cool pattern you found in Conway's Game (<a href="https://joneedssleep.github.io/conway-game-pattern/">here's mine</a>)—
+            Now <a href="https://www.admonymous.co/joneedssleep">your turn</a>: what's 1) the question you woke up to 2) your favourite art piece (<a href="https://joneedssleep.github.io/judit-reigl/">here's mine</a>), or 3) a cool pattern you found in Conway's Game (<a href="https://joneedssleep.github.io/conway-game-pattern/">here's one</a>)—
         </p>
         <div class="game-controls">
             <button id="startButton">Start Game of Life</button>
