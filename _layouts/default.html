@@ -308,7 +308,8 @@
             color: var(--text-color);
             text-decoration: none;
             font-weight: 400;
-            transition: color 0.2s;
+            transition: color 0.2s, opacity 0.4s ease;
+            will-change: opacity;
         }
 
         .top-nav a:hover {
@@ -325,5 +326,38 @@
         <a href="{{ site.baseurl }}/notes/">Notes</a>
     </nav>
     {{ content }}
+
+    <script>
+        (function() {
+            var base = "{{ site.baseurl }}";
+            var path = window.location.pathname;
+            var isHome = (base ? path === base + "/" : path === "/");
+            if (!isHome) return;
+
+            var nav = document.querySelector('.top-nav');
+            if (!nav) return;
+
+            var ticking = false;
+            var maxFadeDistance = 220; // px scrolled for full fade
+
+            function updateOpacity() {
+                var y = window.scrollY || window.pageYOffset || 0;
+                var opacity = 1 - Math.min(1, y / maxFadeDistance);
+                nav.style.opacity = String(opacity);
+                nav.style.pointerEvents = opacity < 0.1 ? 'none' : '';
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateOpacity);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            // Initialize on load in case page opens mid-scroll
+            updateOpacity();
+        })();
+    </script>
 </body>
 </html> 
