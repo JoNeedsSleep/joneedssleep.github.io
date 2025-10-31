@@ -4,6 +4,7 @@
     <meta name="google-site-verification" content="jt9At6_cElui-c-8ZWCh1PDxmq3WT2H96QB5ixkQecs" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
     <title>{{ site.title }}</title>
     <link rel="icon" type="image/x-icon" href="{{ site.baseurl }}/favicon.ico" sizes="96x96">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
@@ -322,15 +323,6 @@
             margin-bottom: 1rem;
         }
 
-        .research-content p {
-            margin-bottom: 0.3rem;
-        }
-
-        /* Make research page right column use full available width */
-        .research-content {
-            max-width: none;
-        }
-
         .right-column a {
             color: var(--text-color);
             text-decoration: underline;
@@ -374,6 +366,26 @@
             color: var(--link-hover-color);
         }
     </style>
+    <script>
+        (function() {
+            var storageKey = 'theme';
+            var root = document.documentElement;
+            function getStoredTheme() {
+                try { return localStorage.getItem(storageKey); } catch (e) { return null; }
+            }
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    root.setAttribute('data-theme', 'dark');
+                } else {
+                    root.removeAttribute('data-theme');
+                }
+            }
+            var stored = getStoredTheme();
+            var prefersDark = false;
+            try { prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; } catch (e) {}
+            applyTheme(stored || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
 </head>
 <body>
     <nav class="top-nav">
@@ -415,6 +427,45 @@
 
             // Initialize on load in case page opens mid-scroll
             updateOpacity();
+        })();
+    </script>
+    <script>
+        (function() {
+            var storageKey = 'theme';
+            var root = document.documentElement;
+            function getStoredTheme() {
+                try { return localStorage.getItem(storageKey); } catch (e) { return null; }
+            }
+            function setStoredTheme(theme) {
+                try { localStorage.setItem(storageKey, theme); } catch (e) {}
+            }
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    root.setAttribute('data-theme', 'dark');
+                } else {
+                    root.removeAttribute('data-theme');
+                }
+            }
+            var btn = document.getElementById('darkModeButton');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    var isDark = root.getAttribute('data-theme') === 'dark';
+                    var next = isDark ? 'light' : 'dark';
+                    applyTheme(next);
+                    setStoredTheme(next);
+                });
+            }
+            var mql;
+            try { mql = window.matchMedia('(prefers-color-scheme: dark)'); } catch (e) { mql = null; }
+            if (mql) {
+                var onChange = function(e) {
+                    if (!getStoredTheme()) {
+                        applyTheme(e.matches ? 'dark' : 'light');
+                    }
+                };
+                if (mql.addEventListener) mql.addEventListener('change', onChange);
+                else if (mql.addListener) mql.addListener(onChange);
+            }
         })();
     </script>
 </body>
