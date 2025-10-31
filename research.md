@@ -4,7 +4,7 @@ title: Research
 permalink: /research/
 ---
 
-<div class="container">
+<div class="container research-page">
     <div class="left-column">
         <h1 class="name">Research</h1>
         <button id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode"></button>
