@@ -28,7 +28,13 @@ layout: default
         <details>
         <summary>More</summary>
         <p>
-            The thinker, writer, and artist I admire most are Kant, Borges, and <a href="https://joneedssleep.github.io/judit-reigl/">Judit Reigl</a>. To me, they represent structure, imagination, and rhythm.
+        I spend a non-trivial amount of time thinking about thinking. My most recent experiment is using spaced repetition systems to help compress and schematize mathematical knowledge. If you have thoughts on this, I would love to compare notes.
+        </p>
+        <p>
+            The thinkers, writers, and artists who have most shaped me are Immanuel Kant, Alice Munro, Jorge Luis Borges, and <a href="https://joneedssleep.github.io/judit-reigl/">Judit Reigl</a>. For me, they represent structure, restraint, imagination, and rhythm.
+        </p>
+        <p>
+            Meditation is a central part of my life. I practice two lineages: Vipassana in the tradition of Goenka, and Taoism, from my time at the Five Immortals Temple.
         </p>
         </details>
         <div class="game-controls">

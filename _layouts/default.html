@@ -292,13 +292,15 @@
             content: '▶';
             position: absolute;
             left: 0;
+            top: 50%;
+            transform: translateY(-50%);
             font-size: 0.8em;
             transition: transform 0.2s ease;
             color: var(--text-color);
         }
 
         details[open] summary::before {
-            transform: rotate(90deg);
+            transform: translateY(-50%) rotate(90deg);
         }
 
         summary:hover {
