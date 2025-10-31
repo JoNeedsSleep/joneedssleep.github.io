@@ -74,6 +74,7 @@
         }
 
         .theme-toggle {
+            --theme-toggle-translateY: 0;
             width: 30px;
             height: 30px;
             border-radius: 50%;
@@ -84,8 +85,9 @@
             margin: 0 0 1.5rem auto;
             padding: 0;
             position: relative;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease;
             overflow: hidden;
+            transform: translateY(var(--theme-toggle-translateY));
         }
 
         .theme-toggle::before {
@@ -106,7 +108,7 @@
         }
 
         .theme-toggle:hover {
-            transform: scale(1.1);
+            transform: translateY(var(--theme-toggle-translateY)) scale(1.1);
             border-color: var(--link-hover-color);
         }
 
@@ -128,38 +130,59 @@
                 grid-template-columns: 1fr;
                 margin: 2rem auto;
                 padding: 1rem;
-                gap: 2rem;
+                row-gap: 0.25rem;
             }
-            
+
             .left-column {
                 text-align: center;
                 position: static;
-                padding: 1rem;
+                padding: 0;
+                margin-bottom: 0.1rem;
             }
-            
+
             .name {
-                font-size: 1.5rem;
-                margin-top: 0;
+                font-size: 2.25rem;
+                margin-top: 2.5rem;
+                margin-bottom: 0.4rem;
             }
-            
+
             .theme-toggle {
-                margin: 1rem auto;
+                position: fixed;
+                top: calc(1.2rem + 0.8rem);
+                left: 1.5rem;
+                margin: 0;
+                z-index: 250;
+                --theme-toggle-translateY: -50%;
             }
-            
+
             .social-links {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 1rem;
+                gap: 0.6rem;
+                margin-top: 0.3rem;
+                margin-bottom: 0.15rem;
             }
-            
+
             .social-links a {
                 display: inline-block;
                 margin: 0;
             }
 
             .right-column {
-                padding: 0 1rem;
+                padding: 0 0.75rem;
+                margin-top: 0.1rem;
+            }
+
+            .game-controls {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.65rem;
+            }
+
+            .game-controls button {
+                margin: 0;
             }
         }
 
@@ -167,17 +190,27 @@
             .container {
                 margin: 1rem auto;
             }
-            
+
             .name {
-                font-size: 1.3rem;
+                font-size: 2rem;
+                margin-top: 2.5rem;
+                margin-bottom: 0.75rem;
             }
-            
+
             .social-links {
-                gap: 0.5rem;
+                gap: 0.45rem;
             }
-            
+
             .social-links a {
                 font-size: 0.8rem;
+            }
+
+            .theme-toggle {
+                left: 1rem;
+            }
+
+            .right-column {
+                padding: 0 0.5rem;
             }
         }
 
@@ -289,15 +322,19 @@
             display: none;
         }
 
+        /* CSS triangle caret indicator rendered with borders to avoid emoji substitution */
         summary::before {
-            content: '▶';
+            content: '';
             position: absolute;
             left: 0;
             top: 50%;
+            width: 0;
+            height: 0;
+            border-top: 0.3em solid transparent;
+            border-bottom: 0.3em solid transparent;
+            border-left: 0.45em solid currentColor;
             transform: translateY(-50%);
-            font-size: 0.8em;
             transition: transform 0.2s ease;
-            color: var(--text-color);
         }
 
         details[open] summary::before {
