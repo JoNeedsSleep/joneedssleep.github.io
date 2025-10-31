@@ -14,20 +14,23 @@ layout: default
     </div>
     <div class="right-column">
         <p>
-            Hello! I'm Jo, undergrad at UChicago studying math and philosophy. I'm currently doing research to better understand how RL on narrow tasks change LLM's safety-relevant behaviours, fortunately mentored by James Evans and Austin Kozlowski at <a href="https://knowledgelab.org/">Knowledge Lab</a>. 
+            Hi there! I'm Jo. As of fall 2025, I study mathematics and philosophy at UChicago and do research in AI Safety.
         </p>
         <p>
-            I co-started and co-lead the <a href="https://uchicagoaisafety.com/">AI Safety Group</a> at <a href="https://xrisk.uchicago.edu/">UChicago XLab</a>. Always happy to talk about any aspects of the group, and let me know if I can be helpful in any way.
+            I am interested in learning and generalization dynamics of machine learning models, especially as it pertains to (mis)alignment. Currently, I'm working to better understand how reinforcement learning on narrow, real-world objectives shift model values, fortunately mentored by James Evans and Austin Kozlowski at UChicago <a href="https://knowledgelab.org/">Knowledge Lab</a>.
         </p>
+        <details>
+        <summary>Feedback</summary>
         <p>
-            I want your feedback - and I want to make it easy for you. You can share your thoughts anonymously <a href="https://www.admonymous.co/joneedssleep">here</a>. I promise to 1) take what you say seriously, 2) not guess who you are, 3) assume the best of intentions.
+        I want to be the best version of myself possible. If you see a way I can improve (in how I think, how I treat people, how I engage with the world), let me know <a href="https://www.admonymous.co/joneedssleep">here</a>. I promise to 1) take your feedback seriously, 2) not guess who you are, 3) assume good faith.
         </p>
+        </details>
+        <details>
+        <summary>More</summary>
         <p>
-            A list of things in my headspace: AI Safety, meditation, <a href="http://bewelltuned.com/tune_your_cognitive_strategies">metacognition</a>, Kant, Borges, my time at <a href="https://www.uwc.org/">UWC</a>.
+            The thinker, writer, and artist I admire most are Kant, Borges, and <a href="https://joneedssleep.github.io/judit-reigl/">Judit Reigl</a>. To me, they represent structure, imagination, and rhythm.
         </p>
-        <p>
-            Now <a href="https://www.admonymous.co/joneedssleep">your turn</a>: what's 1) the question you woke up to 2) your favourite art piece (<a href="https://joneedssleep.github.io/judit-reigl/">here's mine</a>), or 3) a cool pattern you found in Conway's Game (<a href="https://joneedssleep.github.io/conway-game-pattern/">here's one</a>)—
-        </p>
+        </details>
         <div class="game-controls">
             <button id="startButton">Start Game of Life</button>
             <button id="drawButton">Draw Mode</button>
