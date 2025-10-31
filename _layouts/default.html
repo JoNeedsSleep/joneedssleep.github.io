@@ -313,7 +313,7 @@
 
         .author-underline {
             text-decoration: underline;
-            text-decoration-color: rgba(255, 206, 107);
+            text-decoration-color: rgba(255, 206, 107, 0.4);
             text-underline-offset: 2px;
             text-decoration-thickness: 0.5px;
         }
@@ -323,7 +323,12 @@
         }
 
         .research-content p {
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Make research page right column use full available width */
+        .research-content {
+            max-width: none;
         }
 
         .right-column a {
