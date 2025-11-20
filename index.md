@@ -14,7 +14,7 @@ layout: default
     </div>
     <div class="right-column">
         <p>
-            Hi there! I'm Jo. As of fall 2025, I study mathematics and philosophy at UChicago and do research in AI Safety.
+            Hi there! I'm Jo. As of fall 2025, I study mathematics and philosophy at UChicago and do research in AI Safety. I also co-started the UChicago AI Safety Group at XLab.
         </p>
         <p>
             I am interested in learning and generalization dynamics of machine learning models, especially as it pertains to (mis)alignment. Currently, I'm working to better understand how reinforcement learning on narrow, real-world objectives shift model values, fortunately mentored by James Evans and Austin Kozlowski at UChicago <a href="https://knowledgelab.org/">Knowledge Lab</a>.
