@@ -28,7 +28,7 @@ layout: default
         <details>
         <summary>More</summary>
         <p>
-        I spend a non-trivial amount of time thinking about thinking. My most recent experiment is using spaced repetition systems to help compress and schematize mathematical knowledge. If you have thoughts on this, I would love to compare notes.
+        I enjoy thinking about thinking. My most recent experiment is using spaced repetition systems to help compress and schematize mathematical knowledge. If you have thoughts on this, I would love to compare notes.
         </p>
         <p>
             The thinkers, writers, and artists who have most shaped me are Immanuel Kant, Alice Munro, Jorge Luis Borges, and <a href="https://joneedssleep.github.io/judit-reigl/">Judit Reigl</a>. For me, they represent structure, restraint, imagination, and rhythm.
