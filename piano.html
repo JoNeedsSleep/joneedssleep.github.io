@@ -1,0 +1,147 @@
+---
+layout: null
+permalink: /piano/
+sitemap: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Piano</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="96x96">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(165deg, #0a0a0f 0%, #12121f 40%, #1a1028 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            padding: 20px;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            top: -30%;
+            left: 20%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(ellipse, rgba(120,80,200,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header { text-align: center; margin-bottom: 24px; z-index: 1; }
+
+        .header h1 {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 300;
+            color: #e8e4f0;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .header p {
+            color: rgba(180,170,200,0.5);
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            margin-top: 6px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+            z-index: 1;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pill-btn {
+            padding: 7px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(160,140,200,0.15);
+            background: rgba(255,255,255,0.03);
+            color: rgba(180,170,200,0.4);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .pill-btn:hover {
+            border-color: rgba(160,140,200,0.35);
+            color: rgba(200,185,240,0.7);
+        }
+
+        #label-banner {
+            display: none;
+            margin-bottom: 14px;
+            padding: 8px 20px;
+            border-radius: 8px;
+            background: rgba(130,90,210,0.1);
+            border: 1px solid rgba(130,90,210,0.2);
+            color: rgba(200,185,240,0.8);
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            z-index: 1;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        #piano-box {
+            width: min(96vw, 1100px);
+            background: linear-gradient(180deg, #1e1a2a 0%, #14111d 100%);
+            border-radius: 12px 12px 16px 16px;
+            padding: 18px 14px 14px;
+            box-shadow: 0 2px 0 rgba(255,255,255,0.03) inset,
+                        0 20px 60px rgba(0,0,0,0.6),
+                        0 2px 20px rgba(100,60,180,0.08);
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: border 0.3s ease;
+            z-index: 1;
+        }
+
+        #piano-keys {
+            position: relative;
+            width: 100%;
+            height: clamp(140px, 28vw, 220px);
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow"></div>
+
+    <div class="header">
+        <h1>Piano</h1>
+        <p>Click keys or use keyboard &middot; A&ndash;J = C3&ndash;B3 &middot; K&ndash;' = C4&ndash;F4</p>
+    </div>
+
+    <div class="controls">
+        <button id="mode-btn" class="pill-btn">&#127929;  Play Mode</button>
+        <button id="show-all-btn" class="pill-btn">Show All</button>
+        <button id="hide-all-btn" class="pill-btn">Hide All</button>
+    </div>
+
+    <div id="label-banner">Click any key to toggle its label on / off</div>
+
+    <div id="piano-box">
+        <div id="piano-keys"></div>
+    </div>
+
+    <script src="/assets/js/piano.js"></script>
+</body>
+</html>
