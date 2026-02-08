@@ -8,8 +8,8 @@ layout: default
         <button id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode"></button>
         <div class="social-links">
             <a>jojiao [at] uchicago [dot] edu</a>
-            <a>LinkedIn</a>
-            <a>GitHub</a>
+            <a href="https://linkedin.com/in/jojiao">LinkedIn</a>
+            <a href="https://github.com/JoNeedsSleep">GitHub</a>
         </div>
     </div>
     <div class="right-column">
@@ -22,7 +22,7 @@ layout: default
         <details>
         <summary>Feedback</summary>
         <p>
-        I want to be the best version of myself possible. If you see a way I can improve (in how I think, how I treat people, how I engage with the world), let me know. I promise to 1) take your feedback seriously, 2) not guess who you are, 3) assume good faith.
+        I want to be the best version of myself possible. If you see a way I can improve (in how I think, how I treat people, how I engage with the world), let me know <a href="https://www.admonymous.co/joneedssleep">here</a>. I promise to 1) take your feedback seriously, 2) not guess who you are, 3) assume good faith.
         </p>
         </details>
         <details>
@@ -31,7 +31,7 @@ layout: default
         I enjoy thinking about thinking. My most recent experiment is using spaced repetition systems to help compress and schematize mathematical knowledge. If you have thoughts on this, I would love to compare notes.
         </p>
         <p>
-            The thinkers, writers, and artists who have most shaped me are Immanuel Kant, Alice Munro, Jorge Luis Borges, and Judit Reigl. For me, they represent structure, restraint, imagination, and rhythm.
+            The thinkers, writers, and artists who have most shaped me are Immanuel Kant, Alice Munro, Jorge Luis Borges, and <a href="https://joneedssleep.github.io/judit-reigl/">Judit Reigl</a>. For me, they represent structure, restraint, imagination, and rhythm.
         </p>
         <p>
             Meditation is a central part of my life. I practice two lineages: Vipassana in the tradition of Goenka, and Taoism, from my time at the Five Immortals Temple.
