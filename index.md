@@ -42,6 +42,9 @@ layout: default
         <p>
             Meditation is a central part of my life. I practice two lineages: Vipassana in the tradition of Goenka, and Taoism, from my time at the Five Immortals Temple.
         </p>
+        <p>
+            I have <a href="https://www.givingwhatwecan.org/pledge">pledged</a> 10% of my income to charity.
+        </p>
         </details>
         <details>
         <summary>Recently</summary>
