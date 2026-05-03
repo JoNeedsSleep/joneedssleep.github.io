@@ -35,7 +35,7 @@ layout: default
         </p>
         </details>
         <details>
-        <summary>More</summary>
+        <summary>Constants</summary>
         <p>
             The thinkers, writers, and artists who have most shaped me are Immanuel Kant, Alice Munro, Jorge Luis Borges, and <a href="https://joneedssleep.github.io/judit-reigl/">Judit Reigl</a>. For me, they represent structure, restraint, imagination, and rhythm.
         </p>
