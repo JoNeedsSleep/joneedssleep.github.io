@@ -16,7 +16,7 @@ permalink: /research/
     </div>
     <div class="right-column">
         <p>
-            My interest is in learning and generalization dynamics as it pertains to (mis)alignment. My favourite writings on this topic are Paul Christiano's essays (<a href="https://www.lesswrong.com/s/EmDuGeRw749sD3GKd">https://www.lesswrong.com/s/EmDuGeRw749sD3GKd</a>) from 2018 to 2019; in some ways, these ideas were what got me into AI safety. At MATS, I worked on a new finetuning-based propensity auditing method. Previously, I researched value generalization from reinforcement learning with James Evans and Austin Kozlowski at UChicago Knowledge Lab.
+            My interest is in learning and generalization dynamics as it pertains to (mis)alignment. My favourite writings on this topic are Paul Christiano's essays (<a href="https://www.lesswrong.com/s/EmDuGeRw749sD3GKd">https://www.lesswrong.com/s/EmDuGeRw749sD3GKd</a>) from 2018 to 2019; in some ways, these ideas were what got me into AI safety. At MATS, I'm developing a new finetuning-based propensity auditing method with Boyd Kane, mentored by Alex Turner and Alex Cloud. Previously, I researched value generalization from reinforcement learning with James Evans and Austin Kozlowski at UChicago Knowledge Lab.
         </p>
         <research-entry>
             <p><strong>Narrow RL Induces Broad Behavior Changes in LLMs</strong></p>
