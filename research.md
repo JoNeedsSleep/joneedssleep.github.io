@@ -8,6 +8,11 @@ permalink: /research/
     <div class="left-column">
         <h1 class="name">Research</h1>
         <button id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode"></button>
+        <div class="social-links">
+            <a>jojiao [at] uchicago [dot] edu</a>
+            <a href="https://linkedin.com/in/jojiao">LinkedIn</a>
+            <a href="https://github.com/JoNeedsSleep">GitHub</a>
+        </div>
     </div>
     <div class="right-column">
         <research-entry>
