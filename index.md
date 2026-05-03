@@ -25,7 +25,13 @@ layout: default
         <details>
         <summary>Feedback</summary>
         <p>
-        I want to be the best version of myself possible. If you see a way I can improve (in how I think, how I treat people, how I engage with the world), let me know <a href="https://www.admonymous.co/joneedssleep">here</a>. I promise to 1) take your feedback seriously, 2) not guess who you are, 3) assume good faith.
+        I want to be the best version of myself possible. Direct feedback is very helpful, and I think we do this less than we should. A good friend once pointed out I was making a sweeping claim too easily; my system 1 response was a sting, but my system 2 caught up and I appreciated it very much. Afterwards, I was much more aware of the precision and grounding of my arguments.
+        </p>
+        <p>
+        If you see something I could improve on, I'd love to hear it. You can also give feedback anonymously <a href="https://www.admonymous.co/joneedssleep">here</a>, though I'd be grateful if you told me directly.
+        </p>
+        <p>
+        And if you'd like honest, unfiltered feedback from me, let me know.
         </p>
         </details>
         <details>
