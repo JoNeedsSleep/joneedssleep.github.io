@@ -16,4 +16,5 @@ permalink: /research/
             <p><span style="color: #888;">NeurIPS 2025 Workshop on LLM Evaluation</span></p>
         </research-entry>
     </div>
+    <div class="empty-column" aria-hidden="true"></div>
 </div>

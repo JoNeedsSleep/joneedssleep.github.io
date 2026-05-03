@@ -61,6 +61,14 @@
             align-items: start;
         }
 
+        .container.research-page {
+            grid-template-columns: 250px minmax(0, 300px) 1fr;
+        }
+
+        .container.research-page .right-column {
+            max-width: 300px;
+        }
+
         .left-column {
             text-align: right;
             position: sticky;
@@ -131,11 +139,20 @@
         }
 
         @media screen and (max-width: 768px) {
-            .container {
+            .container,
+            .container.research-page {
                 grid-template-columns: 1fr;
                 margin: 2rem auto;
                 padding: 1rem;
                 row-gap: 0.25rem;
+            }
+
+            .container.research-page .right-column {
+                max-width: none;
+            }
+
+            .empty-column {
+                display: none;
             }
 
             .left-column {
