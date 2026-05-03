@@ -20,7 +20,7 @@ layout: default
             As of spring 2026, I am a MATS fellow mentored by Alex Turner and Alex Cloud as part of Team Shard. Outside of AI Safety research, I study mathematics and philosophy at UChicago, where I co-started and led the AI Safety Group at XLab.
         </p>
         <p>
-            I am interested in the learning and generalization dynamics of machine learning models, especially as it pertains to (mis)alignment. I am currently working on a new finetuning-based propensity auditing method. Previously, I researched value generalization from reinforcement learning with James Evans and Austin Kozlowski at UChicago Knowledge Lab.
+            I am interested in the learning and generalization dynamics of machine learning models, especially as it pertains to (mis)alignment.
         </p>
         <details>
         <summary>Feedback</summary>
