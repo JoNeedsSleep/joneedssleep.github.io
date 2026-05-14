@@ -25,13 +25,10 @@ layout: default
         <details>
         <summary>Feedback</summary>
         <p>
-        I want to be the best version of myself possible. Direct feedback is very helpful, and I think we do this less than we should. A good friend once pointed out I was making a sweeping claim too easily; my system 1 response was a sting, but my system 2 caught up and I appreciated it very much. Afterwards, I was much more aware of the precision and grounding of my arguments.
+        Direct feedback is very helpful, and we give it less than we should. A good friend once pointed out I made sweeping claims too easily. I was taken aback at first, but he was right that I generalized more than my evidence supported. His feedback pushed me to be more precise and grounded in my arguments. I want more of that.
         </p>
         <p>
-        If you see something I could improve on, I'd love to hear it. You can also give feedback anonymously <a href="https://www.admonymous.co/joneedssleep">here</a>.
-        </p>
-        <p>
-        And if you'd like honest, unfiltered feedback from me, let me know.
+        If you see something I could improve on, I'd love to hear it. You can also give feedback anonymously <a href="https://www.admonymous.co/joneedssleep">here</a>. And if you'd like candid feedback from me, let me know.
         </p>
         </details>
         <details>
