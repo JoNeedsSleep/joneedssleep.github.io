@@ -88,9 +88,16 @@ layout: default
         </p>
         </details>
         <div class="game-controls">
-            <button id="startButton">Start Game of Life</button>
-            <button id="drawButton">Draw Mode</button>
-            <button id="clearButton">Clear</button>
+            <button id="startButton" type="button" aria-label="Start Game of Life" title="Start / Pause Game of Life">
+                <svg class="icon-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2 L13 8 L3 14 Z"/></svg>
+                <svg class="icon-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2 H6 V14 H3.5 Z M10 2 H12.5 V14 H10 Z"/></svg>
+            </button>
+            <button id="drawButton" type="button" aria-label="Draw Mode" title="Toggle draw mode">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M11.3 1.7 L14.3 4.7 L5 14 L1.5 14.5 L2 11 Z" fill="none" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            </button>
+            <button id="clearButton" type="button" aria-label="Clear" title="Clear the grid">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 4 H13 M5.5 4 V2.5 H10.5 V4 M4.5 4 L5.3 14 H10.7 L11.5 4 M6.5 6.5 V11.5 M9.5 6.5 V11.5" fill="none" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            </button>
         </div>
     </div>
 </div>
