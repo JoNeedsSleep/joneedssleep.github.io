@@ -58,7 +58,13 @@ function initialize() {
         toggleDrawMode();
     });
     clearButton.addEventListener('click', clearGrid);
-    darkModeButton.addEventListener('click', toggleDarkMode);
+
+    // Sync game state with the document theme set by the layout's toggle.
+    syncDarkModeFromAttr();
+    new MutationObserver(syncDarkModeFromAttr).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+    });
     
     // Keyboard shortcut to exit draw mode (Escape key)
     document.addEventListener('keydown', (e) => {
@@ -486,24 +492,17 @@ function draw() {
     }
 }
 
-// Toggle dark mode
-function toggleDarkMode() {
-    isDarkMode = !isDarkMode;
-    
-    if(isDarkMode) {
-        document.documentElement.setAttribute('data-theme', 'dark');
+function syncDarkModeFromAttr() {
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (dark === isDarkMode) return;
+    isDarkMode = dark;
+    if (isDarkMode) {
         darkModeButton.setAttribute('aria-label', 'Toggle light mode');
         darkModeButton.classList.add('active');
     } else {
-        document.documentElement.removeAttribute('data-theme');
         darkModeButton.setAttribute('aria-label', 'Toggle dark mode');
         darkModeButton.classList.remove('active');
     }
-    
-    // Save preference
-    localStorage.setItem('darkMode', isDarkMode);
-    
-    // Redraw game
     draw();
 }
 
