@@ -7,7 +7,45 @@ permalink: /research/
 <div class="container research-page">
     <div class="left-column">
         <h1 class="name">Research</h1>
-        <button id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode"></button>
+        <button type="button" id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+            <span class="ub-stage">
+                <span class="ub-world">
+                    <span class="face f-bottom"></span>
+                    <span class="face f-front"></span>
+                    <span class="face f-back"></span>
+                    <span class="face f-left"></span>
+                    <span class="face f-right"></span>
+                    <span class="arm-root">
+                        <span class="arm-lift">
+                            <span class="arm-riser">
+                                <span class="rface rface-x"></span>
+                                <span class="rface rface-x2"></span>
+                                <span class="rface rface-y"></span>
+                                <span class="rface rface-y2"></span>
+                                <span class="rface rface-bottom"></span>
+                                <span class="rface rface-top"></span>
+                            </span>
+                            <span class="arm-finger">
+                                <span class="fface fface-top"></span>
+                                <span class="fface fface-bottom"></span>
+                                <span class="fface fface-front"></span>
+                                <span class="fface fface-back"></span>
+                                <span class="fface fface-cap-r"></span>
+                                <span class="fface fface-cap-l"></span>
+                            </span>
+                        </span>
+                    </span>
+                    <span class="face lid-fixed"></span>
+                    <span class="lid-hinge">
+                        <span class="lid-panel">
+                            <span class="face"></span>
+                        </span>
+                    </span>
+                    <span class="switch-bezel"></span>
+                    <span class="switch"></span>
+                </span>
+            </span>
+        </button>
         <div class="social-links">
             <a>jojiao [at] uchicago [dot] edu</a>
             <a href="https://linkedin.com/in/jojiao">LinkedIn</a>
