@@ -176,8 +176,8 @@ function clearGrid() {
 function toggleGame() {
     isRunning = !isRunning;
     if(isRunning) {
-        startButton.textContent = 'Pause';
         startButton.classList.add('active');
+        startButton.setAttribute('aria-label', 'Pause Game of Life');
         if(isEmpty()) {
             if (Math.random() < 1 / 7) {
                 addGliderGun();
@@ -187,8 +187,8 @@ function toggleGame() {
         }
         gameLoop();
     } else {
-        startButton.textContent = 'Start Game of Life';
         startButton.classList.remove('active');
+        startButton.setAttribute('aria-label', 'Start Game of Life');
     }
 }
 
@@ -196,8 +196,8 @@ function toggleGame() {
 function toggleDrawMode() {
     isDrawMode = !isDrawMode;
     if(isDrawMode) {
-        drawButton.textContent = 'Exit Draw Mode';
         drawButton.classList.add('active');
+        drawButton.setAttribute('aria-label', 'Exit Draw Mode');
         interactionCanvas.classList.add('draw-mode');
         document.querySelector('.game-controls').style.pointerEvents = 'auto';
         if(isRunning) toggleGame(); // Pause if running
@@ -217,8 +217,8 @@ function toggleDrawMode() {
         escapeText.style.zIndex = '102';
         document.body.appendChild(escapeText);
     } else {
-        drawButton.textContent = 'Draw Mode';
         drawButton.classList.remove('active');
+        drawButton.setAttribute('aria-label', 'Draw Mode');
         interactionCanvas.classList.remove('draw-mode');
         interactionCanvas.style.pointerEvents = 'none';
         
