@@ -208,6 +208,47 @@ sitemap: false
         color: var(--link-hover-color) !important;
     }
 
+    .collapse-toggle {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 0.16em solid transparent;
+        border-bottom: 0.16em solid transparent;
+        border-left: 0.23em solid currentColor;
+        cursor: pointer;
+        margin-right: 0.4em;
+        vertical-align: middle;
+        position: relative;
+        top: -3px;
+        transform: rotate(90deg); /* pointing down = expanded */
+        transition: transform 0.3s ease;
+    }
+
+    .left-column.collapsed .collapse-toggle {
+        transform: rotate(0deg); /* pointing right = collapsed */
+    }
+
+    .left-details {
+        max-height: 400px;
+        opacity: 1;
+        transition: max-height 0.35s ease, opacity 0.25s ease;
+        /* overflow stays visible so the 3D toggle isn't clipped */
+    }
+
+    .left-column.collapsed .left-details {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden; /* only clip when actually collapsed */
+    }
+
+    .container.essay-page .left-column .name {
+        transition: color 0.25s ease;
+    }
+
+    .left-column.collapsed .name {
+        color: var(--footnote-color);
+    }
+
     @media screen and (max-width: 768px) {
         .container.essay-page .left-column .name {
             font-size: 1.5rem;
@@ -223,10 +264,9 @@ sitemap: false
 
 <div class="container essay-page">
     <div class="left-column">
-        <h1 class="name">Building an Automated Tarot Machine</h1>
+        <h1 class="name"><span class="collapse-toggle" aria-label="Toggle column"></span>Building an Automated Tarot Machine</h1>
+        <div class="left-details">
         <div class="essay-byline"><em>in 48 hours, as part of the UChicago SCAV Hunt</em></div>
-        <div class="essay-meta"><a href="/">Jo J. Jiao</a>, May 2026, Hyde Park</div>
-        <div class="essay-music">Recommended music:<br><a href="https://www.youtube.com/watch?v=4Rc25CkOxEk"><em>Mozart, Requiem in D Minor I. Introitus</em></a></div>
         <button type="button" id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
             <span class="ub-stage">
                 <span class="ub-world">
@@ -266,9 +306,12 @@ sitemap: false
                 </span>
             </span>
         </button>
+        <div class="essay-meta"><a href="/">Jo Jiao</a>, May 2026, Hyde Park</div>
+        </div>
     </div>
 
     <div class="right-column">
+        <div class="essay-music" style="margin-top:0.5rem;">Recommended music: <a href="https://www.youtube.com/watch?v=4Rc25CkOxEk"><em>Mozart, Requiem in D Minor I. Introitus</em></a></div>
 
         <blockquote>
             each of us writing our lines of poetry<br>
@@ -278,11 +321,11 @@ sitemap: false
         </blockquote>
 
         <p>I was glancing through the <a href="https://scavhunt.uchicago.edu/assets/lists/2026.pdf">SCAV 2026</a><sup class="sidenote-ref">1</sup> list during the NeurIPS push, and the description for an Automated Tarot Machine (abbreviated ATM) came up.</p>
-        <div class="sidenote" style="margin-top: -2.5rem;">
-            <span class="sidenote-number">1</span> <a href="https://en.wikipedia.org/wiki/University_of_Chicago_Scavenger_Hunt">SCAV</a>, annual UChicago tradition since 1987. Past items include a nuclear breeder reactor, paper copy of SCAV in space, and a Scavvenwedding.
+        <div class="sidenote">
+            <span class="sidenote-number">1</span> <a href="https://en.wikipedia.org/wiki/University_of_Chicago_Scavenger_Hunt">SCAV</a>, annual UChicago tradition since 1987. Past items include a nuclear breeder reactor, paper copy of the 2026 SCAV list in outer space, and a Scavvenwedding.
         </div>
 
-        <div class="image-placeholder">scav_atm_description</div>
+        <img src="/assets/images/scav-atm/scav_atm_description.png" alt="SCAV 2026 ATM item description" style="width:100%;margin:1.5rem 0;display:block;border-radius:2px;">
 
         <p>It was a showcase item (worth many points), it looked like a challenge, and it was absurd in a way that tickled my sense of humour, so I got pretty excited. Once the conference deadline passed, I was off to scavving. I enumerated my home inventory in my head, and realized that I had many of the items to make this happen — a deck of Tarot cards I've never used or known how to use from an estate sale last summer, a Raspberry Pi, a DAC HAT for the Pi, and an analog speaker.</p>
 
@@ -290,12 +333,12 @@ sitemap: false
 
         <p>Even before I found a team, I was thinking through the execution plans. There's a Pareto curve of coolness and feasibility. I had one day and a half and a modest budget, and wanted to make the best ATM that I could. I considered a card shuffler paired with an image sensor. Or using good-old-fashioned punched holes in the Tarot card (with 7 holes since 2<sup>7</sup>&nbsp;>&nbsp;78 tarot cards&nbsp;>&nbsp;2<sup>6</sup>) to encode the card meaning like a Jacquard loom of faith. Or having the cards lined up on a circle with a hand in the middle to kick 3 cards out. With the principle of no-screens and tractability, I went with this plan: a Raspberry Pi takes in some input, processes it, and prints a reading plus interpretation out; a speaker plays mysterious music while instructing the user like an actual ATM.</p>
 
-        <div class="image-placeholder">scav_atm_diagram</div>
+        <img src="/assets/images/scav-atm/scav_atm_diagram.png" alt="ATM system diagram" style="width:100%;margin:1.5rem 0;display:block;border-radius:2px;">
 
         <p>Friday afternoon. I needed a mechanical keyboard with a USB connector, since bluetooth connection would be unstable. I recalled that two years ago when I first got access to the CS department compute cluster, I was given some old spare trackpads. I tried my luck there this time, and after explaining that I was building an automated Tarot machine for SCAV, the tech staff team happily let me take a keyboard. The only component I needed to acquire now was a printer. Rather serendipitously, the only thermal printer I could find that supported linux and arrived on time was a 4''×6'' label printer, so the final product ended up having the added benefit of being a cool laptop sticker.</p>
 
         <p>I caught up on some sleep on Friday night<sup class="sidenote-ref">2</sup>, and on Saturday afternoon, I sketched a plan with Marcus, took the components to the BJ team headquarters, sadly barely missing the part where the team set a tinfoil hamster on fire in a microwave for "25 warm and cozy points".</p>
-        <div class="sidenote" style="margin-top: -3rem;">
+        <div class="sidenote">
             <span class="sidenote-number">2</span> Marcus was one of the team captains for Big Burton. The team had gotten pretty worried by that point, since I had been no contact for 13 hours.
         </div>
 
@@ -310,12 +353,10 @@ sitemap: false
 
         <p>I had a copy of the 1971 Rider-Waite tarot deck, which I found out had an <a href="https://github.com/metabismuth/tarot-json/tree/master">open-sourced scan</a> of each card. All that was needed was converting it to black and white.</p>
 
-        <div class="image-placeholder">scav_atm_initial_spread</div>
-
-        <div class="tarot-print">tarot card print sample</div>
+        <img src="/assets/images/scav-atm/tarot_card_print_sample.png" alt="Tarot card print sample" style="width:55%;margin:1.5rem auto;display:block;border-radius:2px;">
 
         <p>The thermal printer was surprisingly high quality! I formatted a 4''×6'' design into the shape of an ATM receipt and inserted lorem ipsum text for the interpretation for now.<sup class="sidenote-ref">3</sup></p>
-        <div class="sidenote" style="margin-top: -2rem;">
+        <div class="sidenote">
             <span class="sidenote-number">3</span> Fittingly, both <a href="https://www.britannica.com/topic/Lorem-ipsum">lorem ipsum</a>'s usage as gibberish filler in print (taken from Cicero) and Tarot's precursor <a href="https://en.wikipedia.org/wiki/Tarocchini">Tarocchini</a> plausibly emerged around the mid-Italian Renaissance.
         </div>
 
@@ -330,7 +371,7 @@ sitemap: false
         <p>Now I know how to sound like subway announcements.</p>
 
         <p>There were a few ways I could've gone about the "non-random" fortune-telling algorithm. I didn't quite enjoy the Claude-generated interpretations and wanted to go for something more scrappy. LLM-generated readings felt anti-mystical. The I Ching was my model of divination and its terseness was the opposite of an LLM. I briefly considered running a &lt;100MB word embedding model to match cards to questions, but given that even an <a href="https://huggingface.co/Qwen/Qwen3-Embedding-8B">8B Embedding model</a> had not been great at semantic clustering, thought it would probably be effort wasted. I ended up regex matching on question topics (with a lovely hit rate of 59% on common Tarot questions pulled from the internet) which yielded a score on dimensions like 'time' and 'heart'. Then the question scores were matched to the cards, each tagged along the same dimensions. Regex, rather delightfully, was the technological contemporary of a cash ATM.<sup class="sidenote-ref">4</sup></p>
-        <div class="sidenote" style="margin-top: -3rem;">
+        <div class="sidenote">
             <span class="sidenote-number">4</span> <a href="https://en.wikipedia.org/wiki/Stephen_Cole_Kleene">Kleene</a> formalized 'regular language' in the 50s, and ATMs were invented by <a href="https://en.wikipedia.org/wiki/Luther_Simjian">Luther Simjian</a> and deployed in the 60s.
         </div>
 
@@ -366,7 +407,7 @@ sitemap: false
         </div>
 
         <p>Seeing people lean in and listen to the ATM instruction, type in questions about their octopus pet or just their name, watch with wonder as the machine prints out a custom reading, and ponder the somewhat cryptic messages with their friends brought me so much joy.<sup class="sidenote-ref">5</sup></p>
-        <div class="sidenote" style="margin-top: -2rem;">
+        <div class="sidenote">
             <span class="sidenote-number">5</span> It was also gratifying when one of the SCAV judges called this the best item they've seen in three years.
         </div>
 
@@ -386,12 +427,12 @@ sitemap: false
         <p>UChicago has always been a very serious place to me, almost too somber. It's the lone midnight walks from Harper, snowboots crunching gray ice. But when people at UChicago have fun, the flavour of fun is serious. I do hope I carry with me this piece of myself that is thrilled by elaborate play, because that is the day-to-day relationship I wish to have with my research and my work.</p>
 
         <p>Thank you to the BJ team whom I worked with for making this happen — Marcus, Mirabella, Piyush, Nathan<sup class="sidenote-ref">6</sup>, and especially Noah for painting and decorating the ATM overnight. Thank you to Izzy for connecting me with the team, the Tech Staff team for supplying a mechanical keyboard, my friends for discussions and sharing the fun, and the SCAV judges for organizing a wonderful Hunt.</p>
-        <div class="sidenote" style="margin-top: -4rem;">
+        <div class="sidenote">
             <span class="sidenote-number">6</span> Thanks for calling me <em>deus ex machina</em>. I don't think I'll ever get that in my life.
         </div>
 
         <div class="footnotes-section">
-            <p class="footnote-text"><sup>1</sup> <a href="https://en.wikipedia.org/wiki/University_of_Chicago_Scavenger_Hunt">SCAV</a>, annual UChicago tradition since 1987. Past items include a nuclear breeder reactor, paper copy of SCAV in space, and a Scavvenwedding.</p>
+            <p class="footnote-text"><sup>1</sup> <a href="https://en.wikipedia.org/wiki/University_of_Chicago_Scavenger_Hunt">SCAV</a>, annual UChicago tradition since 1987. Past items include a nuclear breeder reactor, paper copy of the 2026 SCAV list in outer space, and a Scavvenwedding.</p>
             <p class="footnote-text"><sup>2</sup> Marcus was one of the team captains for Big Burton. The team had gotten pretty worried by that point, since I had been no contact for 13 hours.</p>
             <p class="footnote-text"><sup>3</sup> Fittingly, both <a href="https://www.britannica.com/topic/Lorem-ipsum">lorem ipsum</a>'s usage as gibberish filler in print (taken from Cicero) and Tarot's precursor <a href="https://en.wikipedia.org/wiki/Tarocchini">Tarocchini</a> plausibly emerged around the mid-Italian Renaissance.</p>
             <p class="footnote-text"><sup>4</sup> <a href="https://en.wikipedia.org/wiki/Stephen_Cole_Kleene">Kleene</a> formalized 'regular language' in the 50s, and ATMs were invented by <a href="https://en.wikipedia.org/wiki/Luther_Simjian">Luther Simjian</a> and deployed in the 60s.</p>
@@ -405,67 +446,11 @@ sitemap: false
 <script>
 (function() {
     var leftCol = document.querySelector('.container.essay-page .left-column');
-    if (!leftCol) return;
-    var sidenotes = document.querySelectorAll('.container.essay-page .sidenote');
-    if (!sidenotes.length) return;
+    var toggle  = document.querySelector('.collapse-toggle');
+    if (!leftCol || !toggle) return;
 
-    function isNarrow() { return window.innerWidth <= 768; }
-
-    var fadeDistance = 80;
-    var buffer = 60;
-    var graceZone = 50;
-    var ticking = false;
-
-    var naturalTops = [];
-    function cachePositions() {
-        if (isNarrow()) return;
-        naturalTops = [];
-        sidenotes.forEach(function(sn) {
-            sn.style.transform = '';
-            var rect = sn.getBoundingClientRect();
-            naturalTops.push(rect.top + window.scrollY);
-        });
-    }
-    cachePositions();
-
-    function updateSidenotes() {
-        if (isNarrow()) { ticking = false; return; }
-        var leftBottom = leftCol.getBoundingClientRect().bottom + buffer;
-        var scrollY = window.scrollY;
-
-        sidenotes.forEach(function(sn, i) {
-            var naturalViewportTop = naturalTops[i] - scrollY;
-
-            if (naturalViewportTop < leftBottom) {
-                var offset = leftBottom - naturalViewportTop;
-                sn.style.transform = 'translateY(' + offset + 'px)';
-
-                if (offset <= graceZone) {
-                    sn.style.opacity = '1';
-                } else {
-                    var fadeRatio = 1 - Math.min(1, (offset - graceZone) / fadeDistance);
-                    sn.style.opacity = String(Math.max(0, fadeRatio));
-                }
-            } else {
-                sn.style.transform = '';
-                sn.style.opacity = '1';
-            }
-        });
-        ticking = false;
-    }
-
-    window.addEventListener('scroll', function() {
-        if (!ticking) {
-            window.requestAnimationFrame(updateSidenotes);
-            ticking = true;
-        }
-    }, { passive: true });
-
-    window.addEventListener('resize', function() {
-        cachePositions();
-        updateSidenotes();
-    }, { passive: true });
-
-    updateSidenotes();
+    toggle.addEventListener('click', function() {
+        leftCol.classList.toggle('collapsed');
+    });
 })();
 </script>

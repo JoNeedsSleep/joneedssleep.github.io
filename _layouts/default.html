@@ -631,17 +631,16 @@
             var base = "{{ site.baseurl }}";
             var path = window.location.pathname;
             var isHome = (base ? path === base + "/" : path === "/");
-            if (!isHome) return;
 
             var nav = document.querySelector('.top-nav');
             if (!nav) return;
 
             var ticking = false;
-            var maxFadeDistance = 220; // px scrolled for full fade
+            var fadeDistance = 220;
 
             function updateOpacity() {
                 var y = window.scrollY || window.pageYOffset || 0;
-                var opacity = 1 - Math.min(1, y / maxFadeDistance);
+                var opacity = 1 - Math.min(1, y / fadeDistance);
                 nav.style.opacity = String(opacity);
                 nav.style.pointerEvents = opacity < 0.1 ? 'none' : '';
                 ticking = false;
@@ -654,7 +653,6 @@
                 }
             }, { passive: true });
 
-            // Initialize on load in case page opens mid-scroll
             updateOpacity();
         })();
     </script>
@@ -707,6 +705,95 @@
                 };
                 if (mql.addEventListener) mql.addEventListener('change', onChange);
                 else if (mql.addListener) mql.addListener(onChange);
+            }
+        })();
+    </script>
+    <script>
+        (function() {
+            var leftCol = document.querySelector('.container.essay-page .left-column');
+            var rightCol = document.querySelector('.container.essay-page .right-column');
+            if (!leftCol || !rightCol) return;
+
+            function isNarrow() { return window.innerWidth <= 768; }
+
+            var buffer = 90;   // px below left-column bottom where sidenotes start
+            var fadeZone = 80; // px: fade starts this far below leftBottom, completes at leftBottom
+            var ticking = false;
+
+            var pairs = [];
+            document.querySelectorAll('.container.essay-page .sidenote').forEach(function(sn) {
+                var numEl = sn.querySelector('.sidenote-number');
+                if (!numEl) return;
+                var n = numEl.textContent.trim();
+                var sup = null;
+                document.querySelectorAll('.sidenote-ref').forEach(function(el) {
+                    if (el.textContent.trim() === n) sup = el;
+                });
+                if (sup) pairs.push({ sn: sn, sup: sup, offset: 0 });
+            });
+            if (!pairs.length) return;
+
+            function initOffsets() {
+                if (isNarrow()) return;
+                var leftBottom = leftCol.getBoundingClientRect().bottom + buffer;
+                var prevBottom = -Infinity;
+                var gap = 8;
+                pairs.forEach(function(p) {
+                    var supTop = p.sup.getBoundingClientRect().top;
+                    var snHeight = p.sn.getBoundingClientRect().height;
+                    var targetTop = Math.max(supTop, leftBottom, prevBottom + gap);
+                    p.offset = targetTop - supTop;
+                    prevBottom = targetTop + snHeight;
+                });
+            }
+
+            function updateSidenotes() {
+                if (isNarrow()) { ticking = false; return; }
+                var leftBottom = leftCol.getBoundingClientRect().bottom + buffer;
+                var rcTop = rightCol.getBoundingClientRect().top;
+
+                pairs.forEach(function(p) {
+                    var supTop = p.sup.getBoundingClientRect().top;
+                    var snTop = supTop + p.offset;
+
+                    p.sn.style.top = (supTop - rcTop + p.offset) + 'px';
+
+                    if (snTop >= leftBottom) {
+                        p.sn.style.opacity = '1';
+                    } else if (snTop >= leftBottom - fadeZone) {
+                        p.sn.style.opacity = String((snTop - (leftBottom - fadeZone)) / fadeZone);
+                    } else {
+                        p.sn.style.opacity = '0';
+                    }
+                });
+                ticking = false;
+            }
+
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateSidenotes);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            window.addEventListener('resize', function() {
+                initOffsets();
+                updateSidenotes();
+            }, { passive: true });
+
+            document.addEventListener('sidenotes:refresh', function() {
+                initOffsets();
+                updateSidenotes();
+            });
+
+            initOffsets();
+            updateSidenotes();
+
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(function() {
+                    initOffsets();
+                    updateSidenotes();
+                });
             }
         })();
     </script>

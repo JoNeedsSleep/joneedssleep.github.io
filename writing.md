@@ -89,7 +89,8 @@ permalink: /writing/
             </span>
         </button>
         <div class="social-links">
-            <a href="https://jojiao.substack.com">Substack</a>
+            <a>jojiao [at] uchicago [dot] edu</a>
+            <a href="https://jojiao.substack.com">Substack: Jousting at the Junction</a>
         </div>
     </div>
     <div class="right-column">
