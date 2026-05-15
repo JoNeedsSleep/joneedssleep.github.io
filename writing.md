@@ -20,7 +20,7 @@ permalink: /writing/
     }
 </style>
 
-<div class="container research-page">
+<div class="container">
     <div class="left-column">
         <h1 class="name">Writing</h1>
         <button type="button" id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
