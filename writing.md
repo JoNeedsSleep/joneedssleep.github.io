@@ -10,6 +10,10 @@ permalink: /writing/
         margin-bottom: 2.25rem;
     }
 
+    .right-column writing-entry:first-of-type {
+        margin-top: 2rem;
+    }
+
     .right-column writing-entry:last-of-type {
         margin-bottom: 0;
     }
@@ -18,9 +22,31 @@ permalink: /writing/
         margin: 0.2rem 0;
         line-height: 1.3;
     }
+
+    .right-column writing-entry a,
+    .right-column writing-entry a:hover,
+    .right-column writing-entry a:visited,
+    .right-column writing-entry a:visited:hover {
+        text-decoration: none;
+    }
+
+    .right-column writing-entry a:hover,
+    .right-column writing-entry a:visited:hover {
+        color: var(--link-hover-color);
+    }
+
+    @media screen and (max-width: 768px) {
+        .container.writing-page .right-column {
+            margin-top: 0.1rem;
+        }
+
+        .right-column writing-entry:first-of-type {
+            margin-top: 1.25rem;
+        }
+    }
 </style>
 
-<div class="container">
+<div class="container writing-page">
     <div class="left-column">
         <h1 class="name">Writing</h1>
         <button type="button" id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
@@ -67,6 +93,7 @@ permalink: /writing/
         </div>
     </div>
     <div class="right-column">
+        <p>I enjoy philosophy and history, doing math, and tinkering with machines. I prefer to write longer pieces. My inbox is always open for feedback (<a href="https://www.admonymous.co/joneedssleep">here</a>) and discussion.</p>
         <writing-entry>
             <p><strong><a href="/scav-atm/">Building an Automated Tarot Machine</a></strong></p>
             <p><em>in 48 hours, as part of the UChicago SCAV Hunt</em></p>
