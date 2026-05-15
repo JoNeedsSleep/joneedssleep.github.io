@@ -10,6 +10,10 @@ permalink: /writing/
         margin-bottom: 2.25rem;
     }
 
+    .right-column writing-entry:first-of-type {
+        margin-top: 0.75rem;
+    }
+
     .right-column writing-entry:last-of-type {
         margin-bottom: 0;
     }
@@ -18,9 +22,31 @@ permalink: /writing/
         margin: 0.2rem 0;
         line-height: 1.3;
     }
+
+    .right-column writing-entry a,
+    .right-column writing-entry a:hover,
+    .right-column writing-entry a:visited,
+    .right-column writing-entry a:visited:hover {
+        text-decoration: none;
+    }
+
+    .right-column writing-entry a:hover,
+    .right-column writing-entry a:visited:hover {
+        color: var(--link-hover-color);
+    }
+
+    @media screen and (max-width: 768px) {
+        .container.writing-page .right-column {
+            margin-top: 0.1rem;
+        }
+
+        .right-column writing-entry:first-of-type {
+            margin-top: 0.4rem;
+        }
+    }
 </style>
 
-<div class="container">
+<div class="container writing-page">
     <div class="left-column">
         <h1 class="name">Writing</h1>
         <button type="button" id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
