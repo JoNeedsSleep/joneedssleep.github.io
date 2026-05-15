@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>Building an Automated Tarot Machine – Jo Jiao</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F7F4ED;
+            --text-color: #1a1a1a;
+            --link-hover-color: #ffce6b;
+            --blockquote-border: rgba(26, 26, 26, 0.15);
+            --footnote-color: rgba(26, 26, 26, 0.5);
+            --separator-color: rgba(26, 26, 26, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #222;
+            --text-color: #e0e0e0;
+            --link-hover-color: #ffce6b;
+            --blockquote-border: rgba(224, 224, 224, 0.15);
+            --footnote-color: rgba(224, 224, 224, 0.45);
+            --separator-color: rgba(224, 224, 224, 0.1);
+        }
+
+        html { overflow-y: scroll; }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            line-height: 1.75;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .top-nav {
+            position: fixed;
+            top: 1.2rem;
+            right: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            font-family: 'Noto Sans', sans-serif;
+            z-index: 200;
+            font-size: 0.95rem;
+        }
+
+        .top-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .top-nav a:hover { color: var(--link-hover-color); }
+        .top-nav span { color: var(--text-color); opacity: 0.4; }
+
+        .container {
+            max-width: 900px;
+            margin: 5rem auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .left-column {
+            text-align: right;
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .essay-title {
+            font-family: 'Special Gothic Expanded One', sans-serif;
+            font-size: 1.35rem;
+            font-weight: normal;
+            letter-spacing: 0.03em;
+            line-height: 1.3;
+            margin: 0 0 0.6rem 0;
+        }
+
+        .essay-byline {
+            font-size: 0.88rem;
+            color: var(--text-color);
+            margin-bottom: 0.4rem;
+        }
+
+        .essay-meta {
+            font-size: 0.88rem;
+            color: var(--text-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .essay-meta a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .essay-meta a:hover { color: var(--link-hover-color); }
+
+        .essay-music {
+            font-size: 0.78rem;
+            color: var(--footnote-color);
+            font-style: italic;
+        }
+
+        .essay-music a {
+            color: var(--footnote-color);
+            text-decoration: underline;
+            text-decoration-color: var(--separator-color);
+            transition: color 0.2s;
+        }
+
+        .essay-music a:hover { color: var(--link-hover-color); }
+
+        /* Right column: essay body */
+        .right-column {
+            max-width: 600px;
+            position: relative;
+        }
+
+        .right-column p {
+            margin: 0 0 1.25rem 0;
+            font-size: 0.95rem;
+        }
+
+        .right-column a {
+            color: var(--text-color);
+            text-decoration: underline;
+            text-decoration-color: rgba(255, 206, 107, 0.4);
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
+            transition: color 0.2s;
+        }
+
+        .right-column a:hover { color: var(--link-hover-color); }
+
+        .right-column h2 {
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1rem 0;
+            letter-spacing: 0.02em;
+        }
+
+        blockquote {
+            margin: 2rem 0;
+            padding: 0 0 0 1.25rem;
+            border-left: 2px solid var(--blockquote-border);
+            font-style: italic;
+            font-size: 0.9rem;
+            line-height: 1.65;
+        }
+
+        blockquote .attribution {
+            display: block;
+            margin-top: 0.5rem;
+            font-style: normal;
+            font-size: 0.82rem;
+            color: var(--footnote-color);
+        }
+
+        /* Sidenotes */
+        .sidenote-ref {
+            font-size: 0.75rem;
+            color: var(--footnote-color);
+            vertical-align: super;
+            line-height: 0;
+            cursor: default;
+        }
+
+        .sidenote {
+            position: absolute;
+            right: calc(100% + 3rem);
+            width: 220px;
+            text-align: right;
+            font-size: 0.78rem;
+            color: var(--footnote-color);
+            line-height: 1.5;
+            will-change: transform, opacity;
+        }
+
+        .sidenote a {
+            color: var(--footnote-color) !important;
+            text-decoration: underline;
+            text-decoration-color: var(--separator-color) !important;
+        }
+
+        .sidenote a:hover {
+            color: var(--link-hover-color) !important;
+        }
+
+        .sidenote-number {
+            font-size: 0.72rem;
+            vertical-align: super;
+            margin-right: 0.2rem;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: var(--separator-color);
+            border-radius: 2px;
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.82rem;
+            color: var(--footnote-color);
+            font-style: italic;
+        }
+
+        .tarot-print {
+            width: 55%;
+            margin: 1.5rem auto;
+            aspect-ratio: 4/6;
+            background: var(--separator-color);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.82rem;
+            color: var(--footnote-color);
+            font-style: italic;
+        }
+
+        .audio-block {
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--footnote-color);
+            background: var(--separator-color);
+            padding: 0.75rem 1rem;
+            border-radius: 2px;
+            margin: 1rem 0 1.5rem;
+            line-height: 1.8;
+        }
+
+        .audio-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .audio-line svg {
+            flex-shrink: 0;
+            width: 12px;
+            height: 12px;
+            fill: var(--footnote-color);
+            margin-top: 0.35rem;
+        }
+
+        .footnotes-section {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--separator-color);
+        }
+
+        .footnote-text {
+            font-size: 0.82rem;
+            color: var(--footnote-color);
+            line-height: 1.55;
+            margin: 0 0 0.75rem 0;
+            padding-left: 1rem;
+            text-indent: -1rem;
+        }
+
+        .footnote-text a {
+            color: var(--footnote-color) !important;
+            text-decoration: underline;
+            text-decoration-color: var(--separator-color) !important;
+        }
+
+        .footnote-text a:hover {
+            color: var(--link-hover-color) !important;
+        }
+
+        /* Mobile: hide sidenotes, rely on bottom footnotes */
+        @media screen and (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                margin: 2rem auto;
+                padding: 1rem;
+                row-gap: 0.25rem;
+            }
+
+            .left-column {
+                text-align: center;
+                position: static;
+                padding: 0;
+                margin-bottom: 1rem;
+            }
+
+            .right-column {
+                padding: 0 0.75rem;
+            }
+
+            .sidenote {
+                display: none;
+            }
+
+            .essay-title {
+                font-size: 1.5rem;
+                text-align: center;
+            }
+        }
+    </style>
+    <script>
+        (function() {
+            var stored;
+            try { stored = localStorage.getItem('theme'); } catch(e) {}
+            var prefersDark = false;
+            try { prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; } catch(e) {}
+            if (stored === 'dark' || (!stored && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+</head>
+<body>
+
+<nav class="top-nav">
+    <a href="/">Jo J. Jiao</a>
+    <span>/</span>
+    <a href="/writing/">Writing</a>
+    <span>/</span>
+    <a href="/research/">Research</a>
+</nav>
+
+<div class="container">
+    <div class="left-column">
+        <h1 class="essay-title">Building an Automated Tarot Machine</h1>
+        <div class="essay-byline"><em>in 48 hours, as part of the UChicago SCAV Hunt</em></div>
+        <div class="essay-meta"><a href="/">Jo J. Jiao</a>, May 2026, Hyde Park</div>
+        <div class="essay-music">Recommended music:<br><a href="https://www.youtube.com/watch?v=4Rc25CkOxEk"><em>Mozart, Requiem in D Minor I. Introitus</em></a></div>
+    </div>
+
+    <div class="right-column">
+
+        <blockquote>
+            each of us writing our lines of poetry<br>
+            was playing, now in this meter, now in that one,<br>
+            delivering lines in turn while laughing and [drinking] wine.
+            <span class="attribution">—Catullus 50</span>
+        </blockquote>
+
+        <p>I was glancing through the <a href="https://scavhunt.uchicago.edu/assets/lists/2026.pdf">SCAV 2026</a><sup class="sidenote-ref">1</sup> list during the NeurIPS push, and the description for an Automated Tarot Machine (abbreviated ATM) came up.</p>
+        <div class="sidenote" style="margin-top: -2.5rem;">
+            <span class="sidenote-number">1</span> <a href="https://en.wikipedia.org/wiki/University_of_Chicago_Scavenger_Hunt">SCAV</a>, annual UChicago tradition since 1987. Past items include a nuclear breeder reactor, paper copy of SCAV in space, and a Scavvenwedding.
+        </div>
+
+        <div class="image-placeholder">scav_atm_description</div>
+
+        <p>It was a showcase item (worth many points), it looked like a challenge, and it was absurd in a way that tickled my sense of humour, so I got pretty excited. Once the conference deadline passed, I was off to scavving. I enumerated my home inventory in my head, and realized that I had many of the items to make this happen — a deck of Tarot cards I've never used or known how to use from an estate sale last summer, a Raspberry Pi, a DAC HAT for the Pi, and an analog speaker.</p>
+
+        <p>Now, having lived in Woodlawn for two years, a house without a SCAV team and now living in a flat off campus, I didn't have an obvious team in mind to SCAV for, so on Thursday I went about searching for a team that would welcome my enthusiasm, and my friend Izzy connected me to the Burton-Judson (BJ) dorm team.</p>
+
+        <p>Even before I found a team, I was thinking through the execution plans. There's a Pareto curve of coolness and feasibility. I had one day and a half and a modest budget, and wanted to make the best ATM that I could. I considered a card shuffler paired with an image sensor. Or using good-old-fashioned punched holes in the Tarot card (with 7 holes since 2<sup>7</sup>&nbsp;>&nbsp;78 tarot cards&nbsp;>&nbsp;2<sup>6</sup>) to encode the card meaning like a Jacquard loom of faith. Or having the cards lined up on a circle with a hand in the middle to kick 3 cards out. With the principle of no-screens and tractability, I went with this plan: a Raspberry Pi takes in some input, processes it, and prints a reading plus interpretation out; a speaker plays mysterious music while instructing the user like an actual ATM.</p>
+
+        <div class="image-placeholder">scav_atm_diagram</div>
+
+        <p>Friday afternoon. I needed a mechanical keyboard with a USB connector, since bluetooth connection would be unstable. I recalled that two years ago when I first got access to the CS department compute cluster, I was given some old spare trackpads. I tried my luck there this time, and after explaining that I was building an automated Tarot machine for SCAV, the tech staff team happily let me take a keyboard. The only component I needed to acquire now was a printer. Rather serendipitously, the only thermal printer I could find that supported linux and arrived on time was a 4''×6'' label printer, so the final product ended up having the added benefit of being a cool laptop sticker.</p>
+
+        <p>I caught up on some sleep on Friday night<sup class="sidenote-ref">2</sup>, and on Saturday afternoon, I sketched a plan with Marcus, took the components to the BJ team headquarters, sadly barely missing the part where the team set a tinfoil hamster on fire in a microwave for "25 warm and cozy points".</p>
+        <div class="sidenote" style="margin-top: -3rem;">
+            <span class="sidenote-number">2</span> Marcus was one of the team captains for Big Burton. The team had gotten pretty worried by that point, since I had been no contact for 13 hours.
+        </div>
+
+        <p>I arrived at the headquarters in which I was about to spend the next 10 hours, a dim basement space carpeted in blue, right outside the laundry room, scattered with glue guns, planks, cotton, scissors, and stuffed testicles. I had unit-tested all my components, loaded Raspberry OS Lite onto my Pi, and had a vague idea of what to code into the Raspberry Pi and how to display it. Time to embody the Ten of Wands and get to work.</p>
+
+        <div class="image-placeholder" style="display:flex;gap:1rem;aspect-ratio:auto;">
+            <div style="flex:1;aspect-ratio:4/3;background:var(--separator-color);display:flex;align-items:center;justify-content:center;border-radius:2px;font-size:0.82rem;color:var(--footnote-color);font-style:italic;">Big_Burton_HQ</div>
+            <div style="flex:1;aspect-ratio:4/3;background:var(--separator-color);display:flex;align-items:center;justify-content:center;border-radius:2px;font-size:0.82rem;color:var(--footnote-color);font-style:italic;">initial_layout</div>
+        </div>
+
+        <h2>The software.</h2>
+
+        <p>I had a copy of the 1971 Rider-Waite tarot deck, which I found out had an <a href="https://github.com/metabismuth/tarot-json/tree/master">open-sourced scan</a> of each card. All that was needed was converting it to black and white.</p>
+
+        <div class="image-placeholder">scav_atm_initial_spread</div>
+
+        <div class="tarot-print">tarot card print sample</div>
+
+        <p>The thermal printer was surprisingly high quality! I formatted a 4''×6'' design into the shape of an ATM receipt and inserted lorem ipsum text for the interpretation for now.<sup class="sidenote-ref">3</sup></p>
+        <div class="sidenote" style="margin-top: -2rem;">
+            <span class="sidenote-number">3</span> Fittingly, both <a href="https://www.britannica.com/topic/Lorem-ipsum">lorem ipsum</a>'s usage as gibberish filler in print (taken from Cicero) and Tarot's precursor <a href="https://en.wikipedia.org/wiki/Tarocchini">Tarocchini</a> plausibly emerged around the mid-Italian Renaissance.
+        </div>
+
+        <p>Instructions were mostly given through the speaker, which also played the <a href="https://www.youtube.com/watch?v=4Rc25CkOxEk">Introitus of Mozart's Requiem</a> on repeat. After testing some truly robotic voices, I went to a corner facing the bathroom, breathed in deep, expanded my ribs, and narrated some instructions my friend the next day, terrified, identified as AI.</p>
+
+        <div class="audio-block">
+            <div class="audio-line"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><polygon points="9.5,7 9.5,17 18,12" fill="var(--bg-color)"/></svg> "Welcome to the Big Burton Automated Tarot Machine. Please type in your guiding question, and then press enter."</div>
+            <div class="audio-line"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><polygon points="9.5,7 9.5,17 18,12" fill="var(--bg-color)"/></svg> "Please wait while your tarot reading is being processed."</div>
+            <div class="audio-line"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><polygon points="9.5,7 9.5,17 18,12" fill="var(--bg-color)"/></svg> "Please take your reading."</div>
+        </div>
+
+        <p>Now I know how to sound like subway announcements.</p>
+
+        <p>There were a few ways I could've gone about the "non-random" fortune-telling algorithm. I didn't quite enjoy the Claude-generated interpretations and wanted to go for something more scrappy. LLM-generated readings felt anti-mystical. The I Ching was my model of divination and its terseness was the opposite of an LLM. I briefly considered running a &lt;100MB word embedding model to match cards to questions, but given that even an <a href="https://huggingface.co/Qwen/Qwen3-Embedding-8B">8B Embedding model</a> had not been great at semantic clustering, thought it would probably be effort wasted. I ended up regex matching on question topics (with a lovely hit rate of 59% on common Tarot questions pulled from the internet) which yielded a score on dimensions like 'time' and 'heart'. Then the question scores were matched to the cards, each tagged along the same dimensions. Regex, rather delightfully, was the technological contemporary of a cash ATM.<sup class="sidenote-ref">4</sup></p>
+        <div class="sidenote" style="margin-top: -3rem;">
+            <span class="sidenote-number">4</span> <a href="https://en.wikipedia.org/wiki/Stephen_Cole_Kleene">Kleene</a> formalized 'regular language' in the 50s, and ATMs were invented by <a href="https://en.wikipedia.org/wiki/Luther_Simjian">Luther Simjian</a> and deployed in the 60s.
+        </div>
+
+        <p>I pulled <a href="https://github.com/dariusk/corpora/blob/master/data/divination/tarot_interpretations.json">a library of card-meanings</a> as interpretation for each card. After seeing a few oddballs in the test runs ("This card represents an older man with an insightful, deliberate spirit, likely born between May 11th and June 10th"), I decided to hand-prune the 78 card meanings and ended up rewriting most of the interpretations (this is a habit I got from manually inspecting LLM-generated finetuning datasets in my most recent research). Some friends of mine say I have a knack for uttering profound-sounding strings at a snap. Profundity may not be the right word, but this skill certainly came in useful. Some highlights: <em>Queen of Cups, the water knows the shape of what you carry; King of Wands, the fire speaks first, all other voices wait; The Star, Starstruck and star-crossed.</em></p>
+
+        <h2>The design.</h2>
+
+        <p>I was tempted to create <a href="https://www.georgehart.com/cards/cards.html">polyhedral constructions</a> with the Tarot cards, but it seemed a little sacrilegious and impractical. Instead, I was offered as a base a rather imposing and tippidy wooden structure. Marcus then brought me to the BJ SCAV room to dig up some materials. Among them he listed a full set of saw blades without a handle; DELL computers from the last century; leftover materials from previous SCAVs. We made many turns in the winding corridors under the low buzz of the BJ basement. We scavenged for a good box amongst a pile of planks, old keyboards and flattened cardboard boxes, and took a roll of Kraft paper, a plastic crate, and two glass boxes. A vision was in the cards.</p>
+
+        <div class="image-placeholder">scav_atm_barebones_scaffold</div>
+
+        <p>Noah and I wrapped the Kraft paper around the wooden scaffold. The reading would be printed behind the veil of the Kraft paper and channeled through a slit. Noah and Piyush painted the entirety of the box black — indeed matching with the twin BJ showcase item, a "space-themed activity cube with an interactive bead diagram of space to teach navigation, translations of alien languages, breathing in low-oxygen environments, grappling with the impenetrable loneliness of space." We placed the keyboard on top, the speakers behind, and propped the thermal printer up with the crates and glass boxes.</p>
+
+        <p>Sunday 2am. I needed to sleep. I handed off the work rather gratefully to Noah, who, as part of his all-nighter for SCAV, tiled the cards on the box. Nathan sawed wood and propped the Fool card up. While all this was happening, I lay on my sofa, restless with anticipation.</p>
+
+        <blockquote>
+            And I left from there [so] inflamed<br>
+            by your charm and wit, Licinius,<br>
+            that neither did food placate poor me<br>
+            nor did sleep shut my little eyes in peace,<br>
+            but rather I tossed about on the whole couch<br>
+            from uncontrollable spasms, wishing to see the light
+            <span class="attribution">—Catullus 50</span>
+        </blockquote>
+
+        <p>8:30 am. May 8th, 2026. Ida Noyes Hall. The ATM box was ready and carried over by the team from BJ. I brought the electric components and started re-assembling them. At 9am the somber music of the Requiem was flowing as the thermal printer cranked out some beautiful little artefacts.</p>
+
+        <p>9:30am, showcase judge time. When the SCAV judges came to the Big Burton section, we presented the activity cube first, and then I introduced the ATM: "It's a moonless Sunday morning and you're pondering deep philosophical questions. You'd like a psychic to give you the answer, but they are too far. Worry not! There's an ATM down the road....."</p>
+
+        <div class="image-placeholder" style="display:flex;gap:1rem;aspect-ratio:auto;">
+            <div style="flex:2;aspect-ratio:16/9;background:var(--separator-color);display:flex;align-items:center;justify-content:center;border-radius:2px;font-size:0.82rem;color:var(--footnote-color);font-style:italic;">▶ atm_demo</div>
+            <div style="flex:1;aspect-ratio:3/4;background:var(--separator-color);display:flex;align-items:center;justify-content:center;border-radius:2px;font-size:0.82rem;color:var(--footnote-color);font-style:italic;">atm_exterior</div>
+        </div>
+
+        <p>Seeing people lean in and listen to the ATM instruction, type in questions about their octopus pet or just their name, watch with wonder as the machine prints out a custom reading, and ponder the somewhat cryptic messages with their friends brought me so much joy.<sup class="sidenote-ref">5</sup></p>
+        <div class="sidenote" style="margin-top: -2rem;">
+            <span class="sidenote-number">5</span> It was also gratifying when one of the SCAV judges called this the best item they've seen in three years.
+        </div>
+
+        <div class="image-placeholder" style="width:55%;margin:1.5rem auto;aspect-ratio:4/6;">atm_receipt — a happy mother's day message to my mum. My mum told me the readings were super accurate XD</div>
+
+        <p>I went around visiting other teams' booths. One group ended up running an LLM-powered custom-music app on a laptop. A human dispensed the cards behind a carefully painted box. An alumni team made 16 hand-drawn hockey-themed Tarot cards and a circular device with a crank that picked the cards, also powered by a Raspberry Pi. They said they don't know if the machine will work, though I admired the spirit, since they did what I didn't think any team would possibly attempt, in the true spirit of SCAV.</p>
+
+        <p>We won 3rd at SCAV this year. I really loved the enthusiasm of the Big Burton team, and it was no wonder such a small team could place so high.</p>
+
+        <blockquote>
+            My half-dead limbs lay strewn across the couch<br>
+            exhausted by their exertion,<br>
+            but, delightful [friend], I made [this] poem for you
+            <span class="attribution">—Catullus 50</span>
+        </blockquote>
+
+        <p>UChicago has always been a very serious place to me, almost too somber. It's the lone midnight walks from Harper, snowboots crunching gray ice. But when people at UChicago have fun, the flavour of fun is serious. I do hope I carry with me this piece of myself that is thrilled by elaborate play, because that is the day-to-day relationship I wish to have with my research and my work.</p>
+
+        <p>Thank you to the BJ team whom I worked with for making this happen — Marcus, Mirabella, Piyush, Nathan<sup class="sidenote-ref">6</sup>, and especially Noah for painting and decorating the ATM overnight. Thank you to Izzy for connecting me with the team, the Tech Staff team for supplying a mechanical keyboard, my friends for discussions and sharing the fun, and the SCAV judges for organizing a wonderful Hunt.</p>
+        <div class="sidenote" style="margin-top: -4rem;">
+            <span class="sidenote-number">6</span> Thanks for calling me <em>deus ex machina</em>. I don't think I'll ever get that in my life.
+        </div>
+
+        <div class="footnotes-section">
+            <p class="footnote-text"><sup>1</sup> <a href="https://en.wikipedia.org/wiki/University_of_Chicago_Scavenger_Hunt">SCAV</a>, annual UChicago tradition since 1987. Past items include a nuclear breeder reactor, paper copy of SCAV in space, and a Scavvenwedding.</p>
+            <p class="footnote-text"><sup>2</sup> Marcus was one of the team captains for Big Burton. The team had gotten pretty worried by that point, since I had been no contact for 13 hours.</p>
+            <p class="footnote-text"><sup>3</sup> Fittingly, both <a href="https://www.britannica.com/topic/Lorem-ipsum">lorem ipsum</a>'s usage as gibberish filler in print (taken from Cicero) and Tarot's precursor <a href="https://en.wikipedia.org/wiki/Tarocchini">Tarocchini</a> plausibly emerged around the mid-Italian Renaissance.</p>
+            <p class="footnote-text"><sup>4</sup> <a href="https://en.wikipedia.org/wiki/Stephen_Cole_Kleene">Kleene</a> formalized 'regular language' in the 50s, and ATMs were invented by <a href="https://en.wikipedia.org/wiki/Luther_Simjian">Luther Simjian</a> and deployed in the 60s.</p>
+            <p class="footnote-text"><sup>5</sup> It was also gratifying when one of the SCAV judges called this the best item they've seen in three years.</p>
+            <p class="footnote-text"><sup>6</sup> Thanks for calling me <em>deus ex machina</em>. I don't think I'll ever get that in my life.</p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+(function() {
+    var leftCol = document.querySelector('.left-column');
+    if (!leftCol) return;
+    var sidenotes = document.querySelectorAll('.sidenote');
+    if (!sidenotes.length) return;
+
+    // Skip on narrow screens where sidenotes are hidden
+    function isNarrow() { return window.innerWidth <= 768; }
+
+    var fadeDistance = 80;
+    var buffer = 60;
+    var graceZone = 50; // px of clamping before any fading begins
+    var ticking = false;
+
+    // Cache each sidenote's natural offset from document top
+    var naturalTops = [];
+    function cachePositions() {
+        if (isNarrow()) return;
+        naturalTops = [];
+        sidenotes.forEach(function(sn) {
+            sn.style.transform = '';
+            var rect = sn.getBoundingClientRect();
+            naturalTops.push(rect.top + window.scrollY);
+        });
+    }
+    cachePositions();
+
+    function updateSidenotes() {
+        if (isNarrow()) { ticking = false; return; }
+        var leftBottom = leftCol.getBoundingClientRect().bottom + buffer;
+        var scrollY = window.scrollY;
+
+        sidenotes.forEach(function(sn, i) {
+            var naturalViewportTop = naturalTops[i] - scrollY;
+
+            if (naturalViewportTop < leftBottom) {
+                var offset = leftBottom - naturalViewportTop;
+                sn.style.transform = 'translateY(' + offset + 'px)';
+
+                if (offset <= graceZone) {
+                    sn.style.opacity = '1';
+                } else {
+                    var fadeRatio = 1 - Math.min(1, (offset - graceZone) / fadeDistance);
+                    sn.style.opacity = String(Math.max(0, fadeRatio));
+                }
+            } else {
+                sn.style.transform = '';
+                sn.style.opacity = '1';
+            }
+        });
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(updateSidenotes);
+            ticking = true;
+        }
+    }, { passive: true });
+
+    window.addEventListener('resize', function() {
+        cachePositions();
+        updateSidenotes();
+    }, { passive: true });
+
+    updateSidenotes();
+})();
+</script>
+
+</body>
+</html>
