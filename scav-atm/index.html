@@ -50,6 +50,7 @@ sitemap: false
         font-size: 0.78rem;
         color: var(--footnote-color);
         font-style: italic;
+        margin: 0 0 1.5rem 0;
     }
 
     .essay-music a {
@@ -225,8 +226,6 @@ sitemap: false
     <div class="left-column">
         <h1 class="name">Building an Automated Tarot Machine</h1>
         <div class="essay-byline"><em>in 48 hours, as part of the UChicago SCAV Hunt</em></div>
-        <div class="essay-meta"><a href="/">Jo J. Jiao</a>, May 2026, Hyde Park</div>
-        <div class="essay-music">Recommended music:<br><a href="https://www.youtube.com/watch?v=4Rc25CkOxEk"><em>Mozart, Requiem in D Minor I. Introitus</em></a></div>
         <button type="button" id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
             <span class="ub-stage">
                 <span class="ub-world">
@@ -266,9 +265,11 @@ sitemap: false
                 </span>
             </span>
         </button>
+        <div class="essay-meta"><a href="/">Jo J. Jiao</a>, May 2026, Hyde Park</div>
     </div>
 
     <div class="right-column">
+        <div class="essay-music">Recommended music: <a href="https://www.youtube.com/watch?v=4Rc25CkOxEk"><em>Mozart, Requiem in D Minor I. Introitus</em></a></div>
 
         <blockquote>
             each of us writing our lines of poetry<br>
@@ -406,6 +407,7 @@ sitemap: false
 (function() {
     var leftCol = document.querySelector('.container.essay-page .left-column');
     if (!leftCol) return;
+    var titleBlock = leftCol.querySelector('.name') || leftCol;
     var sidenotes = document.querySelectorAll('.container.essay-page .sidenote');
     if (!sidenotes.length) return;
 
@@ -430,14 +432,14 @@ sitemap: false
 
     function updateSidenotes() {
         if (isNarrow()) { ticking = false; return; }
-        var leftBottom = leftCol.getBoundingClientRect().bottom + buffer;
+        var floorY = titleBlock.getBoundingClientRect().bottom + buffer;
         var scrollY = window.scrollY;
 
         sidenotes.forEach(function(sn, i) {
             var naturalViewportTop = naturalTops[i] - scrollY;
 
-            if (naturalViewportTop < leftBottom) {
-                var offset = leftBottom - naturalViewportTop;
+            if (naturalViewportTop < floorY) {
+                var offset = floorY - naturalViewportTop;
                 sn.style.transform = 'translateY(' + offset + 'px)';
 
                 if (offset <= graceZone) {
