@@ -40,6 +40,12 @@ permalink: /writing/
             margin-top: 0.1rem;
         }
 
+        /* Tighten the gap between the title block and the intro paragraph
+           on mobile by removing the intro paragraph's default top margin. */
+        .container.writing-page .right-column > p:first-child {
+            margin-top: 0;
+        }
+
         .right-column writing-entry:first-of-type {
             margin-top: 1.25rem;
         }

@@ -480,14 +480,14 @@
                 margin-top: 0.75rem;
             }
 
-            /* Match the compact body-text feel of the writing page across
-               all pages on mobile. Targets direct-child paragraphs only, so
-               writing-entry / research-entry / essay-page p sizing isn't
-               double-shrunk. */
+            /* Match the typography of the scav-atm essay-page on mobile
+               across all pages: body paragraphs at 0.95rem with line-height
+               1.7. Targets direct-child p and details p so writing-entry /
+               research-entry / essay-page p sizing isn't double-applied. */
             .right-column > p,
             .right-column > details p {
-                font-size: 0.9rem;
-                line-height: 1.55;
+                font-size: 0.95rem;
+                line-height: 1.7;
             }
         }
 
