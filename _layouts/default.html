@@ -699,9 +699,8 @@
             try { mql = window.matchMedia('(prefers-color-scheme: dark)'); } catch (e) { mql = null; }
             if (mql) {
                 var onChange = function(e) {
-                    if (!getStoredTheme()) {
-                        applyTheme(e.matches ? 'dark' : 'light');
-                    }
+                    try { localStorage.removeItem(storageKey); } catch(e2) {}
+                    applyTheme(e.matches ? 'dark' : 'light');
                 };
                 if (mql.addEventListener) mql.addEventListener('change', onChange);
                 else if (mql.addListener) mql.addListener(onChange);
