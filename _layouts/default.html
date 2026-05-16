@@ -480,13 +480,12 @@
                 margin-top: 0.75rem;
             }
 
-            /* Match the typography of the scav-atm essay-page on mobile
-               across all pages: body paragraphs at 0.95rem with line-height
-               1.7. Targets direct-child p and details p so writing-entry /
-               research-entry / essay-page p sizing isn't double-applied. */
+            /* Body paragraphs on mobile: 0.9rem with line-height 1.7.
+               Targets direct-child p and details p so writing-entry /
+               research-entry sizing isn't double-applied. */
             .right-column > p,
             .right-column > details p {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
                 line-height: 1.7;
             }
         }
@@ -807,42 +806,6 @@
                     updateSidenotes();
                 });
             }
-        })();
-    </script>
-    <script>
-        /* On mobile, if the rendered content is wider than the viewport,
-           shrink the initial scale so the whole pane is visible without
-           pinching. Pinch-zoom still works after load. */
-        (function() {
-            var meta = document.querySelector('meta[name="viewport"]');
-            if (!meta) return;
-
-            function fit() {
-                if (window.innerWidth > 768) return;
-                var doc = document.documentElement;
-                var contentWidth = Math.max(
-                    doc.scrollWidth,
-                    doc.offsetWidth,
-                    document.body ? document.body.scrollWidth : 0,
-                    document.body ? document.body.offsetWidth : 0
-                );
-                var viewport = window.innerWidth;
-                if (contentWidth > viewport + 1) {
-                    var scale = viewport / contentWidth;
-                    meta.setAttribute(
-                        'content',
-                        'width=device-width, initial-scale=' + scale.toFixed(3) +
-                        ', maximum-scale=3.0, user-scalable=yes'
-                    );
-                }
-            }
-
-            if (document.readyState === 'complete' || document.readyState === 'interactive') {
-                fit();
-            } else {
-                document.addEventListener('DOMContentLoaded', fit);
-            }
-            window.addEventListener('load', fit);
         })();
     </script>
 </body>
