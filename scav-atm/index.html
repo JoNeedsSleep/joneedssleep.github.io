@@ -352,7 +352,7 @@ sitemap: false
             <span class="sidenote-number"><a href="#fn-1">1</a></span> <a href="https://en.wikipedia.org/wiki/University_of_Chicago_Scavenger_Hunt">SCAV</a>, annual UChicago tradition since 1987. Past items include a nuclear breeder reactor, paper copy of the 2026 SCAV list in outer space, and a Scavvenwedding.
         </div>
 
-        <img src="/assets/images/scav-atm/scav_atm_description.png" alt="SCAV 2026 ATM item description" style="width:100%;margin:1.5rem 0;display:block;border-radius:2px;">
+        <img src="/assets/images/scav-atm/scav_atm_description.webp" alt="SCAV 2026 ATM item description" style="width:100%;margin:1.5rem 0;display:block;border-radius:2px;">
 
         <p>It was a showcase item (worth many points), it looked like a challenge, and it was absurd in a way that tickled my sense of humour, so I got pretty excited. Once the conference deadline passed, I was off to scavving. I enumerated my home inventory in my head, and realized that I had many of the items to make this happen — a deck of Tarot cards I've never used or known how to use from an estate sale last summer, a Raspberry Pi, a DAC HAT for the Pi, and an analog speaker.</p>
 
@@ -360,7 +360,7 @@ sitemap: false
 
         <p>Even before I found a team, I was thinking through the execution plans. There's a Pareto curve of coolness and feasibility. I had one day and a half and a modest budget, and wanted to make the best ATM that I could. I considered a card shuffler paired with an image sensor. Or using good-old-fashioned punched holes in the Tarot card (with 7 holes since 2<sup>7</sup>&nbsp;>&nbsp;78 tarot cards&nbsp;>&nbsp;2<sup>6</sup>) to encode the card meaning like a Jacquard loom of faith. Or having the cards lined up on a circle with a hand in the middle to kick 3 cards out. With the principle of no-screens and tractability, I went with this plan: a Raspberry Pi takes in some input, processes it, and prints a reading plus interpretation out; a speaker plays mysterious music while instructing the user like an actual ATM.</p>
 
-        <img src="/assets/images/scav-atm/initial_sketch.JPG" alt="Initial system sketch" style="width:45%;margin:1.5rem auto;display:block;border-radius:2px;">
+        <img src="/assets/images/scav-atm/initial_sketch.webp" alt="Initial system sketch" style="width:45%;margin:1.5rem auto;display:block;border-radius:2px;">
 
         <p>Friday afternoon. I needed a mechanical keyboard with a USB connector, since bluetooth connection would be unstable. I recalled that two years ago when I first got access to the CS department compute cluster, I was given some old spare trackpads. I tried my luck there this time, and after explaining that I was building an automated Tarot machine for SCAV, the tech staff team happily let me take a keyboard. The only component I needed to acquire now was a printer. Rather serendipitously, the only thermal printer I could find that supported linux and arrived on time was a 4''×6'' label printer, so the final product ended up having the added benefit of being a cool laptop sticker.</p>
 
@@ -372,15 +372,15 @@ sitemap: false
         <p>I arrived at the headquarters in which I was about to spend the next 10 hours, a dim basement space carpeted in blue, right outside the laundry room, scattered with glue guns, planks, cotton, scissors, and stuffed testicles. I had unit-tested all my components, loaded Raspberry OS Lite onto my Pi, and had a vague idea of what to code into the Raspberry Pi and how to display it. Time to embody the Ten of Wands and get to work.</p>
 
         <div style="display:flex;gap:1rem;margin:1.5rem 0;">
-            <img src="/assets/images/scav-atm/big_burton_hq.JPG" alt="Big Burton HQ" style="flex:1;width:0;aspect-ratio:4/3;object-fit:cover;border-radius:2px;">
-            <img src="/assets/images/scav-atm/initial_layout.jpg" alt="Initial component layout" style="flex:1;width:0;aspect-ratio:4/3;object-fit:cover;border-radius:2px;">
+            <img src="/assets/images/scav-atm/big_burton_hq.webp" alt="Big Burton HQ" style="flex:1;width:0;aspect-ratio:4/3;object-fit:cover;border-radius:2px;">
+            <img src="/assets/images/scav-atm/initial_layout.webp" alt="Initial component layout" style="flex:1;width:0;aspect-ratio:4/3;object-fit:cover;border-radius:2px;">
         </div>
 
         <h2>The software.</h2>
 
         <p>I had a copy of the 1971 Rider-Waite tarot deck, which I found out had an <a href="https://github.com/metabismuth/tarot-json/tree/master">open-sourced scan</a> of each card. All that was needed was converting it to black and white.</p>
 
-        <img src="/assets/images/scav-atm/tarot_card_print_sample.png" alt="Tarot card print sample" style="width:38%;margin:1.5rem auto;display:block;border-radius:2px;">
+        <img src="/assets/images/scav-atm/tarot_card_print_sample.webp" alt="Tarot card print sample" style="width:38%;margin:1.5rem auto;display:block;border-radius:2px;">
 
         <p>The thermal printer was surprisingly high quality! I formatted a 4''×6'' design into the shape of an ATM receipt and inserted lorem ipsum text for the interpretation for now.<sup class="sidenote-ref"><a href="#fn-3">3</a></sup></p>
         <div class="sidenote">
@@ -412,13 +412,13 @@ sitemap: false
         <p>I was tempted to create <a href="https://www.georgehart.com/cards/cards.html">polyhedral constructions</a> with the Tarot cards, but it seemed a little sacrilegious and impractical. Instead, I was offered as a base a rather imposing and tippidy wooden structure. Marcus then brought me to the BJ SCAV room to dig up some materials. Among them he listed a full set of saw blades without a handle; DELL computers from the last century; leftover materials from previous SCAVs. We made many turns in the winding corridors under the low buzz of the BJ basement. We scavenged for a good box amongst a pile of planks, old keyboards and flattened cardboard boxes, and took a roll of Kraft paper, a plastic crate, and two glass boxes. A vision was in the cards.</p>
 
         <div style="display:flex;gap:1rem;margin:1.5rem 0;justify-content:center;align-items:flex-start;">
-            <img src="/assets/images/scav-atm/display_sketch.JPG" alt="Display sketch" style="height:240px;width:auto;border-radius:2px;">
-            <img src="/assets/images/scav-atm/bare_cardboard_shell.JPG" alt="Bare cardboard shell" style="height:240px;width:auto;border-radius:2px;">
+            <img src="/assets/images/scav-atm/display_sketch.webp" alt="Display sketch" style="height:240px;width:auto;border-radius:2px;">
+            <img src="/assets/images/scav-atm/bare_cardboard_shell.webp" alt="Bare cardboard shell" style="height:240px;width:auto;border-radius:2px;">
         </div>
 
         <p>Noah and I wrapped the Kraft paper around the wooden scaffold. The reading would be printed behind the veil of the Kraft paper and channeled through a slit. Noah and Piyush painted the entirety of the box black — indeed matching with the twin BJ showcase item, a "space-themed activity cube<sup class="sidenote-ref"><a href="#fn-5">5</a></sup> with an interactive bead diagram of space to teach navigation, translations of alien languages, breathing in low-oxygen environments, grappling with the impenetrable loneliness of space." We placed the keyboard on top, the speakers behind, and propped the thermal printer up with the crates and glass boxes.</p>
         <div class="sidenote">
-            <img src="/assets/images/scav-atm/activity_cube.jpg" alt="Activity cube" style="width:100%;border-radius:2px;display:block;margin-bottom:0.3rem;"><span class="sidenote-number"><a href="#fn-5">5</a></span> Building efforts led by Calvin.
+            <img src="/assets/images/scav-atm/activity_cube.webp" alt="Activity cube" style="width:100%;border-radius:2px;display:block;margin-bottom:0.3rem;"><span class="sidenote-number"><a href="#fn-5">5</a></span> Building efforts led by Calvin.
         </div>
 
         <p>Sunday 2am. I needed to sleep. I handed off the work rather gratefully to Noah, who, as part of his all-nighter for SCAV, tiled the cards on the box. Nathan sawed wood and propped the Fool card up. While all this was happening, I lay on my sofa, restless with anticipation.</p>
@@ -438,8 +438,8 @@ sitemap: false
         <p>9:30am, showcase judge time. When the SCAV judges came to the Big Burton section, we presented the activity cube first, and then I introduced the ATM: "It's a moonless Sunday morning and you're pondering deep philosophical questions. You'd like a psychic to give you the answer, but they are too far. Worry not! There's an ATM down the road....."</p>
 
         <div style="display:flex;align-items:flex-end;gap:1rem;margin:1.5rem 0;">
-            <img src="/assets/images/scav-atm/atm_exterior.jpeg" alt="ATM exterior" style="width:38%;border-radius:2px;">
-            <img src="/assets/images/scav-atm/atm_receipt.jpg" alt="ATM receipt" style="width:38%;border-radius:2px;">
+            <img src="/assets/images/scav-atm/atm_exterior.webp" alt="ATM exterior" style="width:38%;border-radius:2px;">
+            <img src="/assets/images/scav-atm/atm_receipt.webp" alt="ATM receipt" style="width:38%;border-radius:2px;">
             <p style="font-size:0.78rem;color:var(--footnote-color);font-style:italic;margin:0;max-width:130px;">a happy mother's day message to my mum. my mum told me the readings were super accurate XD</p>
         </div>
 
@@ -474,7 +474,7 @@ sitemap: false
             <p class="footnote-text" id="fn-3"><sup>3</sup> Fittingly, both <a href="https://www.britannica.com/topic/Lorem-ipsum">lorem ipsum</a>'s usage as gibberish filler in print (taken from Cicero) and Tarot's precursor <a href="https://en.wikipedia.org/wiki/Tarocchini">Tarocchini</a> plausibly emerged around the mid-Italian Renaissance.</p>
             <p class="footnote-text" id="fn-4"><sup>4</sup> <a href="https://en.wikipedia.org/wiki/Stephen_Cole_Kleene">Kleene</a> formalized 'regular language' in the 50s, and ATMs were invented by <a href="https://en.wikipedia.org/wiki/Luther_Simjian">Luther Simjian</a> and deployed in the 60s.</p>
             <p class="footnote-text" id="fn-5"><sup>5</sup> Building efforts led by Calvin.</p>
-            <img src="/assets/images/scav-atm/activity_cube.jpg" alt="Activity cube" style="width:70%;border-radius:2px;display:block;margin:0.5rem 0 1rem;">
+            <img src="/assets/images/scav-atm/activity_cube.webp" alt="Activity cube" style="width:70%;border-radius:2px;display:block;margin:0.5rem 0 1rem;">
             <p class="footnote-text" id="fn-6"><sup>6</sup> It was also gratifying when one of the SCAV judges called this the best item they've seen in three years.</p>
             <p class="footnote-text" id="fn-7"><sup>7</sup> Thanks for calling me <em>deus ex machina</em>. I don't think I'll ever get that in my life.</p>
         </div>
