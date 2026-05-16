@@ -94,7 +94,7 @@ permalink: /writing/
         </div>
     </div>
     <div class="right-column">
-        <p>I enjoy philosophy and history, doing math, and tinkering with machines. I prefer to write longer pieces. My inbox is always open for feedback (<a href="https://www.admonymous.co/joneedssleep">here</a>) and discussion.</p>
+        <p>I enjoy philosophy and history, doing math, and tinkering with machines. My inbox is always open for feedback (<a href="https://www.admonymous.co/joneedssleep">here</a>) and discussion.</p>
         <writing-entry>
             <p><strong><a href="/scav-atm/">Building an Automated Tarot Machine</a></strong></p>
             <p><em>in 48 hours, as part of the UChicago SCAV Hunt</em></p>

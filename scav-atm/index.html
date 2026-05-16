@@ -100,7 +100,16 @@ sitemap: false
         color: var(--footnote-color);
         vertical-align: super;
         line-height: 0;
-        cursor: default;
+    }
+
+    .sidenote-ref a {
+        color: var(--footnote-color);
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .sidenote-ref a:hover {
+        color: var(--link-hover-color);
     }
 
     .sidenote {
@@ -128,6 +137,15 @@ sitemap: false
         font-size: 0.72rem;
         vertical-align: super;
         margin-right: 0.2rem;
+    }
+
+    .sidenote-number a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .sidenote-number a:hover {
+        color: var(--link-hover-color);
     }
 
     .image-placeholder {
@@ -238,7 +256,6 @@ sitemap: false
     .left-column.collapsed .left-details {
         max-height: 0;
         opacity: 0;
-        overflow: hidden; /* only clip when actually collapsed */
     }
 
     .container.essay-page .left-column .name {
@@ -254,6 +271,16 @@ sitemap: false
             font-size: 1.5rem;
             text-align: center;
             margin-top: 2.5rem;
+        }
+
+        .collapse-toggle {
+            display: none;
+        }
+
+        .left-column.collapsed .left-details {
+            max-height: 400px;
+            opacity: 1;
+            overflow: visible;
         }
 
         .sidenote {
@@ -311,18 +338,18 @@ sitemap: false
     </div>
 
     <div class="right-column">
-        <div class="essay-music" style="margin-top:0.5rem;">Recommended music: <a href="https://www.youtube.com/watch?v=4Rc25CkOxEk"><em>Mozart, Requiem in D Minor I. Introitus</em></a></div>
-
-        <blockquote>
+<blockquote style="margin-top:0.75rem;">
+            Yesterday, Licinius, at leisure<br>
+            we played much on my tablets,<br>
+            as it was agreed that [we] would be self-indulgent:<br>
             each of us writing our lines of poetry<br>
-            was playing, now in this meter, now in that one,<br>
-            delivering lines in turn while laughing and [drinking] wine.
+            was playing, now in this meter, now in that one,
             <span class="attribution">—Catullus 50</span>
         </blockquote>
 
-        <p>I was glancing through the <a href="https://scavhunt.uchicago.edu/assets/lists/2026.pdf">SCAV 2026</a><sup class="sidenote-ref">1</sup> list during the NeurIPS push, and the description for an Automated Tarot Machine (abbreviated ATM) came up.</p>
+        <p>I was glancing through the <a href="https://scavhunt.uchicago.edu/assets/lists/2026.pdf">SCAV 2026</a><sup class="sidenote-ref"><a href="#fn-1">1</a></sup> list during the NeurIPS push, and the description for an Automated Tarot Machine (abbreviated ATM) came up.</p>
         <div class="sidenote">
-            <span class="sidenote-number">1</span> <a href="https://en.wikipedia.org/wiki/University_of_Chicago_Scavenger_Hunt">SCAV</a>, annual UChicago tradition since 1987. Past items include a nuclear breeder reactor, paper copy of the 2026 SCAV list in outer space, and a Scavvenwedding.
+            <span class="sidenote-number"><a href="#fn-1">1</a></span> <a href="https://en.wikipedia.org/wiki/University_of_Chicago_Scavenger_Hunt">SCAV</a>, annual UChicago tradition since 1987. Past items include a nuclear breeder reactor, paper copy of the 2026 SCAV list in outer space, and a Scavvenwedding.
         </div>
 
         <img src="/assets/images/scav-atm/scav_atm_description.png" alt="SCAV 2026 ATM item description" style="width:100%;margin:1.5rem 0;display:block;border-radius:2px;">
@@ -333,46 +360,49 @@ sitemap: false
 
         <p>Even before I found a team, I was thinking through the execution plans. There's a Pareto curve of coolness and feasibility. I had one day and a half and a modest budget, and wanted to make the best ATM that I could. I considered a card shuffler paired with an image sensor. Or using good-old-fashioned punched holes in the Tarot card (with 7 holes since 2<sup>7</sup>&nbsp;>&nbsp;78 tarot cards&nbsp;>&nbsp;2<sup>6</sup>) to encode the card meaning like a Jacquard loom of faith. Or having the cards lined up on a circle with a hand in the middle to kick 3 cards out. With the principle of no-screens and tractability, I went with this plan: a Raspberry Pi takes in some input, processes it, and prints a reading plus interpretation out; a speaker plays mysterious music while instructing the user like an actual ATM.</p>
 
-        <img src="/assets/images/scav-atm/scav_atm_diagram.png" alt="ATM system diagram" style="width:100%;margin:1.5rem 0;display:block;border-radius:2px;">
+        <img src="/assets/images/scav-atm/initial_sketch.JPG" alt="Initial system sketch" style="width:45%;margin:1.5rem auto;display:block;border-radius:2px;">
 
         <p>Friday afternoon. I needed a mechanical keyboard with a USB connector, since bluetooth connection would be unstable. I recalled that two years ago when I first got access to the CS department compute cluster, I was given some old spare trackpads. I tried my luck there this time, and after explaining that I was building an automated Tarot machine for SCAV, the tech staff team happily let me take a keyboard. The only component I needed to acquire now was a printer. Rather serendipitously, the only thermal printer I could find that supported linux and arrived on time was a 4''×6'' label printer, so the final product ended up having the added benefit of being a cool laptop sticker.</p>
 
-        <p>I caught up on some sleep on Friday night<sup class="sidenote-ref">2</sup>, and on Saturday afternoon, I sketched a plan with Marcus, took the components to the BJ team headquarters, sadly barely missing the part where the team set a tinfoil hamster on fire in a microwave for "25 warm and cozy points".</p>
+        <p>I caught up on some sleep on Friday night<sup class="sidenote-ref"><a href="#fn-2">2</a></sup>, and on Saturday afternoon, I sketched a plan with Marcus, took the components to the BJ team headquarters, sadly barely missing the part where the team set a tinfoil hamster on fire in a microwave for "25 warm and cozy points".</p>
         <div class="sidenote">
-            <span class="sidenote-number">2</span> Marcus was one of the team captains for Big Burton. The team had gotten pretty worried by that point, since I had been no contact for 13 hours.
+            <span class="sidenote-number"><a href="#fn-2">2</a></span> Marcus was one of the team captains for Big Burton. The team had gotten pretty worried by that point, since I had been no contact for 13 hours.
         </div>
 
         <p>I arrived at the headquarters in which I was about to spend the next 10 hours, a dim basement space carpeted in blue, right outside the laundry room, scattered with glue guns, planks, cotton, scissors, and stuffed testicles. I had unit-tested all my components, loaded Raspberry OS Lite onto my Pi, and had a vague idea of what to code into the Raspberry Pi and how to display it. Time to embody the Ten of Wands and get to work.</p>
 
-        <div class="image-placeholder" style="display:flex;gap:1rem;aspect-ratio:auto;">
-            <div style="flex:1;aspect-ratio:4/3;background:var(--separator-color);display:flex;align-items:center;justify-content:center;border-radius:2px;font-size:0.82rem;color:var(--footnote-color);font-style:italic;">Big_Burton_HQ</div>
-            <div style="flex:1;aspect-ratio:4/3;background:var(--separator-color);display:flex;align-items:center;justify-content:center;border-radius:2px;font-size:0.82rem;color:var(--footnote-color);font-style:italic;">initial_layout</div>
+        <div style="display:flex;gap:1rem;margin:1.5rem 0;">
+            <img src="/assets/images/scav-atm/big_burton_hq.JPG" alt="Big Burton HQ" style="flex:1;width:0;aspect-ratio:4/3;object-fit:cover;border-radius:2px;">
+            <img src="/assets/images/scav-atm/initial_layout.jpg" alt="Initial component layout" style="flex:1;width:0;aspect-ratio:4/3;object-fit:cover;border-radius:2px;">
         </div>
 
         <h2>The software.</h2>
 
         <p>I had a copy of the 1971 Rider-Waite tarot deck, which I found out had an <a href="https://github.com/metabismuth/tarot-json/tree/master">open-sourced scan</a> of each card. All that was needed was converting it to black and white.</p>
 
-        <img src="/assets/images/scav-atm/tarot_card_print_sample.png" alt="Tarot card print sample" style="width:55%;margin:1.5rem auto;display:block;border-radius:2px;">
+        <img src="/assets/images/scav-atm/tarot_card_print_sample.png" alt="Tarot card print sample" style="width:38%;margin:1.5rem auto;display:block;border-radius:2px;">
 
-        <p>The thermal printer was surprisingly high quality! I formatted a 4''×6'' design into the shape of an ATM receipt and inserted lorem ipsum text for the interpretation for now.<sup class="sidenote-ref">3</sup></p>
+        <p>The thermal printer was surprisingly high quality! I formatted a 4''×6'' design into the shape of an ATM receipt and inserted lorem ipsum text for the interpretation for now.<sup class="sidenote-ref"><a href="#fn-3">3</a></sup></p>
         <div class="sidenote">
-            <span class="sidenote-number">3</span> Fittingly, both <a href="https://www.britannica.com/topic/Lorem-ipsum">lorem ipsum</a>'s usage as gibberish filler in print (taken from Cicero) and Tarot's precursor <a href="https://en.wikipedia.org/wiki/Tarocchini">Tarocchini</a> plausibly emerged around the mid-Italian Renaissance.
+            <span class="sidenote-number"><a href="#fn-3">3</a></span> Fittingly, both <a href="https://www.britannica.com/topic/Lorem-ipsum">lorem ipsum</a>'s usage as gibberish filler in print (taken from Cicero) and Tarot's precursor <a href="https://en.wikipedia.org/wiki/Tarocchini">Tarocchini</a> plausibly emerged around the mid-Italian Renaissance.
         </div>
 
         <p>Instructions were mostly given through the speaker, which also played the <a href="https://www.youtube.com/watch?v=4Rc25CkOxEk">Introitus of Mozart's Requiem</a> on repeat. After testing some truly robotic voices, I went to a corner facing the bathroom, breathed in deep, expanded my ribs, and narrated some instructions my friend the next day, terrified, identified as AI.</p>
 
         <div class="audio-block">
-            <div class="audio-line"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><polygon points="9.5,7 9.5,17 18,12" fill="var(--bg-color)"/></svg> "Welcome to the Big Burton Automated Tarot Machine. Please type in your guiding question, and then press enter."</div>
-            <div class="audio-line"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><polygon points="9.5,7 9.5,17 18,12" fill="var(--bg-color)"/></svg> "Please wait while your tarot reading is being processed."</div>
-            <div class="audio-line"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><polygon points="9.5,7 9.5,17 18,12" fill="var(--bg-color)"/></svg> "Please take your reading."</div>
+            <div class="audio-line" id="atm-audio-line" style="cursor:pointer;">
+                <svg id="atm-play-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><polygon points="9.5,7 9.5,17 18,12" fill="var(--bg-color)"/></svg>
+                <svg id="atm-pause-icon" viewBox="0 0 24 24" style="display:none;"><circle cx="12" cy="12" r="12"/><rect x="7" y="7" width="3.5" height="10" fill="var(--bg-color)"/><rect x="13.5" y="7" width="3.5" height="10" fill="var(--bg-color)"/></svg>
+                "Please take your reading. Thank you again for choosing Big Burton Automated Tarot Machine."
+            </div>
+            <audio id="atm-audio" src="/assets/images/scav-atm/take_reading_atm.m4a"></audio>
         </div>
 
         <p>Now I know how to sound like subway announcements.</p>
 
-        <p>There were a few ways I could've gone about the "non-random" fortune-telling algorithm. I didn't quite enjoy the Claude-generated interpretations and wanted to go for something more scrappy. LLM-generated readings felt anti-mystical. The I Ching was my model of divination and its terseness was the opposite of an LLM. I briefly considered running a &lt;100MB word embedding model to match cards to questions, but given that even an <a href="https://huggingface.co/Qwen/Qwen3-Embedding-8B">8B Embedding model</a> had not been great at semantic clustering, thought it would probably be effort wasted. I ended up regex matching on question topics (with a lovely hit rate of 59% on common Tarot questions pulled from the internet) which yielded a score on dimensions like 'time' and 'heart'. Then the question scores were matched to the cards, each tagged along the same dimensions. Regex, rather delightfully, was the technological contemporary of a cash ATM.<sup class="sidenote-ref">4</sup></p>
+        <p>There were a few ways I could've gone about the "non-random" fortune-telling algorithm. I didn't quite enjoy the Claude-generated interpretations and wanted to go for something more scrappy. LLM-generated readings felt anti-mystical. The I Ching was my model of divination and its terseness was the opposite of an LLM. I briefly considered running a &lt;100MB word embedding model to match cards to questions, but given that even an <a href="https://huggingface.co/Qwen/Qwen3-Embedding-8B">8B Embedding model</a> had not been great at semantic clustering, thought it would probably be effort wasted. I ended up regex matching on question topics (with a lovely hit rate of 59% on common Tarot questions pulled from the internet) which yielded a score on dimensions like 'time' and 'heart'. Then the question scores were matched to the cards, each tagged along the same dimensions. Regex is, rather delightfully, the technological contemporary of cash ATMs.<sup class="sidenote-ref"><a href="#fn-4">4</a></sup></p>
         <div class="sidenote">
-            <span class="sidenote-number">4</span> <a href="https://en.wikipedia.org/wiki/Stephen_Cole_Kleene">Kleene</a> formalized 'regular language' in the 50s, and ATMs were invented by <a href="https://en.wikipedia.org/wiki/Luther_Simjian">Luther Simjian</a> and deployed in the 60s.
+            <span class="sidenote-number"><a href="#fn-4">4</a></span> <a href="https://en.wikipedia.org/wiki/Stephen_Cole_Kleene">Kleene</a> formalized 'regular language' in the 50s, and ATMs were invented by <a href="https://en.wikipedia.org/wiki/Luther_Simjian">Luther Simjian</a> and deployed in the 60s.
         </div>
 
         <p>I pulled <a href="https://github.com/dariusk/corpora/blob/master/data/divination/tarot_interpretations.json">a library of card-meanings</a> as interpretation for each card. After seeing a few oddballs in the test runs ("This card represents an older man with an insightful, deliberate spirit, likely born between May 11th and June 10th"), I decided to hand-prune the 78 card meanings and ended up rewriting most of the interpretations (this is a habit I got from manually inspecting LLM-generated finetuning datasets in my most recent research). Some friends of mine say I have a knack for uttering profound-sounding strings at a snap. Profundity may not be the right word, but this skill certainly came in useful. Some highlights: <em>Queen of Cups, the water knows the shape of what you carry; King of Wands, the fire speaks first, all other voices wait; The Star, Starstruck and star-crossed.</em></p>
@@ -381,9 +411,15 @@ sitemap: false
 
         <p>I was tempted to create <a href="https://www.georgehart.com/cards/cards.html">polyhedral constructions</a> with the Tarot cards, but it seemed a little sacrilegious and impractical. Instead, I was offered as a base a rather imposing and tippidy wooden structure. Marcus then brought me to the BJ SCAV room to dig up some materials. Among them he listed a full set of saw blades without a handle; DELL computers from the last century; leftover materials from previous SCAVs. We made many turns in the winding corridors under the low buzz of the BJ basement. We scavenged for a good box amongst a pile of planks, old keyboards and flattened cardboard boxes, and took a roll of Kraft paper, a plastic crate, and two glass boxes. A vision was in the cards.</p>
 
-        <div class="image-placeholder">scav_atm_barebones_scaffold</div>
+        <div style="display:flex;gap:1rem;margin:1.5rem 0;justify-content:center;align-items:flex-start;">
+            <img src="/assets/images/scav-atm/display_sketch.JPG" alt="Display sketch" style="height:240px;width:auto;border-radius:2px;">
+            <img src="/assets/images/scav-atm/bare_cardboard_shell.JPG" alt="Bare cardboard shell" style="height:240px;width:auto;border-radius:2px;">
+        </div>
 
-        <p>Noah and I wrapped the Kraft paper around the wooden scaffold. The reading would be printed behind the veil of the Kraft paper and channeled through a slit. Noah and Piyush painted the entirety of the box black — indeed matching with the twin BJ showcase item, a "space-themed activity cube with an interactive bead diagram of space to teach navigation, translations of alien languages, breathing in low-oxygen environments, grappling with the impenetrable loneliness of space." We placed the keyboard on top, the speakers behind, and propped the thermal printer up with the crates and glass boxes.</p>
+        <p>Noah and I wrapped the Kraft paper around the wooden scaffold. The reading would be printed behind the veil of the Kraft paper and channeled through a slit. Noah and Piyush painted the entirety of the box black — indeed matching with the twin BJ showcase item, a "space-themed activity cube<sup class="sidenote-ref"><a href="#fn-5">5</a></sup> with an interactive bead diagram of space to teach navigation, translations of alien languages, breathing in low-oxygen environments, grappling with the impenetrable loneliness of space." We placed the keyboard on top, the speakers behind, and propped the thermal printer up with the crates and glass boxes.</p>
+        <div class="sidenote">
+            <img src="/assets/images/scav-atm/activity_cube.jpg" alt="Activity cube" style="width:100%;border-radius:2px;display:block;margin-bottom:0.3rem;"><span class="sidenote-number"><a href="#fn-5">5</a></span> Building efforts led by Calvin.
+        </div>
 
         <p>Sunday 2am. I needed to sleep. I handed off the work rather gratefully to Noah, who, as part of his all-nighter for SCAV, tiled the cards on the box. Nathan sawed wood and propped the Fool card up. While all this was happening, I lay on my sofa, restless with anticipation.</p>
 
@@ -401,21 +437,22 @@ sitemap: false
 
         <p>9:30am, showcase judge time. When the SCAV judges came to the Big Burton section, we presented the activity cube first, and then I introduced the ATM: "It's a moonless Sunday morning and you're pondering deep philosophical questions. You'd like a psychic to give you the answer, but they are too far. Worry not! There's an ATM down the road....."</p>
 
-        <div class="image-placeholder" style="display:flex;gap:1rem;aspect-ratio:auto;">
-            <div style="flex:2;aspect-ratio:16/9;background:var(--separator-color);display:flex;align-items:center;justify-content:center;border-radius:2px;font-size:0.82rem;color:var(--footnote-color);font-style:italic;">▶ atm_demo</div>
-            <div style="flex:1;aspect-ratio:3/4;background:var(--separator-color);display:flex;align-items:center;justify-content:center;border-radius:2px;font-size:0.82rem;color:var(--footnote-color);font-style:italic;">atm_exterior</div>
+        <div style="display:flex;align-items:flex-end;gap:1rem;margin:1.5rem 0;">
+            <img src="/assets/images/scav-atm/atm_exterior.jpeg" alt="ATM exterior" style="width:38%;border-radius:2px;">
+            <img src="/assets/images/scav-atm/atm_receipt.jpg" alt="ATM receipt" style="width:38%;border-radius:2px;">
+            <p style="font-size:0.78rem;color:var(--footnote-color);font-style:italic;margin:0;max-width:130px;">a happy mother's day message to my mum. my mum told me the readings were super accurate XD</p>
         </div>
 
-        <p>Seeing people lean in and listen to the ATM instruction, type in questions about their octopus pet or just their name, watch with wonder as the machine prints out a custom reading, and ponder the somewhat cryptic messages with their friends brought me so much joy.<sup class="sidenote-ref">5</sup></p>
+        <p>Seeing people lean in and listen to the ATM instruction, type in questions about their octopus pet or just their name, watch with wonder as the machine prints out a custom reading, and ponder the somewhat cryptic messages with their friends brought me so much joy.<sup class="sidenote-ref"><a href="#fn-6">6</a></sup></p>
         <div class="sidenote">
-            <span class="sidenote-number">5</span> It was also gratifying when one of the SCAV judges called this the best item they've seen in three years.
+            <span class="sidenote-number"><a href="#fn-6">6</a></span> It was also gratifying when one of the SCAV judges called this the best item they've seen in three years.
         </div>
 
-        <div class="image-placeholder" style="width:55%;margin:1.5rem auto;aspect-ratio:4/6;">atm_receipt — a happy mother's day message to my mum. My mum told me the readings were super accurate XD</div>
+        <video src="/assets/images/scav-atm/atm_demo.MP4" controls playsinline style="width:100%;max-height:450px;display:block;border-radius:2px;margin:1.5rem 0;"></video>
 
         <p>I went around visiting other teams' booths. One group ended up running an LLM-powered custom-music app on a laptop. A human dispensed the cards behind a carefully painted box. An alumni team made 16 hand-drawn hockey-themed Tarot cards and a circular device with a crank that picked the cards, also powered by a Raspberry Pi. They said they don't know if the machine will work, though I admired the spirit, since they did what I didn't think any team would possibly attempt, in the true spirit of SCAV.</p>
 
-        <p>We won 3rd at SCAV this year. I really loved the enthusiasm of the Big Burton team, and it was no wonder such a small team could place so high.</p>
+        <p>We won 3rd/19 at SCAV this year. I really loved the enthusiasm of the Big Burton team, and it was no wonder such a small team could place so high.</p>
 
         <blockquote>
             My half-dead limbs lay strewn across the couch<br>
@@ -426,18 +463,20 @@ sitemap: false
 
         <p>UChicago has always been a very serious place to me, almost too somber. It's the lone midnight walks from Harper, snowboots crunching gray ice. But when people at UChicago have fun, the flavour of fun is serious. I do hope I carry with me this piece of myself that is thrilled by elaborate play, because that is the day-to-day relationship I wish to have with my research and my work.</p>
 
-        <p>Thank you to the BJ team whom I worked with for making this happen — Marcus, Mirabella, Piyush, Nathan<sup class="sidenote-ref">6</sup>, and especially Noah for painting and decorating the ATM overnight. Thank you to Izzy for connecting me with the team, the Tech Staff team for supplying a mechanical keyboard, my friends for discussions and sharing the fun, and the SCAV judges for organizing a wonderful Hunt.</p>
+        <p>Thank you to the BJ team whom I worked with for making this happen — Marcus, Mirabella, Piyush, Calvin, Nathan<sup class="sidenote-ref"><a href="#fn-7">7</a></sup>, and especially Noah for painting and decorating the ATM overnight. Thank you to Izzy for connecting me with the team, the Tech Staff team for supplying a mechanical keyboard, my friends for discussions and sharing the fun, and the SCAV judges for organizing a wonderful Hunt.</p>
         <div class="sidenote">
-            <span class="sidenote-number">6</span> Thanks for calling me <em>deus ex machina</em>. I don't think I'll ever get that in my life.
+            <span class="sidenote-number"><a href="#fn-7">7</a></span> Thanks for calling me <em>deus ex machina</em>. I don't think I'll ever get that in my life.
         </div>
 
         <div class="footnotes-section">
-            <p class="footnote-text"><sup>1</sup> <a href="https://en.wikipedia.org/wiki/University_of_Chicago_Scavenger_Hunt">SCAV</a>, annual UChicago tradition since 1987. Past items include a nuclear breeder reactor, paper copy of the 2026 SCAV list in outer space, and a Scavvenwedding.</p>
-            <p class="footnote-text"><sup>2</sup> Marcus was one of the team captains for Big Burton. The team had gotten pretty worried by that point, since I had been no contact for 13 hours.</p>
-            <p class="footnote-text"><sup>3</sup> Fittingly, both <a href="https://www.britannica.com/topic/Lorem-ipsum">lorem ipsum</a>'s usage as gibberish filler in print (taken from Cicero) and Tarot's precursor <a href="https://en.wikipedia.org/wiki/Tarocchini">Tarocchini</a> plausibly emerged around the mid-Italian Renaissance.</p>
-            <p class="footnote-text"><sup>4</sup> <a href="https://en.wikipedia.org/wiki/Stephen_Cole_Kleene">Kleene</a> formalized 'regular language' in the 50s, and ATMs were invented by <a href="https://en.wikipedia.org/wiki/Luther_Simjian">Luther Simjian</a> and deployed in the 60s.</p>
-            <p class="footnote-text"><sup>5</sup> It was also gratifying when one of the SCAV judges called this the best item they've seen in three years.</p>
-            <p class="footnote-text"><sup>6</sup> Thanks for calling me <em>deus ex machina</em>. I don't think I'll ever get that in my life.</p>
+            <p class="footnote-text" id="fn-1"><sup>1</sup> <a href="https://en.wikipedia.org/wiki/University_of_Chicago_Scavenger_Hunt">SCAV</a>, annual UChicago tradition since 1987. Past items include a nuclear breeder reactor, paper copy of the 2026 SCAV list in outer space, and a Scavvenwedding.</p>
+            <p class="footnote-text" id="fn-2"><sup>2</sup> Marcus was one of the team captains for Big Burton. The team had gotten pretty worried by that point, since I had been no contact for 13 hours.</p>
+            <p class="footnote-text" id="fn-3"><sup>3</sup> Fittingly, both <a href="https://www.britannica.com/topic/Lorem-ipsum">lorem ipsum</a>'s usage as gibberish filler in print (taken from Cicero) and Tarot's precursor <a href="https://en.wikipedia.org/wiki/Tarocchini">Tarocchini</a> plausibly emerged around the mid-Italian Renaissance.</p>
+            <p class="footnote-text" id="fn-4"><sup>4</sup> <a href="https://en.wikipedia.org/wiki/Stephen_Cole_Kleene">Kleene</a> formalized 'regular language' in the 50s, and ATMs were invented by <a href="https://en.wikipedia.org/wiki/Luther_Simjian">Luther Simjian</a> and deployed in the 60s.</p>
+            <p class="footnote-text" id="fn-5"><sup>5</sup> Building efforts led by Calvin.</p>
+            <img src="/assets/images/scav-atm/activity_cube.jpg" alt="Activity cube" style="width:70%;border-radius:2px;display:block;margin:0.5rem 0 1rem;">
+            <p class="footnote-text" id="fn-6"><sup>6</sup> It was also gratifying when one of the SCAV judges called this the best item they've seen in three years.</p>
+            <p class="footnote-text" id="fn-7"><sup>7</sup> Thanks for calling me <em>deus ex machina</em>. I don't think I'll ever get that in my life.</p>
         </div>
 
     </div>
@@ -445,12 +484,55 @@ sitemap: false
 
 <script>
 (function() {
+    var line      = document.getElementById('atm-audio-line');
+    var audio     = document.getElementById('atm-audio');
+    var playIcon  = document.getElementById('atm-play-icon');
+    var pauseIcon = document.getElementById('atm-pause-icon');
+    if (!line || !audio) return;
+
+    function sync() {
+        var playing = !audio.paused && !audio.ended;
+        playIcon.style.display  = playing ? 'none' : '';
+        pauseIcon.style.display = playing ? '' : 'none';
+    }
+
+    line.addEventListener('click', function() {
+        audio.paused ? audio.play() : audio.pause();
+    });
+
+    audio.addEventListener('play',  sync);
+    audio.addEventListener('pause', sync);
+    audio.addEventListener('ended', sync);
+})();
+</script>
+
+<script>
+(function() {
     var leftCol = document.querySelector('.container.essay-page .left-column');
     var toggle  = document.querySelector('.collapse-toggle');
     if (!leftCol || !toggle) return;
 
+    var details = leftCol.querySelector('.left-details');
+    if (!details) return;
+
     toggle.addEventListener('click', function() {
-        leftCol.classList.toggle('collapsed');
+        var collapsing = !leftCol.classList.contains('collapsed');
+
+        if (collapsing) {
+            leftCol.classList.add('collapsed');
+            // Apply overflow:hidden only after the transition finishes,
+            // so the 3D box isn't clipped at the start of the animation.
+            details.addEventListener('transitionend', function handler(e) {
+                if (e.propertyName === 'max-height') {
+                    details.style.overflow = 'hidden';
+                    details.removeEventListener('transitionend', handler);
+                }
+            });
+        } else {
+            // Clear inline overflow before expanding so the 3D box is unclipped.
+            details.style.overflow = '';
+            leftCol.classList.remove('collapsed');
+        }
     });
 })();
 </script>

@@ -473,7 +473,7 @@
 
         @media screen and (max-width: 768px) {
             .right-column {
-                margin-top: 0.75rem;
+                margin-top: 0.1rem;
             }
 
             .container.research-page .right-column {
@@ -620,9 +620,9 @@
     <nav class="top-nav">
         <a href="{{ site.baseurl }}/">Jo J. Jiao</a>
         <span>/</span>
-        <a href="{{ site.baseurl }}/research/">Research</a>{% unless page.url == "/" %}
+        <a href="{{ site.baseurl }}/research/">Research</a>
         <span>/</span>
-        <a href="{{ site.baseurl }}/writing/">Writing</a>{% endunless %}
+        <a href="{{ site.baseurl }}/writing/">Writing</a>
     </nav>
     {{ content }}
 
@@ -735,6 +735,8 @@
 
             function initOffsets() {
                 if (isNarrow()) return;
+                var savedScroll = window.scrollY || window.pageYOffset || 0;
+                if (savedScroll !== 0) window.scrollTo(0, 0);
                 var leftBottom = leftCol.getBoundingClientRect().bottom + buffer;
                 var prevBottom = -Infinity;
                 var gap = 8;
@@ -745,6 +747,7 @@
                     p.offset = targetTop - supTop;
                     prevBottom = targetTop + snHeight;
                 });
+                if (savedScroll !== 0) window.scrollTo(0, savedScroll);
             }
 
             function updateSidenotes() {
