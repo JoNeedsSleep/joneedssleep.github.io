@@ -67,7 +67,7 @@ sitemap: false
             margin-top: 12px;
         }
 
-        #open-filter {
+        .toolbar button {
             font-family: inherit;
             font-size: 12px;
             letter-spacing: 0.06em;
@@ -100,6 +100,17 @@ sitemap: false
             background: rgba(74,222,128,0.18);
             border-color: #4ade80;
             color: #d7ffe6;
+        }
+
+        #today-filter:hover {
+            background: rgba(255,90,122,0.12);
+            border-color: rgba(255,90,122,0.4);
+        }
+
+        #today-filter.active {
+            background: rgba(255,90,122,0.18);
+            border-color: var(--accent);
+            color: #ffd9e2;
         }
 
         .layout {
@@ -281,6 +292,7 @@ sitemap: false
         <h1>Manhattan Church Services</h1>
         <p>Week of June 14&ndash;21, 2026 &middot; services with a <span class="accent">coffee hour or social</span> &middot; <span class="accent"><span id="church-count">&mdash;</span> churches</span> &middot; click a church for details</p>
         <div class="toolbar">
+            <button id="today-filter" type="button">Today</button>
             <button id="open-filter" type="button">Upcoming only</button>
         </div>
     </header>
@@ -288,7 +300,7 @@ sitemap: false
     <div class="layout">
         <nav id="sidebar">
             <div id="church-list"></div>
-            <p id="empty-msg">No upcoming services left this week. Toggle the filter off to see every church.</p>
+            <p id="empty-msg">No services match the current filter. Toggle the filters off to see every church this week.</p>
         </nav>
         <div id="map"></div>
     </div>

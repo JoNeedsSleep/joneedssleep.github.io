@@ -250,6 +250,22 @@ function churchIsUpcoming(church, now) {
   return church.events.some(function (ev) { return eventIsUpcoming(ev, now); });
 }
 
+// Calendar-day key (YYYY-MM-DD) in New York time, so "Today" matches the date
+// in NYC regardless of the visitor's own timezone.
+function etDateKey(ms) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/New_York",
+    year: "numeric", month: "2-digit", day: "2-digit"
+  }).format(ms);
+}
+
+function churchIsToday(church, now) {
+  const today = etDateKey(now);
+  return church.events.some(function (ev) {
+    return etDateKey(new Date(ev.start).getTime()) === today;
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const map = L.map("map", {
     center: [40.764, -73.974],
@@ -274,8 +290,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const emptyEl = document.getElementById("empty-msg");
   const countEl = document.getElementById("church-count");
   const filterBtn = document.getElementById("open-filter");
+  const todayBtn = document.getElementById("today-filter");
 
   let upcomingOnly = false;
+  let todayOnly = false;
 
   // Build a record per church: its marker, sidebar button, and a closure to
   // refresh the open/closed visuals.
@@ -340,15 +358,16 @@ document.addEventListener("DOMContentLoaded", function () {
   function render() {
     const now = Date.now();
     let visible = 0;
-    let upcomingCount = 0;
 
     records.forEach(function (r) {
       const isUpcoming = churchIsUpcoming(r.church, now);
-      if (isUpcoming) upcomingCount++;
+      const isToday = churchIsToday(r.church, now);
 
       r.item.classList.toggle("is-open", isUpcoming);
 
-      const show = !upcomingOnly || isUpcoming;
+      const show =
+        (!upcomingOnly || isUpcoming) &&
+        (!todayOnly || isToday);
       r.item.style.display = show ? "" : "none";
 
       if (show) {
@@ -364,16 +383,19 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    countEl.textContent = upcomingOnly ? upcomingCount : records.length;
+    countEl.textContent = visible;
     filterBtn.classList.toggle("active", upcomingOnly);
-    filterBtn.textContent = upcomingOnly
-      ? "Showing upcoming (" + upcomingCount + ")"
-      : "Upcoming only";
-    emptyEl.style.display = upcomingOnly && visible === 0 ? "block" : "none";
+    todayBtn.classList.toggle("active", todayOnly);
+    emptyEl.style.display = visible === 0 ? "block" : "none";
   }
 
   filterBtn.addEventListener("click", function () {
     upcomingOnly = !upcomingOnly;
+    render();
+  });
+
+  todayBtn.addEventListener("click", function () {
+    todayOnly = !todayOnly;
     render();
   });
 
