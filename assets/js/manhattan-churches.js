@@ -238,16 +238,16 @@ const CHURCHES = [
   }
 ];
 
-// An event is "open" when the current instant falls between its start time and
-// start + durationMin (which covers the service plus the social hour after it).
-function eventIsOpen(ev, now) {
-  const start = new Date(ev.start).getTime();
-  const end = start + ev.durationMin * 60 * 1000;
-  return now >= start && now <= end;
+// An event is "upcoming" while it hasn't ended yet — i.e. the social/coffee
+// window (start + durationMin) is still in the future. This keeps a service in
+// the list while it's in progress and drops it only once it's fully over.
+function eventIsUpcoming(ev, now) {
+  const end = new Date(ev.start).getTime() + ev.durationMin * 60 * 1000;
+  return now <= end;
 }
 
-function churchIsOpen(church, now) {
-  return church.events.some(function (ev) { return eventIsOpen(ev, now); });
+function churchIsUpcoming(church, now) {
+  return church.events.some(function (ev) { return eventIsUpcoming(ev, now); });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const countEl = document.getElementById("church-count");
   const filterBtn = document.getElementById("open-filter");
 
-  let openOnly = false;
+  let upcomingOnly = false;
 
   // Build a record per church: its marker, sidebar button, and a closure to
   // refresh the open/closed visuals.
@@ -322,7 +322,7 @@ document.addEventListener("DOMContentLoaded", function () {
       '<span class="church-name">' + c.name + "</span>" +
       '<span class="church-meta">' + c.tradition + " &middot; " + c.events.length +
       " service" + (c.events.length === 1 ? "" : "s") +
-      '<span class="open-badge">OPEN NOW</span></span>';
+      '<span class="open-badge">UPCOMING</span></span>';
     item.addEventListener("click", function () {
       map.setView([c.lat, c.lng], 15, { animate: true });
       marker.openPopup();
@@ -340,22 +340,22 @@ document.addEventListener("DOMContentLoaded", function () {
   function render() {
     const now = Date.now();
     let visible = 0;
-    let openCount = 0;
+    let upcomingCount = 0;
 
     records.forEach(function (r) {
-      const isOpen = churchIsOpen(r.church, now);
-      if (isOpen) openCount++;
+      const isUpcoming = churchIsUpcoming(r.church, now);
+      if (isUpcoming) upcomingCount++;
 
-      r.item.classList.toggle("is-open", isOpen);
+      r.item.classList.toggle("is-open", isUpcoming);
 
-      const show = !openOnly || isOpen;
+      const show = !upcomingOnly || isUpcoming;
       r.item.style.display = show ? "" : "none";
 
       if (show) {
         visible++;
         if (!map.hasLayer(r.marker)) r.marker.addTo(map);
         r.marker.setStyle(
-          isOpen
+          isUpcoming
             ? { color: "#4ade80", fillColor: "#4ade80" }
             : { color: "#ff5a7a", fillColor: "#ff5a7a" }
         );
@@ -364,16 +364,16 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    countEl.textContent = openOnly ? openCount : records.length;
-    filterBtn.classList.toggle("active", openOnly);
-    filterBtn.textContent = openOnly
-      ? "Showing open now (" + openCount + ")"
-      : "Open now";
-    emptyEl.style.display = openOnly && visible === 0 ? "block" : "none";
+    countEl.textContent = upcomingOnly ? upcomingCount : records.length;
+    filterBtn.classList.toggle("active", upcomingOnly);
+    filterBtn.textContent = upcomingOnly
+      ? "Showing upcoming (" + upcomingCount + ")"
+      : "Upcoming only";
+    emptyEl.style.display = upcomingOnly && visible === 0 ? "block" : "none";
   }
 
   filterBtn.addEventListener("click", function () {
-    openOnly = !openOnly;
+    upcomingOnly = !upcomingOnly;
     render();
   });
 
