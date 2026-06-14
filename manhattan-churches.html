@@ -1,0 +1,197 @@
+---
+layout: null
+permalink: /manhattan-churches/
+sitemap: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Manhattan Church Services</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="96x96">
+
+    <!-- Leaflet 1.9.4 — vendored locally so the library always loads -->
+    <link rel="stylesheet" href="/assets/leaflet/leaflet.css" />
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0e0e1a;
+            --panel: #15152400;
+            --accent: #ff5a7a;
+            --text: #e8e4f0;
+            --muted: rgba(180,170,200,0.55);
+        }
+
+        html, body { height: 100%; }
+
+        body {
+            background: linear-gradient(165deg, #0a0a12 0%, #11111f 45%, #16122a 100%);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header {
+            padding: 18px 24px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            flex-shrink: 0;
+        }
+
+        header h1 {
+            font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+            font-weight: 300;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+
+        header p {
+            margin-top: 6px;
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+        }
+
+        header .accent { color: var(--accent); }
+
+        .layout {
+            flex: 1;
+            display: flex;
+            min-height: 0;
+        }
+
+        #sidebar {
+            width: 320px;
+            flex-shrink: 0;
+            overflow-y: auto;
+            border-right: 1px solid rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.015);
+        }
+
+        .church-item {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            color: var(--text);
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.18s ease;
+        }
+
+        .church-item:hover { background: rgba(255,90,122,0.08); }
+        .church-item.active {
+            background: rgba(255,90,122,0.14);
+            box-shadow: inset 3px 0 0 var(--accent);
+        }
+
+        .church-name {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #f1edf8;
+        }
+
+        .church-meta {
+            display: block;
+            margin-top: 3px;
+            font-size: 11.5px;
+            letter-spacing: 0.03em;
+            color: var(--muted);
+        }
+
+        #map {
+            flex: 1;
+            min-width: 0;
+            background: #0a0a12;
+        }
+
+        /* Leaflet popup theming */
+        .leaflet-popup-content-wrapper {
+            background: #1a1730;
+            color: var(--text);
+            border-radius: 10px;
+            border: 1px solid rgba(255,90,122,0.25);
+        }
+        .leaflet-popup-tip { background: #1a1730; }
+        .leaflet-popup-content { margin: 12px 14px; }
+
+        .popup h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .popup-tradition {
+            font-size: 11px;
+            letter-spacing: 0.04em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .popup-addr {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+        .popup ul { list-style: none; }
+        .popup ul li {
+            font-size: 12.5px;
+            padding: 2px 0 2px 14px;
+            position: relative;
+            color: #d8d2e6;
+        }
+        .popup ul li::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 9px;
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .leaflet-control-attribution {
+            background: rgba(10,10,18,0.8) !important;
+            color: var(--muted) !important;
+        }
+        .leaflet-control-attribution a { color: rgba(200,185,240,0.8) !important; }
+
+        @media (max-width: 720px) {
+            .layout { flex-direction: column; }
+            #sidebar {
+                width: 100%;
+                height: 38%;
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+            #map { height: 62%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Manhattan Church Services</h1>
+        <p>Week of June 14&ndash;21, 2026 &middot; <span class="accent"><span id="church-count">&mdash;</span> churches</span> &middot; click a church for service times</p>
+    </header>
+
+    <div class="layout">
+        <nav id="sidebar">
+            <div id="church-list"></div>
+        </nav>
+        <div id="map"></div>
+    </div>
+
+    <!-- Leaflet 1.9.4 — vendored locally so the library always loads -->
+    <script src="/assets/leaflet/leaflet.js"></script>
+    <script src="/assets/js/manhattan-churches.js"></script>
+</body>
+</html>
