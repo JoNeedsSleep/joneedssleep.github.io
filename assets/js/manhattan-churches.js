@@ -1,222 +1,254 @@
 /* Manhattan Church Services — data + map
- * Standalone page. Uses Leaflet (loaded via CDN in the HTML) and
- * CARTO dark basemap tiles so the map renders in the visitor's browser.
+ * Standalone page. Uses Leaflet (vendored in /assets/leaflet) and a CARTO
+ * dark basemap so the map renders in the visitor's browser.
+ *
+ * Data: Manhattan church services the week of June 14–21, 2026 that explicitly
+ * advertise a social / coffee-hour component (coffee hour, fellowship, a meal,
+ * an ice cream social, a picnic, etc.). Each event carries its own start time
+ * so the "Open now" filter can show only services currently in progress.
+ *
+ * All start times are New York local time (EDT, UTC−04:00 in June), encoded in
+ * the ISO string so the open-now check is correct in any visitor's timezone.
  */
 
-// Service times reflect a typical week (loosely the week of June 14–21, 2026).
-// Coordinates are the churches' real-world locations in Manhattan.
 const CHURCHES = [
   {
-    name: "Abyssinian Baptist Church",
-    tradition: "Baptist",
-    address: "132 Odell Clark Pl (W 138th St), Harlem",
-    lat: 40.8169, lng: -73.9416,
-    services: ["Sun 9:00 AM — Worship", "Sun 11:30 AM — Worship"]
-  },
-  {
-    name: "The Riverside Church",
-    tradition: "Interdenominational",
-    address: "490 Riverside Dr, Morningside Heights",
-    lat: 40.8113, lng: -73.9626,
-    services: ["Sun 10:45 AM — Worship"]
-  },
-  {
-    name: "Cathedral of St. John the Divine",
-    tradition: "Episcopal",
-    address: "1047 Amsterdam Ave, Morningside Heights",
-    lat: 40.8038, lng: -73.9620,
-    services: ["Sun 8:00 AM — Holy Eucharist", "Sun 11:00 AM — Choral Eucharist", "Wed 12:15 PM — Eucharist"]
-  },
-  {
-    name: "St. Michael's Church",
-    tradition: "Episcopal",
-    address: "225 W 99th St, Upper West Side",
-    lat: 40.7965, lng: -73.9707,
-    services: ["Sun 8:00 AM — Holy Eucharist", "Sun 10:00 AM — Choral Eucharist"]
-  },
-  {
-    name: "Church of the City — Upper West Side",
-    tradition: "Non-denominational",
-    address: "Upper West Side",
-    lat: 40.7883, lng: -73.9748,
-    services: ["Sun 9:30 AM — Gathering", "Sun 11:30 AM — Gathering"]
-  },
-  {
-    name: "Brick Presbyterian Church",
-    tradition: "Presbyterian (PCUSA)",
-    address: "62 E 92nd St, Carnegie Hill",
-    lat: 40.7838, lng: -73.9555,
-    services: ["Sun 11:00 AM — Worship"]
-  },
-  {
-    name: "Church of the Holy Trinity",
-    tradition: "Episcopal",
-    address: "316 E 88th St, Yorkville",
-    lat: 40.7775, lng: -73.9510,
-    services: ["Sun 9:00 AM — Said Eucharist", "Sun 11:00 AM — Choral Eucharist"]
-  },
-  {
-    name: "Church of St. Ignatius Loyola",
+    name: "Church of the Epiphany",
     tradition: "Roman Catholic",
-    address: "980 Park Ave, Upper East Side",
-    lat: 40.7762, lng: -73.9603,
-    services: ["Sun 7:30, 9:30, 11:00 AM — Mass", "Sun 7:30 PM — Mass", "Daily 8:30 AM — Mass"]
+    address: "239 E 21st St (22nd St & 2nd Ave), Gramercy",
+    lat: 40.7371, lng: -73.9817,
+    events: [
+      {
+        date: "Sun Jun 14", time: "7:30 PM",
+        start: "2026-06-14T19:30:00-04:00", durationMin: 150,
+        service: "Young Adults Mass",
+        note: "After-Mass fellowship — coffee, donuts, light snacks, or pizza and beer.",
+        links: [{ label: "fellowship", url: "https://www.epiphanychurch.nyc/fellowship-1" }]
+      },
+      {
+        date: "Sun Jun 21", time: "11:00 AM",
+        start: "2026-06-21T11:00:00-04:00", durationMin: 120,
+        service: "Sunday Mass",
+        note: "After-Mass fellowship with coffee, donuts, light snacks, and other food.",
+        links: [{ label: "fellowship", url: "https://www.epiphanychurch.nyc/fellowship-1" }]
+      },
+      {
+        date: "Sun Jun 21", time: "7:30 PM",
+        start: "2026-06-21T19:30:00-04:00", durationMin: 150,
+        service: "Young Adults Mass",
+        note: "After-Mass fellowship — pizza and beer.",
+        links: [{ label: "fellowship", url: "https://www.epiphanychurch.nyc/fellowship-1" }]
+      }
+    ]
   },
   {
-    name: "Church of the City — Upper East Side",
-    tradition: "Non-denominational",
-    address: "Upper East Side",
-    lat: 40.7726, lng: -73.9552,
-    services: ["Sun 10:00 AM — Gathering", "Sun 5:00 PM — Gathering"]
-  },
-  {
-    name: "St. Vincent Ferrer",
-    tradition: "Roman Catholic (Dominican)",
-    address: "869 Lexington Ave, Lenox Hill",
-    lat: 40.7680, lng: -73.9659,
-    services: ["Sun 8:00, 10:00 AM, 12:00 PM — Mass", "Daily 8:00 AM, 12:10 PM — Mass"]
-  },
-  {
-    name: "Fifth Avenue Presbyterian Church",
-    tradition: "Presbyterian (PCUSA)",
-    address: "7 W 55th St, Midtown",
-    lat: 40.7619, lng: -73.9745,
-    services: ["Sun 11:00 AM — Worship", "Sun 4:00 PM — Evening Worship"]
-  },
-  {
-    name: "St. Malachy's — The Actors' Chapel",
-    tradition: "Roman Catholic",
-    address: "239 W 49th St, Theater District",
-    lat: 40.7610, lng: -73.9856,
-    services: ["Sun 9:30, 11:00 AM — Mass", "Sun 5:00 PM — Theatre District Mass"]
-  },
-  {
-    name: "St. Thomas Church Fifth Avenue",
-    tradition: "Episcopal",
-    address: "1 W 53rd St, Midtown",
-    lat: 40.7607, lng: -73.9748,
-    services: ["Sun 8:00 AM — Holy Eucharist", "Sun 11:00 AM — Choral Eucharist", "Sun 4:00 PM — Evensong"]
-  },
-  {
-    name: "St. Patrick's Cathedral",
-    tradition: "Roman Catholic",
-    address: "5th Ave at 50th St, Midtown",
-    lat: 40.7585, lng: -73.9761,
-    services: ["Sun 7:00, 8:00, 9:00, 10:15 AM, 12:00, 1:00, 4:00, 5:30 PM — Mass", "Daily 7:00 AM–5:30 PM — Mass"]
-  },
-  {
-    name: "Saint Peter's Church",
-    tradition: "Lutheran (ELCA)",
-    address: "619 Lexington Ave, Midtown East",
-    lat: 40.7582, lng: -73.9710,
-    services: ["Sun 11:00 AM — Worship", "Sun 5:00 PM — Jazz Vespers"]
+    name: "Christ Church NYC",
+    tradition: "United Methodist",
+    address: "524 Park Ave (E 60th St), Lenox Hill",
+    lat: 40.7632, lng: -73.9700,
+    events: [
+      {
+        date: "Wed Jun 17", time: "6:00 PM",
+        start: "2026-06-17T18:00:00-04:00", durationMin: 150,
+        service: "The Bridge: Wednesday Nights",
+        note: "Light supper, communion service, and an ice cream social / activity after worship.",
+        links: [{ label: "event", url: "https://www.christchurchnyc.online/events" }]
+      },
+      {
+        date: "Sun Jun 21", time: "11:00 AM",
+        start: "2026-06-21T11:00:00-04:00", durationMin: 120,
+        service: "Sunday Service",
+        note: "Coffee Hour Fellowship after the 11:00 AM service every Sunday.",
+        links: [{ label: "coffee hour", url: "https://www.christchurchnyc.online/coffee-hour-fellowship" }]
+      }
+    ]
   },
   {
     name: "St. Bartholomew's Church",
     tradition: "Episcopal",
     address: "325 Park Ave, Midtown East",
     lat: 40.7580, lng: -73.9730,
-    services: ["Sun 8:00 AM — Holy Eucharist", "Sun 11:00 AM — Choral Eucharist"]
+    events: [
+      {
+        date: "Thu Jun 18", time: "7:00 PM",
+        start: "2026-06-18T19:00:00-04:00", durationMin: 150,
+        service: "Imagine Worship NYC",
+        note: "Food and conversation after worship, beginning around 8:00 PM.",
+        links: [{ label: "event", url: "https://stbarts.org/worship/imagine-worship-nyc/" }]
+      }
+    ]
   },
   {
-    name: "Hope Midtown",
-    tradition: "Non-denominational",
-    address: "Midtown",
-    lat: 40.7549, lng: -73.9847,
-    services: ["Sun 10:00 AM — Gathering", "Sun 12:00 PM — Gathering"]
-  },
-  {
-    name: "Metropolitan Community Church of New York",
-    tradition: "Ecumenical / LGBTQ+",
-    address: "446 W 36th St, Hudson Yards",
-    lat: 40.7545, lng: -73.9949,
-    services: ["Sun 10:00 AM — Worship"]
-  },
-  {
-    name: "Marble Collegiate Church",
-    tradition: "Reformed (RCA)",
-    address: "1 W 29th St, NoMad",
-    lat: 40.7456, lng: -73.9880,
-    services: ["Sun 11:00 AM — Worship"]
-  },
-  {
-    name: "Calvary Church",
-    tradition: "Episcopal",
-    address: "277 Park Ave S, Gramercy",
-    lat: 40.7380, lng: -73.9865,
-    services: ["Sun 9:00 AM — Holy Eucharist", "Sun 11:00 AM — Choral Eucharist"]
-  },
-  {
-    name: "Church of St. Francis Xavier",
-    tradition: "Roman Catholic (Jesuit)",
-    address: "55 W 16th St, Chelsea",
-    lat: 40.7378, lng: -73.9950,
-    services: ["Sun 9:00, 11:30 AM — Mass", "Sun 5:00 PM — Mass"]
-  },
-  {
-    name: "Redeemer Downtown",
-    tradition: "Presbyterian (PCA)",
-    address: "W 16th St, Chelsea",
-    lat: 40.7372, lng: -73.9930,
-    services: ["Sun 10:30 AM — Worship", "Sun 5:00 PM — Worship"]
-  },
-  {
-    name: "First Presbyterian Church",
-    tradition: "Presbyterian (PCUSA)",
-    address: "12 W 12th St, Greenwich Village",
-    lat: 40.7355, lng: -73.9950,
-    services: ["Sun 11:00 AM — Worship"]
-  },
-  {
-    name: "Church of the Ascension",
-    tradition: "Episcopal",
-    address: "12 W 11th St (5th Ave), Greenwich Village",
-    lat: 40.7345, lng: -73.9944,
-    services: ["Sun 9:00 AM — Said Eucharist", "Sun 11:00 AM — Choral Eucharist"]
+    name: "Christ Church NYC — Pride Picnic",
+    tradition: "United Methodist",
+    address: "Central Park, Sheep Meadow",
+    lat: 40.7717, lng: -73.9756,
+    events: [
+      {
+        date: "Sat Jun 20", time: "2:00 PM",
+        start: "2026-06-20T14:00:00-04:00", durationMin: 240,
+        service: "Pride Picnic",
+        note: "Church social only; light food and drink provided.",
+        links: [{ label: "event", url: "https://www.christchurchnyc.online/events" }]
+      }
+    ]
   },
   {
     name: "Grace Church",
     tradition: "Episcopal",
     address: "802 Broadway, Greenwich Village",
     lat: 40.7335, lng: -73.9924,
-    services: ["Sun 9:00, 11:00 AM — Holy Eucharist", "Sun 6:00 PM — Evening Eucharist"]
+    events: [
+      {
+        date: "Sun Jun 21", time: "9:00 AM",
+        start: "2026-06-21T09:00:00-04:00", durationMin: 120,
+        service: "Holy Eucharist, Rite II",
+        note: "Coffee hour and fellowship in Tuttle Hall after the service.",
+        links: [{ label: "worship", url: "https://gracechurchnyc.org/worship/" }]
+      },
+      {
+        date: "Sun Jun 21", time: "11:00 AM",
+        start: "2026-06-21T11:00:00-04:00", durationMin: 120,
+        service: "Holy Eucharist, Rite I",
+        note: "Coffee hour and fellowship in Tuttle Hall after the service.",
+        links: [{ label: "worship", url: "https://gracechurchnyc.org/worship/" }]
+      }
+    ]
   },
   {
-    name: "Church of the City — Downtown",
-    tradition: "Non-denominational",
-    address: "Greenwich Village",
-    lat: 40.7332, lng: -73.9905,
-    services: ["Sun 9:30, 11:30 AM — Gathering", "Sun 5:00 PM — Gathering"]
-  },
-  {
-    name: "Church of St. Joseph in Greenwich Village",
-    tradition: "Roman Catholic",
-    address: "371 Sixth Ave, Greenwich Village",
-    lat: 40.7325, lng: -74.0009,
-    services: ["Sun 9:30, 11:30 AM — Mass", "Sat 5:00 PM — Vigil Mass"]
-  },
-  {
-    name: "Judson Memorial Church",
-    tradition: "Baptist / UCC",
-    address: "55 Washington Sq S, Greenwich Village",
-    lat: 40.7303, lng: -73.9985,
-    services: ["Sun 11:00 AM — Worship"]
-  },
-  {
-    name: "Middle Collegiate Church",
-    tradition: "Reformed (RCA)",
-    address: "112 Second Ave, East Village",
-    lat: 40.7280, lng: -73.9880,
-    services: ["Sun 11:30 AM — Worship (online & in person)"]
-  },
-  {
-    name: "Trinity Church Wall Street",
+    name: "Saint Thomas Church Fifth Avenue",
     tradition: "Episcopal",
-    address: "89 Broadway, Financial District",
-    lat: 40.7081, lng: -74.0122,
-    services: ["Sun 9:00 AM — Holy Eucharist", "Sun 11:15 AM — Choral Eucharist", "Daily 12:05 PM — Eucharist"]
+    address: "1 W 53rd St, Midtown",
+    lat: 40.7607, lng: -73.9748,
+    events: [
+      {
+        date: "Sun Jun 21", time: "9:00 AM",
+        start: "2026-06-21T09:00:00-04:00", durationMin: 120,
+        service: "Rite II Sung Mass (Contemporary Language)",
+        note: "Coffee hour after the 9:00 AM Sung Mass.",
+        links: [{ label: "calendar", url: "https://www.saintthomaschurch.org/" }]
+      },
+      {
+        date: "Sun Jun 21", time: "11:00 AM",
+        start: "2026-06-21T11:00:00-04:00", durationMin: 120,
+        service: "Festal Eucharist",
+        note: "Coffee hour after the 11:00 AM Eucharist, listed at 12:30 PM.",
+        links: [{ label: "calendar", url: "https://www.saintthomaschurch.org/" }]
+      }
+    ]
+  },
+  {
+    name: "Brick Presbyterian Church",
+    tradition: "Presbyterian (PCUSA)",
+    address: "1140 Park Ave (E 91st St), Carnegie Hill",
+    lat: 40.7841, lng: -73.9551,
+    events: [
+      {
+        date: "Sun Jun 21", time: "11:00 AM",
+        start: "2026-06-21T11:00:00-04:00", durationMin: 120,
+        service: "Sunday Worship",
+        note: "Coffee hour after worship, listed at 12:15 PM.",
+        links: [{ label: "calendar", url: "https://www.brickchurch.org/" }]
+      }
+    ]
+  },
+  {
+    name: "Church of St. Ignatius Loyola",
+    tradition: "Roman Catholic (Jesuit)",
+    address: "980 Park Ave, Upper East Side",
+    lat: 40.7762, lng: -73.9603,
+    events: [
+      {
+        date: "Sun Jun 21", time: "11:00 AM",
+        start: "2026-06-21T11:00:00-04:00", durationMin: 120,
+        service: "11:00 AM Mass",
+        note: "Community Coffee Hour after the 11:00 AM Masses.",
+        links: [{ label: "events", url: "https://ignatius.nyc/events/" }]
+      }
+    ]
+  },
+  {
+    name: "Church of the Holy Trinity",
+    tradition: "Episcopal",
+    address: "316 E 88th St, Yorkville",
+    lat: 40.7775, lng: -73.9510,
+    events: [
+      {
+        date: "Sun Jun 21", time: "11:00 AM",
+        start: "2026-06-21T11:00:00-04:00", durationMin: 120,
+        service: "Sung Eucharist",
+        note: "Coffee hour after 11:00 AM worship in the fellowship hall.",
+        links: [
+          { label: "service", url: "https://www.holytrinity-nyc.org/upcoming" },
+          { label: "FAQ", url: "https://www.holytrinity-nyc.org/faqs" }
+        ]
+      }
+    ]
+  },
+  {
+    name: "First Presbyterian Church",
+    tradition: "Presbyterian (PCUSA)",
+    address: "12 W 12th St, Greenwich Village",
+    lat: 40.7355, lng: -73.9950,
+    events: [
+      {
+        date: "Sun Jun 21", time: "11:00 AM",
+        start: "2026-06-21T11:00:00-04:00", durationMin: 120,
+        service: "Sunday Worship",
+        note: "Coffee fellowship directly following worship.",
+        links: [
+          { label: "worship", url: "https://fpcnyc.org/worship/sunday/" },
+          { label: "coffee fellowship", url: "https://fpcnyc.org/events/" }
+        ]
+      }
+    ]
+  },
+  {
+    name: "Marble Collegiate Church",
+    tradition: "Reformed (RCA)",
+    address: "1 W 29th St, NoMad",
+    lat: 40.7456, lng: -73.9880,
+    events: [
+      {
+        date: "Sun Jun 21", time: "11:00 AM",
+        start: "2026-06-21T11:00:00-04:00", durationMin: 120,
+        service: "Sunday Worship",
+        note: "Coffee hour after worship, listed at 12:15 PM.",
+        links: [
+          { label: "visitor info", url: "https://www.marblechurch.org/visitor-info" },
+          { label: "calendar", url: "https://www.marblechurch.org/calendar" }
+        ]
+      }
+    ]
+  },
+  {
+    name: "All Souls NYC",
+    tradition: "Unitarian Universalist",
+    address: "1157 Lexington Ave (E 80th St), Upper East Side",
+    lat: 40.7758, lng: -73.9584,
+    events: [
+      {
+        date: "Sun Jun 21", time: "11:15 AM",
+        start: "2026-06-21T11:15:00-04:00", durationMin: 120,
+        service: "Sunday Worship Service",
+        note: "Coffee Hour after the 11:15 AM service.",
+        links: [{ label: "new to All Souls", url: "https://allsoulsnyc.org/new-to-all-souls/" }]
+      }
+    ]
   }
 ];
+
+// An event is "open" when the current instant falls between its start time and
+// start + durationMin (which covers the service plus the social hour after it).
+function eventIsOpen(ev, now) {
+  const start = new Date(ev.start).getTime();
+  const end = start + ev.durationMin * 60 * 1000;
+  return now >= start && now <= end;
+}
+
+function churchIsOpen(church, now) {
+  return church.events.some(function (ev) { return eventIsOpen(ev, now); });
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   const map = L.map("map", {
@@ -239,12 +271,31 @@ document.addEventListener("DOMContentLoaded", function () {
   ).addTo(map);
 
   const listEl = document.getElementById("church-list");
-  const markers = [];
-  const bounds = [];
+  const emptyEl = document.getElementById("empty-msg");
+  const countEl = document.getElementById("church-count");
+  const filterBtn = document.getElementById("open-filter");
 
-  CHURCHES.forEach(function (c, i) {
-    const servicesHtml = c.services
-      .map(function (s) { return "<li>" + s + "</li>"; })
+  let openOnly = false;
+
+  // Build a record per church: its marker, sidebar button, and a closure to
+  // refresh the open/closed visuals.
+  const records = CHURCHES.map(function (c) {
+    const eventsHtml = c.events
+      .map(function (ev) {
+        const linksHtml = ev.links
+          .map(function (l) {
+            return '<a href="' + l.url + '" target="_blank" rel="noopener">' + l.label + "</a>";
+          })
+          .join(" &middot; ");
+        return (
+          "<li>" +
+          '<span class="ev-when">' + ev.date + " &middot; " + ev.time + "</span>" +
+          '<span class="ev-service">' + ev.service + "</span>" +
+          '<span class="ev-note">' + ev.note + "</span>" +
+          '<span class="ev-links">' + linksHtml + "</span>" +
+          "</li>"
+        );
+      })
       .join("");
 
     const popupHtml =
@@ -252,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function () {
       '<h3>' + c.name + "</h3>" +
       '<div class="popup-tradition">' + c.tradition + "</div>" +
       '<div class="popup-addr">' + c.address + "</div>" +
-      "<ul>" + servicesHtml + "</ul>" +
+      "<ul>" + eventsHtml + "</ul>" +
       "</div>";
 
     const marker = L.circleMarker([c.lat, c.lng], {
@@ -261,19 +312,17 @@ document.addEventListener("DOMContentLoaded", function () {
       weight: 2,
       fillColor: "#ff5a7a",
       fillOpacity: 0.55
-    }).addTo(map);
-
-    marker.bindPopup(popupHtml, { maxWidth: 280 });
-    markers.push(marker);
-    bounds.push([c.lat, c.lng]);
+    });
+    marker.bindPopup(popupHtml, { maxWidth: 300 });
 
     // Sidebar entry
     const item = document.createElement("button");
     item.className = "church-item";
     item.innerHTML =
       '<span class="church-name">' + c.name + "</span>" +
-      '<span class="church-meta">' + c.tradition + " &middot; " + c.services.length +
-      " service" + (c.services.length === 1 ? "" : "s") + "</span>";
+      '<span class="church-meta">' + c.tradition + " &middot; " + c.events.length +
+      " service" + (c.events.length === 1 ? "" : "s") +
+      '<span class="open-badge">OPEN NOW</span></span>';
     item.addEventListener("click", function () {
       map.setView([c.lat, c.lng], 15, { animate: true });
       marker.openPopup();
@@ -282,12 +331,61 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       item.classList.add("active");
     });
-    listEl.appendChild(item);
+
+    return { church: c, marker: marker, item: item };
   });
 
+  // Apply the current filter: show/hide sidebar entries and markers, mark which
+  // churches are open right now, and update the count.
+  function render() {
+    const now = Date.now();
+    let visible = 0;
+    let openCount = 0;
+
+    records.forEach(function (r) {
+      const isOpen = churchIsOpen(r.church, now);
+      if (isOpen) openCount++;
+
+      r.item.classList.toggle("is-open", isOpen);
+
+      const show = !openOnly || isOpen;
+      r.item.style.display = show ? "" : "none";
+
+      if (show) {
+        visible++;
+        if (!map.hasLayer(r.marker)) r.marker.addTo(map);
+        r.marker.setStyle(
+          isOpen
+            ? { color: "#4ade80", fillColor: "#4ade80" }
+            : { color: "#ff5a7a", fillColor: "#ff5a7a" }
+        );
+      } else if (map.hasLayer(r.marker)) {
+        map.removeLayer(r.marker);
+      }
+    });
+
+    countEl.textContent = openOnly ? openCount : records.length;
+    filterBtn.classList.toggle("active", openOnly);
+    filterBtn.textContent = openOnly
+      ? "Showing open now (" + openCount + ")"
+      : "Open now";
+    emptyEl.style.display = openOnly && visible === 0 ? "block" : "none";
+  }
+
+  filterBtn.addEventListener("click", function () {
+    openOnly = !openOnly;
+    render();
+  });
+
+  records.forEach(function (r) { listEl.appendChild(r.item); });
+
+  const bounds = CHURCHES.map(function (c) { return [c.lat, c.lng]; });
   if (bounds.length) {
     map.fitBounds(bounds, { padding: [40, 40] });
   }
 
-  document.getElementById("church-count").textContent = CHURCHES.length;
+  render();
+
+  // Keep the open/closed state fresh as time passes.
+  setInterval(render, 60 * 1000);
 });
