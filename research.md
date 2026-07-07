@@ -62,6 +62,7 @@ permalink: /research/
         <research-entry style="margin-top: 2rem;">
             <p><strong>Think Fast: Estimating No-CoT Task-Completion Time Horizons of Frontier AI Models</strong></p>
             <p><em>Dewi Gould, Francis Rhys Ward, Anders Cairns Woodruff, Rauno Arike, Josh Hills, Alex Serrano, Ida Caspary, Jason Ross Brown, <span class="author-underline">Jo J. Jiao</span>, Patrick Leask, Twm Stone, Ram Potham, Ionut Gabriel Stan, Harry Mayne, Simeon Hellsten, Shubhorup Biswas, Ariana Azarbal, William L. Anderson, Elle Najt, Ryan Greenblatt, Julian Stastny</em></p>
+            <p><span style="color: #888;"><a href="https://arxiv.org/abs/2606.07157">arXiv:2606.07157</a></span></p>
         </research-entry>
         <research-entry style="margin-top: 2rem;">
             <p><strong>Narrow RL Induces Broad Behavior Changes in LLMs</strong></p>
