@@ -55,7 +55,7 @@ layout: default
             Hi there! I'm Jo. I believe we are at an inflection point in history, and I work on AI safety to help the transition go well.
         </p>
         <p>
-            As of summer 2026, I am interning at Redwood Research, working on high-stakes control. Previously, I was a MATS fellow mentored by Alex Turner and Alex Cloud as part of Team Shard. Outside of AI safety research, I study mathematics and philosophy at UChicago, where I co-started and led the AI Safety Group at XLab.
+            As of summer 2026, I am interning at Redwood Research, working on high-stakes control. Previously, I was a MATS fellow mentored by Alex Turner and Alex Cloud as part of Team Shard, where my collaborator Boyd Kane and I developed an auditing technique based on limited-parameter finetuning. Outside of AI safety research, I study mathematics and philosophy at UChicago, where I <a href="https://doi.org/10.1063/pt.a1c669dc99#:~:text=We%20are%20trying%20to%20get%20students,orient%20their%20careers">co-started and led the AI Safety Group at XLab</a>.
         </p>
         <p>
             I am interested in the learning and generalization dynamics of machine learning models, especially as it pertains to (mis)alignment.
