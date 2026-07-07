@@ -60,6 +60,10 @@ permalink: /research/
             At MATS, I'm developing a new finetuning-based propensity auditing method with <a href="https://boydkane.com/#about-me">Boyd Kane</a>, advised by <a href="https://turntrout.com/welcome">Alex Turner</a> and <a href="https://scholar.google.com/citations?user=TuFDzRYAAAAJ&hl=en">Alex Cloud</a>. Our work was selected as one of eight <a href="https://www.youtube.com/watch?v=4nsCTYRS1H4">Spotlight talks</a> at the end-of-fellowship MATS Symposium. Previously, I researched value generalization from reinforcement learning with <a href="https://scholar.google.com/citations?user=kV4N4zoAAAAJ&hl=en">James Evans</a> and <a href="https://austinkozlowski.com/">Austin Kozlowski</a> at UChicago Knowledge Lab.
         </p>
         <research-entry style="margin-top: 2rem;">
+            <p><strong>Think Fast: Estimating No-CoT Task-Completion Time Horizons of Frontier AI Models</strong></p>
+            <p><em>Dewi Gould, Francis Rhys Ward, Anders Cairns Woodruff, Rauno Arike, Josh Hills, Alex Serrano, Ida Caspary, Jason Ross Brown, <span class="author-underline">Jo J. Jiao</span>, Patrick Leask, Twm Stone, Ram Potham, Ionut Gabriel Stan, Harry Mayne, Simeon Hellsten, Shubhorup Biswas, Ariana Azarbal, William L. Anderson, Elle Najt, Ryan Greenblatt, Julian Stastny</em></p>
+        </research-entry>
+        <research-entry style="margin-top: 2rem;">
             <p><strong>Narrow RL Induces Broad Behavior Changes in LLMs</strong></p>
             <p><em><span class="author-underline">Jo J. Jiao</span>, Austin C. Kozlowski, James Evans</em></p>
             <p><span style="color: #888;">NeurIPS 2025 Workshop on LLM Evaluation</span></p>
