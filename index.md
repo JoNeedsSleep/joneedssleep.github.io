@@ -63,9 +63,6 @@ layout: default
         <p>
             Outside of AI safety research, I study mathematics and philosophy at UChicago, where I <a href="https://doi.org/10.1063/pt.a1c669dc99#:~:text=We%20are%20trying%20to%20get%20students,orient%20their%20careers">co-started and led the AI Safety Group at XLab</a>.
         </p>
-        <p>
-            I am interested in the learning and generalization dynamics of machine learning models, especially as it pertains to (mis)alignment.
-        </p>
         <details>
         <summary>Feedback</summary>
         <p>
