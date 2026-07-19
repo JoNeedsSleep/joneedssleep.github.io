@@ -1,0 +1,353 @@
+---
+layout: default
+title: An entry on my ASI wishlist
+permalink: /asi-wishlist/
+sitemap: false
+---
+
+<style>
+    :root {
+        --blockquote-border: rgba(26, 26, 26, 0.15);
+        --footnote-color: rgba(26, 26, 26, 0.5);
+        --separator-color: rgba(26, 26, 26, 0.1);
+    }
+
+    [data-theme="dark"] {
+        --blockquote-border: rgba(224, 224, 224, 0.15);
+        --footnote-color: rgba(224, 224, 224, 0.45);
+        --separator-color: rgba(224, 224, 224, 0.1);
+    }
+
+    .container.essay-page .left-column .name {
+        font-size: 1.35rem;
+        letter-spacing: 0.03em;
+        line-height: 1.3;
+        margin-top: 4.75rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .essay-byline {
+        font-size: 0.88rem;
+        color: var(--text-color);
+        margin-bottom: 0.4rem;
+    }
+
+    .essay-meta {
+        font-size: 0.88rem;
+        color: var(--text-color);
+        margin-bottom: 0.8rem;
+    }
+
+    .essay-meta a {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .essay-meta a:hover { color: var(--link-hover-color); }
+
+    .container.essay-page .right-column {
+        position: relative;
+    }
+
+    .container.essay-page .right-column p {
+        line-height: 1.7;
+        font-size: 0.95rem;
+    }
+
+    .container.essay-page blockquote {
+        margin: 2rem 0;
+        padding: 0 0 0 1.25rem;
+        border-left: 2px solid var(--blockquote-border);
+        font-style: italic;
+        font-size: 0.9rem;
+        line-height: 1.65;
+    }
+
+    .container.essay-page blockquote .attribution {
+        display: block;
+        margin-top: 0.5rem;
+        font-style: normal;
+        font-size: 0.82rem;
+        color: var(--footnote-color);
+    }
+
+    .sidenote-ref {
+        font-size: 0.75rem;
+        color: var(--footnote-color);
+        vertical-align: super;
+        line-height: 0;
+    }
+
+    .sidenote-ref a {
+        color: var(--footnote-color);
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .sidenote-ref a:hover {
+        color: var(--link-hover-color);
+    }
+
+    .sidenote {
+        position: absolute;
+        right: calc(100% + 3rem);
+        width: 220px;
+        text-align: right;
+        font-size: 0.78rem;
+        color: var(--footnote-color);
+        line-height: 1.5;
+        will-change: transform, opacity;
+    }
+
+    .sidenote a {
+        color: var(--footnote-color) !important;
+        text-decoration: underline;
+        text-decoration-color: var(--separator-color) !important;
+    }
+
+    .sidenote a:hover {
+        color: var(--link-hover-color) !important;
+    }
+
+    .sidenote-number {
+        font-size: 0.72rem;
+        vertical-align: super;
+        margin-right: 0.2rem;
+    }
+
+    .sidenote-number a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .sidenote-number a:hover {
+        color: var(--link-hover-color);
+    }
+
+    .footnotes-section {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--separator-color);
+    }
+
+    .footnote-text {
+        font-size: 0.82rem;
+        color: var(--footnote-color);
+        line-height: 1.55;
+        margin: 0 0 0.75rem 0;
+        padding-left: 1rem;
+        text-indent: -1rem;
+    }
+
+    .footnote-text a {
+        color: var(--footnote-color) !important;
+        text-decoration: underline;
+        text-decoration-color: var(--separator-color) !important;
+    }
+
+    .footnote-text a:hover {
+        color: var(--link-hover-color) !important;
+    }
+
+    .collapse-toggle {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-top: 0.16em solid transparent;
+        border-bottom: 0.16em solid transparent;
+        border-left: 0.23em solid currentColor;
+        cursor: pointer;
+        margin-right: 0.4em;
+        vertical-align: middle;
+        position: relative;
+        top: -3px;
+        transform: rotate(90deg); /* pointing down = expanded */
+        transition: transform 0.3s ease;
+    }
+
+    .left-column.collapsed .collapse-toggle {
+        transform: rotate(0deg); /* pointing right = collapsed */
+    }
+
+    .left-details {
+        max-height: 400px;
+        opacity: 1;
+        transition: max-height 0.35s ease, opacity 0.25s ease;
+        /* overflow stays visible so the 3D toggle isn't clipped */
+    }
+
+    .left-column.collapsed .left-details {
+        max-height: 0;
+        opacity: 0;
+    }
+
+    .container.essay-page .left-column .name {
+        transition: color 0.25s ease;
+    }
+
+    .left-column.collapsed .name {
+        color: var(--footnote-color);
+    }
+
+    @media screen and (max-width: 768px) {
+        .container.essay-page .right-column p {
+            font-size: 0.9rem;
+        }
+
+        .container.essay-page .left-column .name {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
+        .collapse-toggle {
+            display: none;
+        }
+
+        .left-column.collapsed .left-details {
+            max-height: 400px;
+            opacity: 1;
+            overflow: visible;
+        }
+
+        .sidenote {
+            display: none;
+        }
+    }
+</style>
+
+<div class="container essay-page">
+    <div class="left-column">
+        <h1 class="name"><span class="collapse-toggle" aria-label="Toggle column"></span>An entry on my ASI wishlist</h1>
+        <div class="left-details">
+        <div class="essay-byline"><em>The cryptic poem I want to write</em></div>
+        <button type="button" id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+            <span class="ub-stage">
+                <span class="ub-world">
+                    <span class="face f-bottom"></span>
+                    <span class="face f-front"></span>
+                    <span class="face f-back"></span>
+                    <span class="face f-left"></span>
+                    <span class="face f-right"></span>
+                    <span class="arm-root">
+                        <span class="arm-lift">
+                            <span class="arm-riser">
+                                <span class="rface rface-x"></span>
+                                <span class="rface rface-x2"></span>
+                                <span class="rface rface-y"></span>
+                                <span class="rface rface-y2"></span>
+                                <span class="rface rface-bottom"></span>
+                                <span class="rface rface-top"></span>
+                            </span>
+                            <span class="arm-finger">
+                                <span class="fface fface-top"></span>
+                                <span class="fface fface-bottom"></span>
+                                <span class="fface fface-front"></span>
+                                <span class="fface fface-back"></span>
+                                <span class="fface fface-cap-r"></span>
+                                <span class="fface fface-cap-l"></span>
+                            </span>
+                        </span>
+                    </span>
+                    <span class="face lid-fixed"></span>
+                    <span class="lid-hinge">
+                        <span class="lid-panel">
+                            <span class="face"></span>
+                        </span>
+                    </span>
+                    <span class="switch-bezel"></span>
+                    <span class="switch"></span>
+                </span>
+            </span>
+        </button>
+        <div class="essay-meta"><a href="/">Jo Jiao</a>, July 2026, Berkeley</div>
+        </div>
+    </div>
+
+    <div class="right-column">
+        <a href="https://en.wikipedia.org/wiki/The_Musical_Offering#Musical_riddles"><img src="/assets/images/asi-wishlist/canon_in_hypodiapason.png" alt="Bach's Canon in Hypodiapason manuscript" style="width:100%;margin:0.75rem 0 1.5rem;display:block;border-radius:2px;"></a>
+
+        <p>I want to write a meta-cryptic poem. Each line of the poem is a <a href="https://s.wsj.net/blogs/html/wsjcrypticguide.pdf">cryptic clue</a>. The answers to each cryptic clue then form, in themselves, a cryptic clue (call it the meta-riddle), which then clues for a final word (call it the final answer).</p>
+
+        <p>Now, I understand this is an excessively difficult poem to read and write. Cryptic surfaces are hard to maintain — <a href="https://arc.net/l/quote/gsunojvt">wasted words are not allowed</a>, so cryptic surfaces usually sound at best terse<sup class="sidenote-ref"><a href="#fn-1">1</a></sup> and at worst, somewhat nonsensical.<sup class="sidenote-ref"><a href="#fn-2">2</a></sup> Let alone writing poems that read sensibly.</p>
+        <div class="sidenote">
+            <span class="sidenote-number"><a href="#fn-1">1</a></span> Point of view captured in Sartrean glee (5)
+        </div>
+        <div class="sidenote">
+            <span class="sidenote-number"><a href="#fn-2">2</a></span> On the record, zero bond (4)
+        </div>
+
+        <p>The poem should also maintain musicality. Ideally it follows some trochaic meter.<sup class="sidenote-ref"><a href="#fn-3">3</a></sup></p>
+        <div class="sidenote">
+            <span class="sidenote-number"><a href="#fn-3">3</a></span> E.g. the trochaic octameter "Once upon a midnight dreary, while I pondered, weak and weary" from Edgar Allan Poe's "The Raven". Trochaic over iambic mostly because the stress-unstressed trochee feels like a breath that doesn't quite end, just like a poem that births yet another poem.
+        </div>
+
+        <p>The meta-riddle should cohere with the poem and the final answer. The poem then becomes a poem in three layers, each of which advances the theme.<sup class="sidenote-ref"><a href="#fn-4">4</a></sup></p>
+        <div class="sidenote">
+            <span class="sidenote-number"><a href="#fn-4">4</a></span> One thought I have is Inferno &rarr; Purgatorio &rarr; Paradiso, if we want to go the Renaissance grandeur route.
+        </div>
+
+        <p>The central difficulty of this poem, apart from technical calibration, is that it can easily veer into pretension. What final answer can bear the weight of a labourious reader's expectation, who, having invested their time in reaching it, expects a moment of revelation? Borges had that magic: he was erudite, esoteric, a little metaphysical and yet somehow his thought was not crowded out by his knowledge.</p>
+
+        <blockquote>
+            The story goes that shortly before or after his death, when he found himself in the presence of God, he said: "I who have been so many men in vain want to be one man only, myself." The voice of God answered him out of a whirlwind: "Neither am I what I am. I dreamed the world the way you dreamt your plays, dear Shakespeare. You are one of the shapes of my dreams: like me, you are everything and nothing."
+            <span class="attribution">—Jorge Luis Borges, "<a href="https://www.ronnowpoetry.com/contents/borges/EverythingandNothing.html">Everything and Nothing</a>"</span>
+        </blockquote>
+
+        <p>I came up with a few ideas for the final answer, but I'm not particularly impressed with any of them: "silence" is a meta-reference, but it's a bit pretentious for my taste, "LoL" feels too mean, almost like a prank, and "you" is trying too hard to be clever-but-not-trying-that-hard. I think the best candidates should feel inevitable, humble, revelatory, and reveal something more about the poem.</p>
+
+        <p>This is a poem I may not get the chance to write,<sup class="sidenote-ref"><a href="#fn-5">5</a></sup> unless I live for a very very long time.</p>
+        <div class="sidenote">
+            <span class="sidenote-number"><a href="#fn-5">5</a></span> Though I've tried my hand at writing poetic cryptic clues: <em>Spartans feast without Greek children; the seed of it all was perhaps named Cypress. (10)</em> Seasoned solvers and frontier models haven't been able to solve it without a good hint, but I believe with some knowledge of Greek this is a reasonably fair clue, so please email me at <a href="mailto:jojiao@uchicago.edu">jojiao@uchicago.edu</a> if you do solve it.
+        </div>
+
+        <p>If I see an AI write this poem tastefully, I will feel, as viscerally as ever before, that we have created a species of rational being<sup class="sidenote-ref"><a href="#fn-6">6</a></sup> capable of majesty. I would be at once delighted and a little terrified. I'll probably memorize the poem.</p>
+        <div class="sidenote">
+            <span class="sidenote-number"><a href="#fn-6">6</a></span> <a href="https://arc.net/l/quote/laccpcgr">In the Kantian sense</a>.
+        </div>
+
+        <p>I hope to read this poem one day. Who knows, I might write it before ASI.</p>
+
+        <div class="footnotes-section">
+            <p class="footnote-text" id="fn-1"><sup>1</sup> Point of view captured in Sartrean glee (5)</p>
+            <p class="footnote-text" id="fn-2"><sup>2</sup> On the record, zero bond (4)</p>
+            <p class="footnote-text" id="fn-3"><sup>3</sup> E.g. the trochaic octameter "Once upon a midnight dreary, while I pondered, weak and weary" from Edgar Allan Poe's "The Raven". Trochaic over iambic mostly because the stress-unstressed trochee feels like a breath that doesn't quite end, just like a poem that births yet another poem.</p>
+            <p class="footnote-text" id="fn-4"><sup>4</sup> One thought I have is Inferno &rarr; Purgatorio &rarr; Paradiso, if we want to go the Renaissance grandeur route.</p>
+            <p class="footnote-text" id="fn-5"><sup>5</sup> Though I've tried my hand at writing poetic cryptic clues: <em>Spartans feast without Greek children; the seed of it all was perhaps named Cypress. (10)</em> Seasoned solvers and frontier models haven't been able to solve it without a good hint, but I believe with some knowledge of Greek this is a reasonably fair clue, so please email me at <a href="mailto:jojiao@uchicago.edu">jojiao@uchicago.edu</a> if you do solve it.</p>
+            <p class="footnote-text" id="fn-6"><sup>6</sup> <a href="https://arc.net/l/quote/laccpcgr">In the Kantian sense</a>.</p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+(function() {
+    var leftCol = document.querySelector('.container.essay-page .left-column');
+    var toggle  = document.querySelector('.collapse-toggle');
+    if (!leftCol || !toggle) return;
+
+    var details = leftCol.querySelector('.left-details');
+    if (!details) return;
+
+    toggle.addEventListener('click', function() {
+        var collapsing = !leftCol.classList.contains('collapsed');
+
+        if (collapsing) {
+            leftCol.classList.add('collapsed');
+            // Apply overflow:hidden only after the transition finishes,
+            // so the 3D box isn't clipped at the start of the animation.
+            details.addEventListener('transitionend', function handler(e) {
+                if (e.propertyName === 'max-height') {
+                    details.style.overflow = 'hidden';
+                    details.removeEventListener('transitionend', handler);
+                }
+            });
+        } else {
+            // Clear inline overflow before expanding so the 3D box is unclipped.
+            details.style.overflow = '';
+            leftCol.classList.remove('collapsed');
+        }
+    });
+})();
+</script>

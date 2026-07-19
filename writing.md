@@ -35,6 +35,14 @@ permalink: /writing/
         color: var(--link-hover-color);
     }
 
+    .right-column writing-entry .entry-tag {
+        font-size: 0.82em;
+        border: 1px solid rgba(136, 136, 136, 0.45);
+        border-radius: 999px;
+        padding: 0.05em 0.55em;
+        white-space: nowrap;
+    }
+
     @media screen and (max-width: 768px) {
         .container.writing-page .right-column {
             margin-top: 0.1rem;
@@ -102,9 +110,14 @@ permalink: /writing/
     <div class="right-column">
         <p>I enjoy philosophy and history, doing math, and tinkering with machines. My inbox is always open for feedback (<a href="https://www.admonymous.co/joneedssleep">here</a>) and discussion.</p>
         <writing-entry>
-            <p><strong><a href="/scav-atm/">Building an Automated Tarot Machine</a></strong></p>
-            <p><em>in 48 hours, as part of the UChicago SCAV Hunt</em></p>
-            <p><span style="color: #888;">May 2026</span></p>
+            <p><strong><a href="/asi-wishlist/">An entry on my ASI wishlist</a></strong></p>
+            <p><em>The cryptic poem I want to write</em></p>
+            <p><span style="color: #888;">July 2026, Berkeley &middot; 2 min read &middot; <span class="entry-tag">#Useless Machine</span></span></p>
+        </writing-entry>
+        <writing-entry>
+            <p><strong><a href="/scav-atm/">In Praise of Serious Play</a></strong></p>
+            <p><em>An Automated Tarot Machine for the UChicago SCAV Hunt</em></p>
+            <p><span style="color: #888;">May 2026, Hyde Park &middot; 10 min read &middot; <span class="entry-tag">#Useless Machine</span></span></p>
         </writing-entry>
     </div>
 </div>
