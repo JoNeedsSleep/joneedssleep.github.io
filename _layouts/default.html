@@ -66,6 +66,9 @@
             position: sticky;
             top: 2rem;
             height: fit-content;
+            /* Own composited layer: keeps the 3D toggle moving atomically with
+               the sticky column during scroll (avoids 3D-in-sticky glitches). */
+            transform: translateZ(0);
         }
 
         .name {
@@ -76,17 +79,6 @@
             letter-spacing: 0.05em;
             margin-top: 4.75rem;
             font-weight: normal;
-        }
-
-        @property --riser-h {
-            syntax: '<length>';
-            inherits: true;
-            initial-value: 15px;
-        }
-        @property --finger-len {
-            syntax: '<length>';
-            inherits: true;
-            initial-value: 14px;
         }
 
         .theme-toggle {
@@ -131,6 +123,10 @@
             height: calc((var(--bd) + var(--bh)) * var(--scale));
             perspective: 900px;
             position: relative;
+            /* Self-contained stacking context so ancestor opacity/max-height
+               transitions (e.g. the essay page's collapsible column) can't
+               interfere with the 3D rendering context. */
+            isolation: isolate;
         }
         .theme-toggle .ub-world {
             position: absolute; inset: 0;
@@ -259,20 +255,49 @@
         .theme-toggle .arm-finger .fface-cap-l  { width: var(--finger-h); height: var(--finger-h); transform-origin: left center; transform: rotateY(90deg); }
 
         .theme-toggle.is-playing .lid-panel { animation: theme-toggle-lid 2000ms ease both; }
-        .theme-toggle.is-playing .arm-lift  { animation: theme-toggle-telescope 2000ms ease both; }
         .theme-toggle.is-playing .switch    { animation: theme-toggle-flick 2000ms ease both; }
+        /* Telescope: plain transform/size keyframes per element instead of
+           animating registered custom properties (@property), which is the
+           least-supported animation path and glitches in some engines. */
+        .theme-toggle.is-playing .arm-lift  { animation: theme-toggle-lift 2000ms ease both; }
+        .theme-toggle.is-playing .arm-riser .rface-x,
+        .theme-toggle.is-playing .arm-riser .rface-x2 { animation: theme-toggle-riser-x 2000ms ease both; }
+        .theme-toggle.is-playing .arm-riser .rface-y,
+        .theme-toggle.is-playing .arm-riser .rface-y2 { animation: theme-toggle-riser-y 2000ms ease both; }
+        .theme-toggle.is-playing .arm-riser .rface-bottom { animation: theme-toggle-riser-bottom 2000ms ease both; }
+        .theme-toggle.is-playing .arm-finger { animation: theme-toggle-finger 2000ms ease both; }
 
         @keyframes theme-toggle-lid {
             0%, 12%   { transform: rotateY(0deg); }
             25%, 76%  { transform: rotateY(26deg); }
             100%      { transform: rotateY(0deg); }
         }
-        @keyframes theme-toggle-telescope {
-            0%, 25%   { --riser-h: 15px; --finger-len: 14px; }
-            38%       { --riser-h: var(--riser-h-full); --finger-len: 14px; }
-            46%, 50%  { --riser-h: var(--riser-h-full); --finger-len: var(--finger-full); }
-            62%       { --riser-h: var(--riser-h-full); --finger-len: 14px; }
-            76%, 100% { --riser-h: 15px; --finger-len: 14px; }
+        /* Riser at rest / extended: 15px (--riser-h) / 52px (--riser-h-full) */
+        @keyframes theme-toggle-lift {
+            0%, 25%   { transform: translateZ(calc(var(--riser-base-z) + var(--riser-h))); }
+            38%, 62%  { transform: translateZ(calc(var(--riser-base-z) + var(--riser-h-full))); }
+            76%, 100% { transform: translateZ(calc(var(--riser-base-z) + var(--riser-h))); }
+        }
+        @keyframes theme-toggle-riser-x {
+            0%, 25%   { height: var(--riser-h); }
+            38%, 62%  { height: var(--riser-h-full); }
+            76%, 100% { height: var(--riser-h); }
+        }
+        @keyframes theme-toggle-riser-y {
+            0%, 25%   { width: var(--riser-h); }
+            38%, 62%  { width: var(--riser-h-full); }
+            76%, 100% { width: var(--riser-h); }
+        }
+        @keyframes theme-toggle-riser-bottom {
+            0%, 25%   { transform: translateZ(calc(0px - var(--riser-h))); }
+            38%, 62%  { transform: translateZ(calc(0px - var(--riser-h-full))); }
+            76%, 100% { transform: translateZ(calc(0px - var(--riser-h))); }
+        }
+        /* Finger at rest / extended: 14px (--finger-len) / 50px (--finger-full) */
+        @keyframes theme-toggle-finger {
+            0%, 38%   { width: calc(var(--finger-len) + var(--riser-t) / 2); margin-left: calc(0px - var(--finger-len)); }
+            46%, 50%  { width: calc(var(--finger-full) + var(--riser-t) / 2); margin-left: calc(0px - var(--finger-full)); }
+            62%, 100% { width: calc(var(--finger-len) + var(--riser-t) / 2); margin-left: calc(0px - var(--finger-len)); }
         }
         @keyframes theme-toggle-flick {
             0%        { transform: var(--sw-tz) var(--sw-tx) rotateY(300deg) rotateX(-90deg); }
@@ -283,6 +308,8 @@
         @media (prefers-reduced-motion: reduce) {
             .theme-toggle.is-playing .lid-panel,
             .theme-toggle.is-playing .arm-lift,
+            .theme-toggle.is-playing .arm-riser .rface,
+            .theme-toggle.is-playing .arm-finger,
             .theme-toggle.is-playing .switch { animation: none; }
         }
 
