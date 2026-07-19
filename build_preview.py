@@ -61,6 +61,7 @@ pages = [
     ("research.md",           "/research/", os.path.join(OUT_DIR, "research", "index.html")),
     ("writing.md",            "/writing/",  os.path.join(OUT_DIR, "writing", "index.html")),
     ("scav-atm/index.html",   "/scav-atm/", os.path.join(OUT_DIR, "scav-atm", "index.html")),
+    ("asi-wishlist/index.html", "/asi-wishlist/", os.path.join(OUT_DIR, "asi-wishlist", "index.html")),
 ]
 
 for src_file, url, dst_file in pages:
