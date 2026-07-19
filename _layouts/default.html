@@ -66,6 +66,11 @@
             position: sticky;
             top: 2rem;
             height: fit-content;
+            /* Grid items default to min-width:auto, so wide content (e.g. an
+               intrinsically-sized image row) forces the column past the mobile
+               viewport and the page loads zoomed. min-width:0 lets the column
+               shrink so inner overflow-x:auto containers can do their job. */
+            min-width: 0;
             /* Own composited layer: keeps the 3D toggle moving atomically with
                the sticky column during scroll (avoids 3D-in-sticky glitches). */
             transform: translateZ(0);
@@ -496,6 +501,7 @@
         .right-column {
             max-width: 600px;
             margin-top: 4rem;
+            min-width: 0; /* see .left-column: allow shrinking below content min-width */
         }
 
         @media screen and (max-width: 768px) {
