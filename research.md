@@ -54,11 +54,18 @@ permalink: /research/
     </div>
     <div class="right-column">
         <p>
-            My interest is in learning and generalization dynamics as it pertains to (mis)alignment. My favourite writings on this topic are Paul Christiano's <a href="https://www.lesswrong.com/s/EmDuGeRw749sD3GKd">essays</a> from 2018 to 2019; in some ways, these ideas were what got me into AI safety.
+            I do research in AI safety. I'm most interested in how models generalize and misgeneralize. My favourite writings on this topic are Paul Christiano's <a href="https://www.lesswrong.com/s/EmDuGeRw749sD3GKd">essays</a> circa 2018&ndash;19. These ideas, as much as anything, got me into AI safety.
         </p>
-        <p>
-            At MATS, I'm developing a new finetuning-based propensity auditing method with <a href="https://boydkane.com/#about-me">Boyd Kane</a>, advised by <a href="https://turntrout.com/welcome">Alex Turner</a> and <a href="https://scholar.google.com/citations?user=TuFDzRYAAAAJ&hl=en">Alex Cloud</a>. Our work was selected as one of eight <a href="https://www.youtube.com/watch?v=4nsCTYRS1H4">Spotlight talks</a> at the end-of-fellowship MATS Symposium. Previously, I researched value generalization from reinforcement learning with <a href="https://scholar.google.com/citations?user=kV4N4zoAAAAJ&hl=en">James Evans</a> and <a href="https://austinkozlowski.com/">Austin Kozlowski</a> at UChicago Knowledge Lab.
-        </p>
+        <research-entry style="margin-top: 2rem;">
+            <p><strong>Uncovering Hidden Propensities in Language Models via Limited-Parameter Finetuning</strong></p>
+            <p><em>Boyd Kane*, <span class="author-underline">Jo J. Jiao</span>*, Bryce Woodworth, Elizabeth Donoway, Alex Cloud, Alexander Matt Turner</em></p>
+            <p><span style="color: #888;">Preprint Under Review</span></p>
+            <details open>
+                <summary>More</summary>
+                <p>At MATS, my collaborator and I developed a new finetuning-based propensity auditing method. Our work was selected as one of eight <a href="https://www.youtube.com/watch?v=4nsCTYRS1H4">Spotlight talks</a> at the end-of-fellowship MATS Symposium.</p>
+                <p>This project began as an attempt to apply Elizabeth Donoway's excess description length to propensity evaluations. We ended up somewhere quite different, but I still think EDL is important for understanding what the method measures. Some notes &amp; links to her papers <a href="/quantifying-elicitability/">here</a>.</p>
+            </details>
+        </research-entry>
         <research-entry style="margin-top: 2rem;">
             <p><strong>Think Fast: Estimating No-CoT Task-Completion Time Horizons of Frontier AI Models</strong></p>
             <p><em>Dewi Gould, Francis Rhys Ward, Anders Cairns Woodruff, Rauno Arike, Josh Hills, Alex Serrano, Ida Caspary, Jason Ross Brown, <span class="author-underline">Jo J. Jiao</span>, Patrick Leask, Twm Stone, Ram Potham, Ionut Gabriel Stan, Harry Mayne, Simeon Hellsten, Shubhorup Biswas, Ariana Azarbal, William L. Anderson, Elle Najt, Ryan Greenblatt, Julian Stastny</em></p>

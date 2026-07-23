@@ -1,0 +1,149 @@
+---
+layout: default
+title: Notes on Quantifying Elicitibility
+permalink: /quantifying-elicitability/
+sitemap: false
+---
+
+<style>
+    .container.essay-page .left-column .name {
+        font-size: 1.35rem;
+        letter-spacing: 0.03em;
+        line-height: 1.3;
+        margin-top: 4.75rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .essay-meta {
+        font-size: 0.88rem;
+        color: var(--text-color);
+        margin-bottom: 0.8rem;
+    }
+
+    .essay-meta a {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .essay-meta a:hover { color: var(--link-hover-color); }
+
+    .container.essay-page .right-column p {
+        line-height: 1.7;
+        font-size: 0.95rem;
+    }
+
+    .container.essay-page .right-column ul {
+        line-height: 1.7;
+        font-size: 0.95rem;
+        margin: 1rem 0;
+        padding-left: 1.25rem;
+    }
+
+    mjx-container[display="true"] {
+        overflow-x: auto;
+        overflow-y: hidden;
+        max-width: 100%;
+    }
+
+    @media screen and (max-width: 768px) {
+        .container.essay-page .right-column p,
+        .container.essay-page .right-column ul {
+            font-size: 0.9rem;
+        }
+
+        .container.essay-page .left-column .name {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+    }
+</style>
+
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+    };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+<div class="container essay-page">
+    <div class="left-column">
+        <h1 class="name">Notes on Quantifying Elicitibility</h1>
+        <button type="button" id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+            <span class="ub-stage">
+                <span class="ub-world">
+                    <span class="face f-bottom"></span>
+                    <span class="face f-front"></span>
+                    <span class="face f-back"></span>
+                    <span class="face f-left"></span>
+                    <span class="face f-right"></span>
+                    <span class="arm-root">
+                        <span class="arm-lift">
+                            <span class="arm-riser">
+                                <span class="rface rface-x"></span>
+                                <span class="rface rface-x2"></span>
+                                <span class="rface rface-y"></span>
+                                <span class="rface rface-y2"></span>
+                                <span class="rface rface-bottom"></span>
+                                <span class="rface rface-top"></span>
+                            </span>
+                            <span class="arm-finger">
+                                <span class="fface fface-top"></span>
+                                <span class="fface fface-bottom"></span>
+                                <span class="fface fface-front"></span>
+                                <span class="fface fface-back"></span>
+                                <span class="fface fface-cap-r"></span>
+                                <span class="fface fface-cap-l"></span>
+                            </span>
+                        </span>
+                    </span>
+                    <span class="face lid-fixed"></span>
+                    <span class="lid-hinge">
+                        <span class="lid-panel">
+                            <span class="face"></span>
+                        </span>
+                    </span>
+                    <span class="switch-bezel"></span>
+                    <span class="switch"></span>
+                </span>
+            </span>
+        </button>
+        <div class="essay-meta"><a href="/">Jo Jiao</a>, February 2026, Berkeley</div>
+    </div>
+
+    <div class="right-column">
+        <p>Some notes on Elizabeth Donoway's work, which proposes EDL (Excess Description Length), an information-theoretic measure of the predictive information the model's parameters has learned from the training data. Her work formalizes and answers the question of "What is elicitation vs. learning".</p>
+
+        <ul>
+            <li><a href="https://openreview.net/pdf?id=re9NtTb1Dy">Excess Description Length of Learning Generalizable Predictors</a></li>
+            <li><a href="https://elizabethdonoway.com/papers/EDL_ISIT_full.pdf">Excess Description Length: An Information Measure for Generalizable Structure Learned from Finite Data</a></li>
+            <li><a href="https://openreview.net/pdf?id=Dkgx2pS4Ww">Quantifying Elicitation of Latent Capabilities in Language Models</a></li>
+        </ul>
+
+        <p>Given a finetuning dataset, let $\mathcal{D}$ be our train set with sample count $n$, and let $\mathcal{D}_{test}$ be the test set. The train and test sets are disjoint: $\mathcal{D}_{test} \cap \mathcal{D} = \emptyset$.</p>
+
+        <p>Pick a number of training steps $T$. Partition the training data into disjoint sets $\mathcal{D} = \mathcal{D}_1 \sqcup \cdots \sqcup \mathcal{D}_T$.</p>
+
+        <p>Given initial model parameters $\theta_0$, define MDL (Minimum Description Length) as: $$\sum_{t =1,...,T} \sum_{(x,y) \in \mathcal{D}_t}l((x,y),\theta_t),$$</p>
+
+        <p>where $\theta_t = \text{update}(\theta_{t-1}, \mathcal{D}_{t-1})$ and $l((x,y),\theta)$ is the loss of the model parameterized by $\theta$ evaluated on data point $(x,y)$. Each datapoint $(x,y)$ is composed of a prompt $x$ and completion $y$, each with token count $|x|$ and $|y|$ respectively.</p>
+
+        <p>We denote $C$ to be the number of completion tokens in the train set defined as $$C=\sum_{t=1,...,T}\sum_{(x,y) \in \mathcal{D}_t} |y|.$$</p>
+
+        <p>We denote $C_{test}$ to be the number of completion tokens in the test set defined as $$C_{test}=\sum_{(x,y) \in \mathcal{D}_{test}} |y|.$$</p>
+
+        <p>EDL (excess description length) is calculated as</p>
+
+        <p>$$\text{MDL} - \frac{C}{C_{test}}\sum_{(x,y) \in \mathcal{D}_{test}}l((x,y),\theta_T).$$</p>
+
+        <p>One measure of elicitability is then the derivative with respect to dataset size of the EDL per train completion token,</p>
+
+        <p>$$\frac{\partial}{\partial n}\bigg(\frac{EDL}{C}\bigg),$$</p>
+
+        <p>where a more negative value indicates a more elicitable model. That is to say, a model that doesn't learn more from more examples.</p>
+    </div>
+</div>

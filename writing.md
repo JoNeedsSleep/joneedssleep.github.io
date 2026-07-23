@@ -60,6 +60,18 @@ permalink: /writing/
     }
 </style>
 
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        chtml: {
+            scale: 0.9
+        }
+    };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
 <div class="container writing-page">
     <div class="left-column">
         <h1 class="name">Writing</h1>
@@ -108,7 +120,7 @@ permalink: /writing/
         </div>
     </div>
     <div class="right-column">
-        <p>I enjoy philosophy and history, doing math, and tinkering with machines. My inbox is always open for feedback (<a href="https://www.admonymous.co/joneedssleep">here</a>) and discussion.</p>
+        <p>I enjoy philosophy and history, doing math, and tinkering with <a href="#" id="uselessMachineLink">Useless Machines</a>. My inbox is always open for feedback (<a href="https://www.admonymous.co/joneedssleep">here</a>) and discussion.</p>
         <writing-entry>
             <p><strong><a href="/asi-wishlist/">An entry on my ASI wishlist</a></strong></p>
             <p><em>The cryptic poem I want to write</em></p>
@@ -119,5 +131,28 @@ permalink: /writing/
             <p><em>An Automated Tarot Machine for the UChicago SCAV Hunt</em></p>
             <p><span style="color: #888;">May 2026, Hyde Park &middot; 10 min read &middot; <span class="entry-tag">#Useless Machine</span></span></p>
         </writing-entry>
+        <writing-entry>
+            <p><strong><a href="/quantifying-elicitability/">Notes on Quantifying Elicitibility</a></strong></p>
+            <p><em>On Elizabeth Donoway's Excess Description Length</em></p>
+            <p><span style="color: #888;">February 2026, Berkeley &middot; 3 min read &middot; <span class="entry-tag">#Research</span> <span class="entry-tag">#AI Safety</span> <span class="entry-tag">#Notes</span></span></p>
+        </writing-entry>
+        <writing-entry>
+            <p><strong><a href="/sqrt2-the-hard-way/">$\sqrt{2}\otimes\sqrt{2} = 2$, the hard way</a></strong></p>
+            <p><span style="color: #888;">November 2023, Hyde Park &middot; $\sqrt{222}$ min read &middot; <span class="entry-tag">#Mathematics</span> <span class="entry-tag">#Useless Machine</span> <span class="entry-tag">#Notes</span></span></p>
+        </writing-entry>
     </div>
 </div>
+
+<script>
+    (function() {
+        var link = document.getElementById('uselessMachineLink');
+        var btn = document.getElementById('darkModeButton');
+        if (!link || !btn) return;
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            btn.classList.remove('is-playing');
+            void btn.offsetWidth;
+            btn.classList.add('is-playing');
+        });
+    })();
+</script>

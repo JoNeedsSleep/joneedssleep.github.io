@@ -1,0 +1,660 @@
+---
+layout: default
+title: "√2 ⊗ √2 = 2, the hard way"
+permalink: /sqrt2-the-hard-way/
+sitemap: false
+---
+
+<style>
+    .container.essay-page .left-column .name {
+        font-size: 1.35rem;
+        letter-spacing: 0.03em;
+        line-height: 1.3;
+        margin-top: 4.75rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .essay-meta {
+        font-size: 0.88rem;
+        color: var(--text-color);
+        margin-bottom: 0.8rem;
+    }
+
+    .essay-meta a {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .essay-meta a:hover { color: var(--link-hover-color); }
+
+    .container.essay-page .right-column p {
+        line-height: 1.7;
+        font-size: 0.95rem;
+    }
+
+    .container.essay-page .right-column ol {
+        line-height: 1.7;
+        font-size: 0.95rem;
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .container.essay-page .right-column h2 {
+        font-size: 1.1rem;
+        margin: 2.25rem 0 1rem;
+    }
+
+    .container.essay-page .right-column h3 {
+        font-size: 0.98rem;
+        margin: 2rem 0 1rem;
+        line-height: 1.5;
+    }
+
+    mjx-container[display="true"] {
+        overflow-x: auto;
+        overflow-y: hidden;
+        max-width: 100%;
+    }
+
+    @media screen and (max-width: 768px) {
+        .container.essay-page .right-column p,
+        .container.essay-page .right-column ol {
+            font-size: 0.9rem;
+        }
+
+        .container.essay-page .left-column .name {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+    }
+</style>
+
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+    };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+<div class="container essay-page">
+    <div class="left-column">
+        <h1 class="name">$\sqrt{2}\otimes\sqrt{2} = 2$, the hard way</h1>
+        <button type="button" id="darkModeButton" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">
+            <span class="ub-stage">
+                <span class="ub-world">
+                    <span class="face f-bottom"></span>
+                    <span class="face f-front"></span>
+                    <span class="face f-back"></span>
+                    <span class="face f-left"></span>
+                    <span class="face f-right"></span>
+                    <span class="arm-root">
+                        <span class="arm-lift">
+                            <span class="arm-riser">
+                                <span class="rface rface-x"></span>
+                                <span class="rface rface-x2"></span>
+                                <span class="rface rface-y"></span>
+                                <span class="rface rface-y2"></span>
+                                <span class="rface rface-bottom"></span>
+                                <span class="rface rface-top"></span>
+                            </span>
+                            <span class="arm-finger">
+                                <span class="fface fface-top"></span>
+                                <span class="fface fface-bottom"></span>
+                                <span class="fface fface-front"></span>
+                                <span class="fface fface-back"></span>
+                                <span class="fface fface-cap-r"></span>
+                                <span class="fface fface-cap-l"></span>
+                            </span>
+                        </span>
+                    </span>
+                    <span class="face lid-fixed"></span>
+                    <span class="lid-hinge">
+                        <span class="lid-panel">
+                            <span class="face"></span>
+                        </span>
+                    </span>
+                    <span class="switch-bezel"></span>
+                    <span class="switch"></span>
+                </span>
+            </span>
+        </button>
+        <div class="essay-meta"><a href="/">Jo Jiao</a>, November 2023, Hyde Park<br>Edited July 2026</div>
+    </div>
+
+    <div class="right-column">
+        <p>There are many ways to construct the real numbers, some more positive than others. Dedekind cuts give one such positive construction. In the reals as we know them, $\sqrt{2}\cdot\sqrt{2}=2$ is immediate; in the Dedekind-cut construction, one must prove that every rational below $2$ appears in the product cut. The proof below does that, by a route far longer than the identity deserves. I wrote the bulk of this proof over Thanksgiving break as a bonus problem for my IBL class. Upon reflection, it was also a lesson that elegance in mathematics relies on having the right machinery in place: remove enough of that machinery, and seemingly simple proofs can require an ordeal like the one below. At the end of the day, though, I thought the argument was pretty cool, and Thanksgiving in Chicago was warmer when spent with my blackboards indoors.</p>
+
+        <h2>Background</h2>
+
+        <p><strong>Definition (Dedekind cut).</strong><br>
+        A subset $A\subseteq\mathbb{Q}$ is a <em>cut</em> if:</p>
+
+        <ol>
+            <li>$A\neq\emptyset$ and $A\neq\mathbb{Q}$;</li>
+            <li>$A$ is closed downward: if $r\in A$ and $s&lt;r$, then $s\in A$;</li>
+            <li>$A$ has no last point: if $r\in A$, then there is $s\in A$ with $s&gt;r$.</li>
+        </ol>
+
+        <p>The set of all cuts is called $\mathbb{R}$. A cut is, intuitively, the set of all rationals strictly below some real number, the number itself being exactly the cut. In particular,</p>
+
+        <p>$$
+        \sqrt{2}
+        :=
+        \{x\in\mathbb{Q}\mid x&lt;0\}
+        \cup
+        \{x\in\mathbb{Q}\mid x^2&lt;2\},
+        \qquad
+        \mathbf{2}
+        :=
+        \{x\in\mathbb{Q}\mid x&lt;2\}.
+        $$</p>
+
+        <p><strong>Definition (Multiplication of cuts).</strong><br>
+        You cannot multiply two cuts elementwise: each cut contains arbitrarily negative rationals, and products of large negatives would escape upward. So for cuts $A,B$ containing positive elements, we define</p>
+
+        <p>$$
+        A\otimes B
+        =
+        \{r\in\mathbb{Q}\mid r\le 0\}
+        \cup
+        \{ab\mid a\in A,\ b\in B,\ a&gt;0,\ b&gt;0\}.
+        $$</p>
+
+        <p>We glue in the entire negative tail for free and multiply only positive representatives. Other sign cases are defined by $A\otimes B=-[(-A)\otimes B]$, and similarly for the remaining possibilities; they do not concern us here.</p>
+
+        <p><strong>Lemma ($\mathbb{Q}$ is an ordered field).</strong><br>
+        Multiplying both sides of an inequality of rationals by a positive rational preserves the inequality.</p>
+
+        <p>We wish to prove the following.</p>
+
+        <p><strong>Lemma.</strong></p>
+
+        <p>$$
+        \sqrt{2}\otimes\sqrt{2}
+        =
+        \{x\in\mathbb{Q}\mid x&lt;2\}.
+        $$</p>
+
+        <p><strong>Proof.</strong><br>
+        We first show that</p>
+
+        <p>$$
+        \sqrt{2}\otimes\sqrt{2}
+        \subseteq
+        \{x\in\mathbb{Q}\mid x&lt;2\}.
+        $$</p>
+
+        <p>By the definition of $\otimes$,</p>
+
+        <p>$$
+        \sqrt{2}\otimes\sqrt{2}
+        =
+        \{r\in\mathbb{Q}\mid r\leq 0\}
+        \cup
+        \{ab\mid a\in\sqrt{2},\ b\in\sqrt{2},\ a&gt;0,\ b&gt;0\}.
+        $$</p>
+
+        <p>Recall that</p>
+
+        <p>$$
+        \sqrt{2}
+        =
+        \{x\in\mathbb{Q}\mid x&lt;0\lor x^2&lt;2\}.
+        $$</p>
+
+        <p>For every $x\in\sqrt{2}$ such that $x&gt;0$, the definition of this set gives $x^2&lt;2$. Hence</p>
+
+        <p>$$
+        \sqrt{2}\otimes\sqrt{2}
+        =
+        \{r\in\mathbb{Q}\mid r\leq 0\}
+        \cup
+        \{ab\mid a^2&lt;2,\ b^2&lt;2,\ a&gt;0,\ b&gt;0\}.
+        $$</p>
+
+        <p>Consider any $a,b\in\mathbb{Q}$ such that $a^2&lt;2$, $b^2&lt;2$, and $a,b&gt;0$. Multiplying the first inequality by $b^2&gt;0$ and the second by $2$ gives</p>
+
+        <p>$$
+        a^2b^2&lt;2b^2
+        \qquad\text{and}\qquad
+        2b^2&lt;2\cdot 2.
+        $$</p>
+
+        <p>Therefore,</p>
+
+        <p>$$
+        a^2b^2&lt;2^2
+        \implies
+        (ab)^2&lt;2^2
+        \implies
+        ab&lt;2,
+        $$</p>
+
+        <p>where the last implication follows because $ab$ and $2$ are both positive. Thus every element of</p>
+
+        <p>$$
+        \{ab\mid a^2&lt;2,\ b^2&lt;2,\ a&gt;0,\ b&gt;0\}
+        $$</p>
+
+        <p>is less than $2$. Hence</p>
+
+        <p>$$
+        \sqrt{2}\otimes\sqrt{2}
+        \subseteq
+        \{r\in\mathbb{Q}\mid r\leq 0\}
+        \cup
+        \{ab\mid ab&lt;2,\ a&gt;0,\ b&gt;0\},
+        $$</p>
+
+        <p>which is the same as</p>
+
+        <p>$$
+        \sqrt{2}\otimes\sqrt{2}
+        \subseteq
+        \{x\in\mathbb{Q}\mid x\leq 0\lor(x&lt;2\land x&gt;0)\},
+        $$</p>
+
+        <p>and therefore</p>
+
+        <p>$$
+        \sqrt{2}\otimes\sqrt{2}
+        \subseteq
+        \{x\in\mathbb{Q}\mid x&lt;2\}.
+        $$</p>
+
+        <p>This completes the first set inclusion.</p>
+
+        <p>We now show that</p>
+
+        <p>$$
+        \{x\in\mathbb{Q}\mid x&lt;2\}
+        \subseteq
+        \sqrt{2}\otimes\sqrt{2}.
+        $$</p>
+
+        <p>By the same rewriting as above, we want to prove</p>
+
+        <p>$$
+        \{x\in\mathbb{Q}\mid x\leq 0\}
+        \cup
+        \{x\in\mathbb{Q}\mid 0&lt;x&lt;2\}
+        \subseteq
+        \{x\in\mathbb{Q}\mid x\leq 0\}
+        \cup
+        \{ab\mid a^2&lt;2,\ b^2&lt;2,\ a&gt;0,\ b&gt;0\}.
+        $$</p>
+
+        <p>This reduces to</p>
+
+        <p>$$
+        \{x\in\mathbb{Q}\mid 0&lt;x&lt;2\}
+        \subseteq
+        \{ab\mid a^2&lt;2,\ b^2&lt;2,\ a&gt;0,\ b&gt;0\}.
+        $$</p>
+
+        <p>Thus, given any $x\in\mathbb{Q}$ with $0&lt;x&lt;2$, we must find $a,b\in\mathbb{Q}$ such that</p>
+
+        <p>$$
+        ab=x,
+        \qquad
+        a^2&lt;2,
+        \qquad
+        b^2&lt;2.
+        $$</p>
+
+        <p>In other words, every rational below $2$ must be exhibited explicitly as a product of two rationals whose squares remain below $2$.</p>
+
+        <p>We first prove the existence of $a$, then choose $b$ from $a$.</p>
+
+        <h3>Lemma: if $x\in\mathbb{Q}$ and $0&lt;x&lt;2$, then there exists $\alpha\in\mathbb{Q}$ such that $x&lt;\alpha^2&lt;2$</h3>
+
+        <p>Write $x=\frac{a}{b}$ in lowest terms, where $a,b\in\mathbb{N}$. We want to show that there exist $p,q\in\mathbb{N}$ such that</p>
+
+        <p>$$
+        \frac{a}{b}
+        &lt;
+        \frac{p^2}{q^2}
+        &lt;
+        2.
+        $$</p>
+
+        <p>For some $k\in\mathbb{N}$, set</p>
+
+        <p>$$
+        q=b\cdot 2^k.
+        $$</p>
+
+        <p>It is then enough to find $p\in\mathbb{N}$ such that</p>
+
+        <p>$$
+        ab\cdot 2^{2k}
+        &lt;
+        p^2
+        &lt;
+        2b^2\cdot 2^{2k}.
+        $$</p>
+
+        <p>Consider the spacing of perfect squares. For any $m\in\mathbb{N}$,</p>
+
+        <p>$$
+        (m+1)^2-m^2=2m+1.
+        $$</p>
+
+        <p>For any positive $m\in\mathbb{N}$, define</p>
+
+        <p>$$
+        \lfloor\sqrt{m}\rfloor
+        =
+        \max\{l\in\mathbb{N}\mid l^2\le m\},
+        \qquad
+        \lceil\sqrt{m}\rceil
+        =
+        \min\{l\in\mathbb{N}\mid l^2\ge m\}.
+        $$</p>
+
+        <p>The first set is nonempty and finite, and the second is nonempty, so these quantities are well-defined by the well-ordering of $\mathbb{N}$.</p>
+
+        <p>Hence the first perfect square strictly greater than $ab\cdot 2^{2k}$ is</p>
+
+        <p>$$
+        \left(
+        \lfloor\sqrt{ab\cdot 2^{2k}}\rfloor+1
+        \right)^2
+        =
+        \lfloor\sqrt{ab\cdot 2^{2k}}\rfloor^2
+        +
+        2\lfloor\sqrt{ab\cdot 2^{2k}}\rfloor
+        +
+        1.
+        $$</p>
+
+        <p>We want to choose $k$ so that</p>
+
+        <p>$$
+        \lfloor\sqrt{ab\cdot 2^{2k}}\rfloor^2
+        +
+        2\lfloor\sqrt{ab\cdot 2^{2k}}\rfloor
+        +
+        1
+        &lt;
+        2b^2\cdot 2^{2k}.
+        $$</p>
+
+        <p>We now eliminate the floor and square-root functions by bounding them. First, for any $m\in\mathbb{N}$,</p>
+
+        <p>$$
+        \lfloor\sqrt{m}\rfloor^2\leq m,
+        $$</p>
+
+        <p>and hence</p>
+
+        <p>$$
+        \lfloor\sqrt{ab\cdot 2^{2k}}\rfloor^2
+        \leq
+        ab\cdot 2^{2k}.
+        $$</p>
+
+        <p>Second, for any positive $m\in\mathbb{N}$, the definition of $\lceil\sqrt{m}\rceil$ gives</p>
+
+        <p>$$
+        m\cdot 2^{2k}
+        \leq
+        \left(
+        \lceil\sqrt{m}\rceil\cdot 2^k
+        \right)^2,
+        $$</p>
+
+        <p>and hence</p>
+
+        <p>$$
+        \lfloor\sqrt{m\cdot 2^{2k}}\rfloor
+        \leq
+        \lceil\sqrt{m}\rceil\cdot 2^k.
+        $$</p>
+
+        <p>Therefore,</p>
+
+        <p>$$
+        2\lfloor\sqrt{ab\cdot 2^{2k}}\rfloor
+        &lt;
+        2^{k+1}\lceil\sqrt{ab}\rceil+2.
+        $$</p>
+
+        <p>Combining the two bounds gives</p>
+
+        <p>$$
+        \lfloor\sqrt{ab\cdot 2^{2k}}\rfloor^2
+        +
+        2\lfloor\sqrt{ab\cdot 2^{2k}}\rfloor
+        +
+        1
+        &lt;
+        ab\cdot 2^{2k}
+        +
+        2^{k+1}\lceil\sqrt{ab}\rceil
+        +
+        3.
+        $$</p>
+
+        <p>So it suffices to show that for some $k\in\mathbb{N}$,</p>
+
+        <p>$$
+        \begin{aligned}
+        ab\cdot 2^{2k}
+        +
+        2^{k+1}\lceil\sqrt{ab}\rceil
+        +
+        3
+        &amp;&lt;
+        2b^2\cdot 2^{2k},
+        \\
+        2^{k+1}\lceil\sqrt{ab}\rceil+3
+        &amp;&lt;
+        (2b^2-ab)\cdot 2^{2k}.
+        \end{aligned}
+        $$</p>
+
+        <p>A sufficient condition is</p>
+
+        <p>$$
+        \lceil\sqrt{ab}\rceil+3
+        &lt;
+        (2b^2-ab)\cdot 2^{k-1},
+        $$</p>
+
+        <p>using</p>
+
+        <p>$$
+        2^{k+1}\lceil\sqrt{ab}\rceil+3
+        \leq
+        2^{k+1}\left(\lceil\sqrt{ab}\rceil+3\right)
+        $$</p>
+
+        <p>and dividing by $2^{k+1}$.</p>
+
+        <p>Since $\frac{a}{b}&lt;2$, we have</p>
+
+        <p>$$
+        2b^2-ab\geq 1.
+        $$</p>
+
+        <p>It is therefore enough to find $k$ such that</p>
+
+        <p>$$
+        \lceil\sqrt{ab}\rceil+3
+        &lt;
+        2^{k-1}.
+        $$</p>
+
+        <p>We know that $\lceil\sqrt{ab}\rceil+3\in\mathbb{N}$. Abstractly, given $m\in\mathbb{N}$, we must find $k\in\mathbb{N}$ such that</p>
+
+        <p>$$
+        m&lt;2^{k-1}.
+        $$</p>
+
+        <p>Let $k=m+2$. Then</p>
+
+        <p>$$
+        m&lt;2^{m+1}=2^{k-1}
+        $$</p>
+
+        <p>for every $m\in\mathbb{N}$.</p>
+
+        <p>Hence, for any $a,b\in\mathbb{N}$ with</p>
+
+        <p>$$
+        0&lt;\frac{a}{b}&lt;2,
+        $$</p>
+
+        <p>taking</p>
+
+        <p>$$
+        k=\lceil\sqrt{ab}\rceil+5
+        $$</p>
+
+        <p>gives</p>
+
+        <p>$$
+        \lfloor\sqrt{ab\cdot 2^{2k}}\rfloor^2
+        +
+        2\lfloor\sqrt{ab\cdot 2^{2k}}\rfloor
+        +
+        1
+        &lt;
+        2b^2\cdot 2^{2k}.
+        $$</p>
+
+        <p>Recall that we want $p,q\in\mathbb{N}$ such that</p>
+
+        <p>$$
+        \frac{a}{b}
+        &lt;
+        \frac{p^2}{q^2}
+        &lt;
+        2.
+        $$</p>
+
+        <p>Let</p>
+
+        <p>$$
+        p^2
+        =
+        \lfloor\sqrt{ab\cdot 2^{2k}}\rfloor^2
+        +
+        2\lfloor\sqrt{ab\cdot 2^{2k}}\rfloor
+        +
+        1
+        $$</p>
+
+        <p>and</p>
+
+        <p>$$
+        q^2=b^2\cdot 2^{2k}.
+        $$</p>
+
+        <p>Equivalently,</p>
+
+        <p>$$
+        p
+        =
+        \lfloor\sqrt{ab\cdot 2^{2k}}\rfloor+1,
+        \qquad
+        q=b\cdot 2^k.
+        $$</p>
+
+        <p>Set</p>
+
+        <p>$$
+        \alpha=\frac{p}{q}.
+        $$</p>
+
+        <p>This proves that there exists $\alpha\in\mathbb{Q}$ such that</p>
+
+        <p>$$
+        x&lt;\alpha^2&lt;2.
+        $$</p>
+
+        <p>Now consider $\frac{x}{\alpha}$. If</p>
+
+        <p>$$
+        \left(\frac{x}{\alpha}\right)^2\geq x,
+        $$</p>
+
+        <p>then</p>
+
+        <p>$$
+        \alpha^2\left(\frac{x}{\alpha}\right)^2
+        \geq
+        \alpha^2x
+        &gt;
+        x\cdot x
+        =
+        x^2.
+        $$</p>
+
+        <p>But the left-hand side equals $x^2$, giving $x^2&gt;x^2$, a contradiction. Thus</p>
+
+        <p>$$
+        \left(\frac{x}{\alpha}\right)^2
+        &lt;
+        x
+        &lt;
+        2.
+        $$</p>
+
+        <p>Let</p>
+
+        <p>$$
+        \beta=\frac{x}{\alpha}.
+        $$</p>
+
+        <p>We have selected $\alpha,\beta&gt;0$ such that</p>
+
+        <p>$$
+        \beta^2&lt;x&lt;\alpha^2&lt;2
+        \qquad\text{and}\qquad
+        \alpha\beta=x.
+        $$</p>
+
+        <p>Therefore, for every $x\in\mathbb{Q}$ with $0&lt;x&lt;2$, there exist $a,b\in\mathbb{Q}$ such that</p>
+
+        <p>$$
+        ab=x,
+        \qquad
+        a^2&lt;2,
+        \qquad
+        b^2&lt;2.
+        $$</p>
+
+        <p>This proves</p>
+
+        <p>$$
+        \{x\in\mathbb{Q}\mid 0&lt;x&lt;2\}
+        \subseteq
+        \{ab\mid a^2&lt;2,\ b^2&lt;2,\ a&gt;0,\ b&gt;0\},
+        $$</p>
+
+        <p>and hence</p>
+
+        <p>$$
+        \{x\in\mathbb{Q}\mid x&lt;2\}
+        \subseteq
+        \sqrt{2}\otimes\sqrt{2}.
+        $$</p>
+
+        <p>Having proved both inclusions, we conclude that</p>
+
+        <p>$$
+        \sqrt{2}\otimes\sqrt{2}
+        =
+        \{x\in\mathbb{Q}\mid x&lt;2\}.
+        $$</p>
+
+        <p>This completes the proof. $\square$</p>
+    </div>
+</div>
